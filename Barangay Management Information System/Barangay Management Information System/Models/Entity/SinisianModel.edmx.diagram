@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b0a9e61885f0493090b421b2967f8d5e" Name="Diagram1">
+        <EntityTypeShape EntityType="SinisianDatabaseModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.AccountAsset" Width="1.5" PointX="5.25" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.AspNetRole" Width="1.5" PointX="6" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.AspNetUserRole" Width="1.5" PointX="8.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.AspNetUser" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.AssignedOfficial" Width="1.5" PointX="3" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.AssignedPosition" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.AuditAction" Width="1.5" PointX="6" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.AuditTrail" Width="1.5" PointX="8.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.BarangayCaptain" Width="1.5" PointX="5.25" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.BarangayCounselor" Width="1.5" PointX="10.5" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.Deceased" Width="1.5" PointX="3" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.HouseHoldAddress" Width="1.5" PointX="0.75" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.LocationStorage" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.OfficialTerm" Width="1.5" PointX="3" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.ResidentsInformation" Width="1.5" PointX="0.75" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.ResidentsLocation" Width="1.5" PointX="3" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.Site" Width="1.5" PointX="1.5" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.SKChairman" Width="1.5" PointX="3" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.SKCouncelor" Width="1.5" PointX="8.25" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.SummonInvolvedResident" Width="1.5" PointX="8" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.Summon" Width="1.5" PointX="5.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.SummonStatu" Width="1.5" PointX="3.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinisianDatabaseModel.Voter" Width="1.5" PointX="3" PointY="35.625" IsExpanded="true" />
+        <AssociationConnector Association="SinisianDatabaseModel.AccountAssets_AccountId_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.AccountAssets_LocationStorageId_LocationStorage" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.AspNetUsers_ResidentId_ResidentsInformations" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.AuditTrail_AccountId_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.AssignedOfficials_CaptainId_BarangayCaptains" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.AssignedOfficials_PositionId_AssignedPositions" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.AssignedOfficials_ResidentId_ResidentsInformations" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.AuditTrail_AuditActionsId_AuditActions" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.BarangayCaptains_OfficialTermId_OfficialTerm" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.BarangayCaptains_ResidentId_ResidentsInformations" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.BarangayCaptains_SKChairmanId_SKChairman" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.BarangayCounselor_CaptainId_BarangayCaptains" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.BarangayCounselor_ResidentId_ResidentsInformations" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.Deceased_DeceasedId_ResidentsInformations" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.HouseHoldAddress_SiteId_Sites" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.ResidentsLocation_AddressId_HouseHoldAddress" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.ResidentsLocation_ResidentId_ResidentsInformations" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.SKChairman_ResidentId_ResidentsInformations" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.SKCouncelor_ResidentId_ResidentsInformations" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.SummonInvolvedResident_ResidentId_ResidentsInformations" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.Voters_ResidentId_ResidentsInformations" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.SKCouncelor_SKChairmanId_SKChairman" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.SummonInvolvedResident_SummonId_Summons" ManuallyRouted="false" />
+        <AssociationConnector Association="SinisianDatabaseModel.Summons_SummonStatusId_SummonStatus" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

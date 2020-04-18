@@ -49,6 +49,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -174,6 +176,99 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Entity\AccountAsset.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\AspNetRole.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\AspNetUser.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\AspNetUserClaim.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\AspNetUserLogin.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\AspNetUserRole.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\AssignedOfficial.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\AssignedPosition.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\AuditAction.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\AuditTrail.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\BarangayCaptain.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\BarangayCounselor.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\C__MigrationHistory.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Deceased.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\HouseHoldAddress.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\LocationStorage.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\OfficialTerm.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\ResidentsInformation.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\ResidentsLocation.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\SinisianModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SinisianModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\SinisianModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\SinisianModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SinisianModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Site.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\SKChairman.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\SKCouncelor.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Summon.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\SummonInvolvedResident.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\SummonStatu.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Voter.cs">
+      <DependentUpon>SinisianModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -188,8 +283,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\Entity\SinisianModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SinisianModel.edmx</DependentUpon>
+      <LastGenOutput>SinisianModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Entity\SinisianModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SinisianModel.edmx</DependentUpon>
+      <LastGenOutput>SinisianModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\Entity\SinisianModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SinisianModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Entity\SinisianModel.edmx.diagram">
+      <DependentUpon>SinisianModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -251,6 +363,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
