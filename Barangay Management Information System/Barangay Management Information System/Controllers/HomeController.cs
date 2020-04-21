@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Barangay_Management_Information_System.Classess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,7 @@ namespace Barangay_Management_Information_System.Controllers
     {
         public ActionResult Index()
         {
+            KeyGenerator.GenerateId();
             return View();
         }
 
