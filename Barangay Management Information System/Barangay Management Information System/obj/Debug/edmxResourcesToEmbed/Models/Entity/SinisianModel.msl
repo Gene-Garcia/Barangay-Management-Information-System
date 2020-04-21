@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SinisianDatabaseModelStoreContainer" CdmEntityContainer="DBEntities">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccountAssets">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.AccountAsset">
+        <MappingFragment StoreEntitySet="AccountAssets">
+          <ScalarProperty Name="AccountAssetId" ColumnName="AccountAssetId" />
+          <ScalarProperty Name="LocationStorageId" ColumnName="LocationStorageId" />
+          <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.AspNetRole">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.AspNetUserClaim">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.AspNetUserLogin">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserRoles">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.AspNetUserRole">
+        <MappingFragment StoreEntitySet="AspNetUserRoles">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ResidentId" ColumnName="ResidentId" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssignedOfficials">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.AssignedOfficial">
+        <MappingFragment StoreEntitySet="AssignedOfficials">
+          <ScalarProperty Name="AssignedOfficialId" ColumnName="AssignedOfficialId" />
+          <ScalarProperty Name="ResidentId" ColumnName="ResidentId" />
+          <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+          <ScalarProperty Name="CaptainId" ColumnName="CaptainId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssignedPositions">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.AssignedPosition">
+        <MappingFragment StoreEntitySet="AssignedPositions">
+          <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AuditActions">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.AuditAction">
+        <MappingFragment StoreEntitySet="AuditActions">
+          <ScalarProperty Name="AuditActionsId" ColumnName="AuditActionsId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AuditTrails">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.AuditTrail">
+        <MappingFragment StoreEntitySet="AuditTrail">
+          <ScalarProperty Name="AuditTrailId" ColumnName="AuditTrailId" />
+          <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+          <ScalarProperty Name="AuditActionsId" ColumnName="AuditActionsId" />
+          <ScalarProperty Name="DateAction" ColumnName="DateAction" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BarangayCaptains">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.BarangayCaptain">
+        <MappingFragment StoreEntitySet="BarangayCaptains">
+          <ScalarProperty Name="CaptainId" ColumnName="CaptainId" />
+          <ScalarProperty Name="ResidentId" ColumnName="ResidentId" />
+          <ScalarProperty Name="SKChairmanId" ColumnName="SKChairmanId" />
+          <ScalarProperty Name="OfficialTermId" ColumnName="OfficialTermId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BarangayCounselors">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.BarangayCounselor">
+        <MappingFragment StoreEntitySet="BarangayCounselor">
+          <ScalarProperty Name="BarangayCounselorId" ColumnName="BarangayCounselorId" />
+          <ScalarProperty Name="ResidentId" ColumnName="ResidentId" />
+          <ScalarProperty Name="CaptainId" ColumnName="CaptainId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Deceaseds">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.Deceased">
+        <MappingFragment StoreEntitySet="Deceased">
+          <ScalarProperty Name="DeceasedId" ColumnName="DeceasedId" />
+          <ScalarProperty Name="ResidentId" ColumnName="ResidentId" />
+          <ScalarProperty Name="DeathDate" ColumnName="DeathDate" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HouseHoldAddresses">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.HouseHoldAddress">
+        <MappingFragment StoreEntitySet="HouseHoldAddress">
+          <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LocationStorages">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.LocationStorage">
+        <MappingFragment StoreEntitySet="LocationStorage">
+          <ScalarProperty Name="LocationStorageId" ColumnName="LocationStorageId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OfficialTerms">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.OfficialTerm">
+        <MappingFragment StoreEntitySet="OfficialTerm">
+          <ScalarProperty Name="OfficialTermId" ColumnName="OfficialTermId" />
+          <ScalarProperty Name="StartYear" ColumnName="StartYear" />
+          <ScalarProperty Name="EndYear" ColumnName="EndYear" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ResidentsInformations">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.ResidentsInformation">
+        <MappingFragment StoreEntitySet="ResidentsInformations">
+          <ScalarProperty Name="ResidentId" ColumnName="ResidentId" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ResidentsLocations">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.ResidentsLocation">
+        <MappingFragment StoreEntitySet="ResidentsLocation">
+          <ScalarProperty Name="ResidentLocationId" ColumnName="ResidentLocationId" />
+          <ScalarProperty Name="ResidentId" ColumnName="ResidentId" />
+          <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sites">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.Site">
+        <MappingFragment StoreEntitySet="Sites">
+          <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SKChairmen">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.SKChairman">
+        <MappingFragment StoreEntitySet="SKChairman">
+          <ScalarProperty Name="SKChairmanId" ColumnName="SKChairmanId" />
+          <ScalarProperty Name="ResidentId" ColumnName="ResidentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SKCouncelors">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.SKCouncelor">
+        <MappingFragment StoreEntitySet="SKCouncelor">
+          <ScalarProperty Name="SKCouncelorId" ColumnName="SKCouncelorId" />
+          <ScalarProperty Name="ResidentId" ColumnName="ResidentId" />
+          <ScalarProperty Name="SKChairmanId" ColumnName="SKChairmanId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SummonInvolvedResidents">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.SummonInvolvedResident">
+        <MappingFragment StoreEntitySet="SummonInvolvedResident">
+          <ScalarProperty Name="InvolvedId" ColumnName="InvolvedId" />
+          <ScalarProperty Name="SummonId" ColumnName="SummonId" />
+          <ScalarProperty Name="ResidentId" ColumnName="ResidentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Summons">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.Summon">
+        <MappingFragment StoreEntitySet="Summons">
+          <ScalarProperty Name="SummonId" ColumnName="SummonId" />
+          <ScalarProperty Name="ReportDescription" ColumnName="ReportDescription" />
+          <ScalarProperty Name="IncidentDate" ColumnName="IncidentDate" />
+          <ScalarProperty Name="DateReported" ColumnName="DateReported" />
+          <ScalarProperty Name="SummonStatusId" ColumnName="SummonStatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SummonStatus">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.SummonStatu">
+        <MappingFragment StoreEntitySet="SummonStatus">
+          <ScalarProperty Name="SummonStatusId" ColumnName="SummonStatusId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Voters">
+      <EntityTypeMapping TypeName="SinisianDatabaseModel.Voter">
+        <MappingFragment StoreEntitySet="Voters">
+          <ScalarProperty Name="VotersId" ColumnName="VotersId" />
+          <ScalarProperty Name="ResidentId" ColumnName="ResidentId" />
+          <ScalarProperty Name="DateRegistered" ColumnName="DateRegistered" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

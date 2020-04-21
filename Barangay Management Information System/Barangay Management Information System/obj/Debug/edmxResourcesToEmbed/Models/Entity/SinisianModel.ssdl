@@ -1,0 +1,712 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SinisianDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AccountAssets">
+    <Key>
+      <PropertyRef Name="AccountAssetId" />
+    </Key>
+    <Property Name="AccountAssetId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LocationStorageId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="AccountId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserRoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="ResidentId" Type="varchar" MaxLength="50" />
+    <Property Name="DateCreated" Type="date" />
+  </EntityType>
+  <EntityType Name="AssignedOfficials">
+    <Key>
+      <PropertyRef Name="AssignedOfficialId" />
+    </Key>
+    <Property Name="AssignedOfficialId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ResidentId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PositionId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CaptainId" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AssignedPositions">
+    <Key>
+      <PropertyRef Name="PositionId" />
+    </Key>
+    <Property Name="PositionId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AuditActions">
+    <Key>
+      <PropertyRef Name="AuditActionsId" />
+    </Key>
+    <Property Name="AuditActionsId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AuditTrail">
+    <Key>
+      <PropertyRef Name="AuditTrailId" />
+    </Key>
+    <Property Name="AuditTrailId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="AccountId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="AuditActionsId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateAction" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BarangayCaptains">
+    <Key>
+      <PropertyRef Name="CaptainId" />
+    </Key>
+    <Property Name="CaptainId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ResidentId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SKChairmanId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="OfficialTermId" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BarangayCounselor">
+    <Key>
+      <PropertyRef Name="BarangayCounselorId" />
+    </Key>
+    <Property Name="BarangayCounselorId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ResidentId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CaptainId" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Deceased">
+    <Key>
+      <PropertyRef Name="DeceasedId" />
+    </Key>
+    <Property Name="DeceasedId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ResidentId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DeathDate" Type="date" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HouseHoldAddress">
+    <Key>
+      <PropertyRef Name="AddressId" />
+    </Key>
+    <Property Name="AddressId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="varchar(max)" Nullable="false" />
+    <Property Name="SiteId" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LocationStorage">
+    <Key>
+      <PropertyRef Name="LocationStorageId" />
+    </Key>
+    <Property Name="LocationStorageId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Address" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OfficialTerm">
+    <Key>
+      <PropertyRef Name="OfficialTermId" />
+    </Key>
+    <Property Name="OfficialTermId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="StartYear" Type="int" Nullable="false" />
+    <Property Name="EndYear" Type="int" />
+  </EntityType>
+  <EntityType Name="ResidentsInformations">
+    <Key>
+      <PropertyRef Name="ResidentId" />
+    </Key>
+    <Property Name="ResidentId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="MiddleName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Birthday" Type="date" Nullable="false" />
+    <Property Name="Sex" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ResidentsLocation">
+    <Key>
+      <PropertyRef Name="ResidentLocationId" />
+    </Key>
+    <Property Name="ResidentLocationId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ResidentId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="AddressId" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sites">
+    <Key>
+      <PropertyRef Name="SiteId" />
+    </Key>
+    <Property Name="SiteId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SKChairman">
+    <Key>
+      <PropertyRef Name="SKChairmanId" />
+    </Key>
+    <Property Name="SKChairmanId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ResidentId" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SKCouncelor">
+    <Key>
+      <PropertyRef Name="SKCouncelorId" />
+    </Key>
+    <Property Name="SKCouncelorId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ResidentId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SKChairmanId" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SummonInvolvedResident">
+    <Key>
+      <PropertyRef Name="InvolvedId" />
+    </Key>
+    <Property Name="InvolvedId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SummonId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ResidentId" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Summons">
+    <Key>
+      <PropertyRef Name="SummonId" />
+    </Key>
+    <Property Name="SummonId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ReportDescription" Type="varchar(max)" Nullable="false" />
+    <Property Name="IncidentDate" Type="date" Nullable="false" />
+    <Property Name="DateReported" Type="date" Nullable="false" />
+    <Property Name="SummonStatusId" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SummonStatus">
+    <Key>
+      <PropertyRef Name="SummonStatusId" />
+    </Key>
+    <Property Name="SummonStatusId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Voters">
+    <Key>
+      <PropertyRef Name="VotersId" />
+    </Key>
+    <Property Name="VotersId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ResidentId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateRegistered" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="AccountAssets_AccountId_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="AccountAssets" Type="Self.AccountAssets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AccountAssets">
+        <PropertyRef Name="AccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AccountAssets_LocationStorageId_LocationStorage">
+    <End Role="LocationStorage" Type="Self.LocationStorage" Multiplicity="1" />
+    <End Role="AccountAssets" Type="Self.AccountAssets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LocationStorage">
+        <PropertyRef Name="LocationStorageId" />
+      </Principal>
+      <Dependent Role="AccountAssets">
+        <PropertyRef Name="LocationStorageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUsers_ResidentId_ResidentsInformations">
+    <End Role="ResidentsInformations" Type="Self.ResidentsInformations" Multiplicity="0..1" />
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ResidentsInformations">
+        <PropertyRef Name="ResidentId" />
+      </Principal>
+      <Dependent Role="AspNetUsers">
+        <PropertyRef Name="ResidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AssignedOfficials_CaptainId_BarangayCaptains">
+    <End Role="BarangayCaptains" Type="Self.BarangayCaptains" Multiplicity="1" />
+    <End Role="AssignedOfficials" Type="Self.AssignedOfficials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BarangayCaptains">
+        <PropertyRef Name="CaptainId" />
+      </Principal>
+      <Dependent Role="AssignedOfficials">
+        <PropertyRef Name="CaptainId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AssignedOfficials_PositionId_AssignedPositions">
+    <End Role="AssignedPositions" Type="Self.AssignedPositions" Multiplicity="1" />
+    <End Role="AssignedOfficials" Type="Self.AssignedOfficials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssignedPositions">
+        <PropertyRef Name="PositionId" />
+      </Principal>
+      <Dependent Role="AssignedOfficials">
+        <PropertyRef Name="PositionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AssignedOfficials_ResidentId_ResidentsInformations">
+    <End Role="ResidentsInformations" Type="Self.ResidentsInformations" Multiplicity="1" />
+    <End Role="AssignedOfficials" Type="Self.AssignedOfficials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ResidentsInformations">
+        <PropertyRef Name="ResidentId" />
+      </Principal>
+      <Dependent Role="AssignedOfficials">
+        <PropertyRef Name="ResidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AuditTrail_AccountId_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AuditTrail">
+        <PropertyRef Name="AccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AuditTrail_AuditActionsId_AuditActions">
+    <End Role="AuditActions" Type="Self.AuditActions" Multiplicity="1" />
+    <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AuditActions">
+        <PropertyRef Name="AuditActionsId" />
+      </Principal>
+      <Dependent Role="AuditTrail">
+        <PropertyRef Name="AuditActionsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BarangayCaptains_OfficialTermId_OfficialTerm">
+    <End Role="OfficialTerm" Type="Self.OfficialTerm" Multiplicity="1" />
+    <End Role="BarangayCaptains" Type="Self.BarangayCaptains" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OfficialTerm">
+        <PropertyRef Name="OfficialTermId" />
+      </Principal>
+      <Dependent Role="BarangayCaptains">
+        <PropertyRef Name="OfficialTermId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BarangayCaptains_ResidentId_ResidentsInformations">
+    <End Role="ResidentsInformations" Type="Self.ResidentsInformations" Multiplicity="1" />
+    <End Role="BarangayCaptains" Type="Self.BarangayCaptains" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ResidentsInformations">
+        <PropertyRef Name="ResidentId" />
+      </Principal>
+      <Dependent Role="BarangayCaptains">
+        <PropertyRef Name="ResidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BarangayCaptains_SKChairmanId_SKChairman">
+    <End Role="SKChairman" Type="Self.SKChairman" Multiplicity="1" />
+    <End Role="BarangayCaptains" Type="Self.BarangayCaptains" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SKChairman">
+        <PropertyRef Name="SKChairmanId" />
+      </Principal>
+      <Dependent Role="BarangayCaptains">
+        <PropertyRef Name="SKChairmanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BarangayCounselor_CaptainId_BarangayCaptains">
+    <End Role="BarangayCaptains" Type="Self.BarangayCaptains" Multiplicity="1" />
+    <End Role="BarangayCounselor" Type="Self.BarangayCounselor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BarangayCaptains">
+        <PropertyRef Name="CaptainId" />
+      </Principal>
+      <Dependent Role="BarangayCounselor">
+        <PropertyRef Name="CaptainId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BarangayCounselor_ResidentId_ResidentsInformations">
+    <End Role="ResidentsInformations" Type="Self.ResidentsInformations" Multiplicity="1" />
+    <End Role="BarangayCounselor" Type="Self.BarangayCounselor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ResidentsInformations">
+        <PropertyRef Name="ResidentId" />
+      </Principal>
+      <Dependent Role="BarangayCounselor">
+        <PropertyRef Name="ResidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Deceased_DeceasedId_ResidentsInformations">
+    <End Role="ResidentsInformations" Type="Self.ResidentsInformations" Multiplicity="1" />
+    <End Role="Deceased" Type="Self.Deceased" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ResidentsInformations">
+        <PropertyRef Name="ResidentId" />
+      </Principal>
+      <Dependent Role="Deceased">
+        <PropertyRef Name="ResidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="HouseHoldAddress_SiteId_Sites">
+    <End Role="Sites" Type="Self.Sites" Multiplicity="1" />
+    <End Role="HouseHoldAddress" Type="Self.HouseHoldAddress" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sites">
+        <PropertyRef Name="SiteId" />
+      </Principal>
+      <Dependent Role="HouseHoldAddress">
+        <PropertyRef Name="SiteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ResidentsLocation_AddressId_HouseHoldAddress">
+    <End Role="HouseHoldAddress" Type="Self.HouseHoldAddress" Multiplicity="1" />
+    <End Role="ResidentsLocation" Type="Self.ResidentsLocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HouseHoldAddress">
+        <PropertyRef Name="AddressId" />
+      </Principal>
+      <Dependent Role="ResidentsLocation">
+        <PropertyRef Name="AddressId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ResidentsLocation_ResidentId_ResidentsInformations">
+    <End Role="ResidentsInformations" Type="Self.ResidentsInformations" Multiplicity="1" />
+    <End Role="ResidentsLocation" Type="Self.ResidentsLocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ResidentsInformations">
+        <PropertyRef Name="ResidentId" />
+      </Principal>
+      <Dependent Role="ResidentsLocation">
+        <PropertyRef Name="ResidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SKChairman_ResidentId_ResidentsInformations">
+    <End Role="ResidentsInformations" Type="Self.ResidentsInformations" Multiplicity="1" />
+    <End Role="SKChairman" Type="Self.SKChairman" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ResidentsInformations">
+        <PropertyRef Name="ResidentId" />
+      </Principal>
+      <Dependent Role="SKChairman">
+        <PropertyRef Name="ResidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SKCouncelor_ResidentId_ResidentsInformations">
+    <End Role="ResidentsInformations" Type="Self.ResidentsInformations" Multiplicity="1" />
+    <End Role="SKCouncelor" Type="Self.SKCouncelor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ResidentsInformations">
+        <PropertyRef Name="ResidentId" />
+      </Principal>
+      <Dependent Role="SKCouncelor">
+        <PropertyRef Name="ResidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SKCouncelor_SKChairmanId_SKChairman">
+    <End Role="SKChairman" Type="Self.SKChairman" Multiplicity="1" />
+    <End Role="SKCouncelor" Type="Self.SKCouncelor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SKChairman">
+        <PropertyRef Name="SKChairmanId" />
+      </Principal>
+      <Dependent Role="SKCouncelor">
+        <PropertyRef Name="SKChairmanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SummonInvolvedResident_ResidentId_ResidentsInformations">
+    <End Role="ResidentsInformations" Type="Self.ResidentsInformations" Multiplicity="1" />
+    <End Role="SummonInvolvedResident" Type="Self.SummonInvolvedResident" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ResidentsInformations">
+        <PropertyRef Name="ResidentId" />
+      </Principal>
+      <Dependent Role="SummonInvolvedResident">
+        <PropertyRef Name="ResidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SummonInvolvedResident_SummonId_Summons">
+    <End Role="Summons" Type="Self.Summons" Multiplicity="1" />
+    <End Role="SummonInvolvedResident" Type="Self.SummonInvolvedResident" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Summons">
+        <PropertyRef Name="SummonId" />
+      </Principal>
+      <Dependent Role="SummonInvolvedResident">
+        <PropertyRef Name="SummonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Summons_SummonStatusId_SummonStatus">
+    <End Role="SummonStatus" Type="Self.SummonStatus" Multiplicity="1" />
+    <End Role="Summons" Type="Self.Summons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SummonStatus">
+        <PropertyRef Name="SummonStatusId" />
+      </Principal>
+      <Dependent Role="Summons">
+        <PropertyRef Name="SummonStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Voters_ResidentId_ResidentsInformations">
+    <End Role="ResidentsInformations" Type="Self.ResidentsInformations" Multiplicity="1" />
+    <End Role="Voters" Type="Self.Voters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ResidentsInformations">
+        <PropertyRef Name="ResidentId" />
+      </Principal>
+      <Dependent Role="Voters">
+        <PropertyRef Name="ResidentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SinisianDatabaseModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AccountAssets" EntityType="Self.AccountAssets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AssignedOfficials" EntityType="Self.AssignedOfficials" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AssignedPositions" EntityType="Self.AssignedPositions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AuditActions" EntityType="Self.AuditActions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AuditTrail" EntityType="Self.AuditTrail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BarangayCaptains" EntityType="Self.BarangayCaptains" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BarangayCounselor" EntityType="Self.BarangayCounselor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Deceased" EntityType="Self.Deceased" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HouseHoldAddress" EntityType="Self.HouseHoldAddress" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LocationStorage" EntityType="Self.LocationStorage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OfficialTerm" EntityType="Self.OfficialTerm" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ResidentsInformations" EntityType="Self.ResidentsInformations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ResidentsLocation" EntityType="Self.ResidentsLocation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sites" EntityType="Self.Sites" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SKChairman" EntityType="Self.SKChairman" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SKCouncelor" EntityType="Self.SKCouncelor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SummonInvolvedResident" EntityType="Self.SummonInvolvedResident" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Summons" EntityType="Self.Summons" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SummonStatus" EntityType="Self.SummonStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Voters" EntityType="Self.Voters" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="AccountAssets_AccountId_AspNetUsers" Association="Self.AccountAssets_AccountId_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AccountAssets" EntitySet="AccountAssets" />
+    </AssociationSet>
+    <AssociationSet Name="AccountAssets_LocationStorageId_LocationStorage" Association="Self.AccountAssets_LocationStorageId_LocationStorage">
+      <End Role="LocationStorage" EntitySet="LocationStorage" />
+      <End Role="AccountAssets" EntitySet="AccountAssets" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUsers_ResidentId_ResidentsInformations" Association="Self.AspNetUsers_ResidentId_ResidentsInformations">
+      <End Role="ResidentsInformations" EntitySet="ResidentsInformations" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="AssignedOfficials_CaptainId_BarangayCaptains" Association="Self.AssignedOfficials_CaptainId_BarangayCaptains">
+      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+      <End Role="AssignedOfficials" EntitySet="AssignedOfficials" />
+    </AssociationSet>
+    <AssociationSet Name="AssignedOfficials_PositionId_AssignedPositions" Association="Self.AssignedOfficials_PositionId_AssignedPositions">
+      <End Role="AssignedPositions" EntitySet="AssignedPositions" />
+      <End Role="AssignedOfficials" EntitySet="AssignedOfficials" />
+    </AssociationSet>
+    <AssociationSet Name="AssignedOfficials_ResidentId_ResidentsInformations" Association="Self.AssignedOfficials_ResidentId_ResidentsInformations">
+      <End Role="ResidentsInformations" EntitySet="ResidentsInformations" />
+      <End Role="AssignedOfficials" EntitySet="AssignedOfficials" />
+    </AssociationSet>
+    <AssociationSet Name="AuditTrail_AccountId_AspNetUsers" Association="Self.AuditTrail_AccountId_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AuditTrail" EntitySet="AuditTrail" />
+    </AssociationSet>
+    <AssociationSet Name="AuditTrail_AuditActionsId_AuditActions" Association="Self.AuditTrail_AuditActionsId_AuditActions">
+      <End Role="AuditActions" EntitySet="AuditActions" />
+      <End Role="AuditTrail" EntitySet="AuditTrail" />
+    </AssociationSet>
+    <AssociationSet Name="BarangayCaptains_OfficialTermId_OfficialTerm" Association="Self.BarangayCaptains_OfficialTermId_OfficialTerm">
+      <End Role="OfficialTerm" EntitySet="OfficialTerm" />
+      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+    </AssociationSet>
+    <AssociationSet Name="BarangayCaptains_ResidentId_ResidentsInformations" Association="Self.BarangayCaptains_ResidentId_ResidentsInformations">
+      <End Role="ResidentsInformations" EntitySet="ResidentsInformations" />
+      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+    </AssociationSet>
+    <AssociationSet Name="BarangayCaptains_SKChairmanId_SKChairman" Association="Self.BarangayCaptains_SKChairmanId_SKChairman">
+      <End Role="SKChairman" EntitySet="SKChairman" />
+      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+    </AssociationSet>
+    <AssociationSet Name="BarangayCounselor_CaptainId_BarangayCaptains" Association="Self.BarangayCounselor_CaptainId_BarangayCaptains">
+      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+      <End Role="BarangayCounselor" EntitySet="BarangayCounselor" />
+    </AssociationSet>
+    <AssociationSet Name="BarangayCounselor_ResidentId_ResidentsInformations" Association="Self.BarangayCounselor_ResidentId_ResidentsInformations">
+      <End Role="ResidentsInformations" EntitySet="ResidentsInformations" />
+      <End Role="BarangayCounselor" EntitySet="BarangayCounselor" />
+    </AssociationSet>
+    <AssociationSet Name="Deceased_DeceasedId_ResidentsInformations" Association="Self.Deceased_DeceasedId_ResidentsInformations">
+      <End Role="ResidentsInformations" EntitySet="ResidentsInformations" />
+      <End Role="Deceased" EntitySet="Deceased" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="HouseHoldAddress_SiteId_Sites" Association="Self.HouseHoldAddress_SiteId_Sites">
+      <End Role="Sites" EntitySet="Sites" />
+      <End Role="HouseHoldAddress" EntitySet="HouseHoldAddress" />
+    </AssociationSet>
+    <AssociationSet Name="ResidentsLocation_AddressId_HouseHoldAddress" Association="Self.ResidentsLocation_AddressId_HouseHoldAddress">
+      <End Role="HouseHoldAddress" EntitySet="HouseHoldAddress" />
+      <End Role="ResidentsLocation" EntitySet="ResidentsLocation" />
+    </AssociationSet>
+    <AssociationSet Name="ResidentsLocation_ResidentId_ResidentsInformations" Association="Self.ResidentsLocation_ResidentId_ResidentsInformations">
+      <End Role="ResidentsInformations" EntitySet="ResidentsInformations" />
+      <End Role="ResidentsLocation" EntitySet="ResidentsLocation" />
+    </AssociationSet>
+    <AssociationSet Name="SKChairman_ResidentId_ResidentsInformations" Association="Self.SKChairman_ResidentId_ResidentsInformations">
+      <End Role="ResidentsInformations" EntitySet="ResidentsInformations" />
+      <End Role="SKChairman" EntitySet="SKChairman" />
+    </AssociationSet>
+    <AssociationSet Name="SKCouncelor_ResidentId_ResidentsInformations" Association="Self.SKCouncelor_ResidentId_ResidentsInformations">
+      <End Role="ResidentsInformations" EntitySet="ResidentsInformations" />
+      <End Role="SKCouncelor" EntitySet="SKCouncelor" />
+    </AssociationSet>
+    <AssociationSet Name="SKCouncelor_SKChairmanId_SKChairman" Association="Self.SKCouncelor_SKChairmanId_SKChairman">
+      <End Role="SKChairman" EntitySet="SKChairman" />
+      <End Role="SKCouncelor" EntitySet="SKCouncelor" />
+    </AssociationSet>
+    <AssociationSet Name="SummonInvolvedResident_ResidentId_ResidentsInformations" Association="Self.SummonInvolvedResident_ResidentId_ResidentsInformations">
+      <End Role="ResidentsInformations" EntitySet="ResidentsInformations" />
+      <End Role="SummonInvolvedResident" EntitySet="SummonInvolvedResident" />
+    </AssociationSet>
+    <AssociationSet Name="SummonInvolvedResident_SummonId_Summons" Association="Self.SummonInvolvedResident_SummonId_Summons">
+      <End Role="Summons" EntitySet="Summons" />
+      <End Role="SummonInvolvedResident" EntitySet="SummonInvolvedResident" />
+    </AssociationSet>
+    <AssociationSet Name="Summons_SummonStatusId_SummonStatus" Association="Self.Summons_SummonStatusId_SummonStatus">
+      <End Role="SummonStatus" EntitySet="SummonStatus" />
+      <End Role="Summons" EntitySet="Summons" />
+    </AssociationSet>
+    <AssociationSet Name="Voters_ResidentId_ResidentsInformations" Association="Self.Voters_ResidentId_ResidentsInformations">
+      <End Role="ResidentsInformations" EntitySet="ResidentsInformations" />
+      <End Role="Voters" EntitySet="Voters" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
