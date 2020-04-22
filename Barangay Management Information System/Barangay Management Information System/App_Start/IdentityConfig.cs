@@ -11,15 +11,31 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Barangay_Management_Information_System.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System.Diagnostics;
 
 namespace Barangay_Management_Information_System
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            var apiKey = Environment.GetEnvironmentVariable("SinisianManagementInformationSystem", EnvironmentVariableTarget.User);
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("Brgy.Sinisian_Management", "Barangay Sinisian Management");
+            var subject = message.Subject;
+            var to = new EmailAddress(message.Destination);
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, message.Body, message.Body);
+            if (client != null)
+            {
+                await client.SendEmailAsync(msg);
+            }
+            else
+            {
+                Trace.TraceError("Failed to create Web transport.");
+                await Task.FromResult(0);
+            }
         }
     }
 

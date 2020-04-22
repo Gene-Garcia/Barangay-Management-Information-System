@@ -106,3 +106,6 @@ E:\Unfinished Projects\Barangay Management Information System\Barangay Managemen
 E:\Unfinished Projects\Barangay Management Information System\Barangay Management Information System\Barangay Management Information System\obj\Debug\Barangay Management Information System.csproj.CopyComplete
 E:\Unfinished Projects\Barangay Management Information System\Barangay Management Information System\Barangay Management Information System\obj\Debug\Barangay Management Information System.dll
 E:\Unfinished Projects\Barangay Management Information System\Barangay Management Information System\Barangay Management Information System\obj\Debug\Barangay Management Information System.pdb
+E:\Unfinished Projects\Barangay Management Information System\Barangay Management Information System\Barangay Management Information System\bin\SendGrid.dll
+E:\Unfinished Projects\Barangay Management Information System\Barangay Management Information System\Barangay Management Information System\bin\SendGrid.pdb
+E:\Unfinished Projects\Barangay Management Information System\Barangay Management Information System\Barangay Management Information System\bin\SendGrid.xml
