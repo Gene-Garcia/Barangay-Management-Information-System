@@ -1,4 +1,5 @@
 ﻿using Barangay_Management_Information_System.Classess;
+using Barangay_Management_Information_System.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,11 @@ namespace Barangay_Management_Information_System.Controllers
 {
     public class HomeController : Controller
     {
+
+        private DBEntities entities = new DBEntities();
+
         public ActionResult Index()
         {
-            KeyGenerator.GenerateId();
             return View();
         }
 

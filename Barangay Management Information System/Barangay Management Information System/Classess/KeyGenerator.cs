@@ -23,6 +23,8 @@ namespace Barangay_Management_Information_System.Classess
         public static string GenerateId(string textString = "abcdefghijklmnopqrz")
         {
 
+            textString = textString.Replace(" ", "");
+
             string[,] id = { { "", "", "", "" }, { "", "", "", "" }, { "", "", "", "" }, { "", "", "", "" } };
 
             fillDate(ref id);

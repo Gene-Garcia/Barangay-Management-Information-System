@@ -3,9 +3,71 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Sinisian MIS</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+
+        body {
+          font-family: "Segoe UI";
+          background-color: #fafafa;
+          min-width: 450px;
+        }
+
+        .sidenav {
+          height: 100%;
+          width: 250px; @**@
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          overflow-x: hidden;
+          transition: 0.5s;
+          background-color: #ffffff;
+        }
+
+        .sidenav a {
+          display: block;
+          transition: 0.3s;
+        }
+
+        #main {
+          margin-left:250px;@**@
+          transition: margin-left .5s;
+        }
+
+        @@media screen and (max-height: 450px) {
+          .sidenav {padding-top: 15px;}
+          .sidenav a {font-size: 18px;}
+        }
+
+        @* side nav *@
+
+        #highlight {
+            background-image: linear-gradient(100deg, #001510, #00bf8f);
+        }
+
+        @**@
+
+        .navbar, nav {
+            background-color: #ffffff;
+        }
+
+        #sidelinks a {
+            font-size: 17px;
+            font-weight: 600;
+            padding: 10px 20px 10px 20px;
+            color: #004a2f;
+        }
+
+
+        #sidelinks a:hover {
+            background-image: linear-gradient(100deg, #001510, #00bf8f);
+            color: #fafafa;
+            text-decoration:none;
+        }
+
+    </style>
 
 </head>
 <body>
@@ -15,14 +77,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 
-    <div class="navbar navbar-expand-lg navbar-fixed-top mb-5 bg-dark navbar-dark">
+    @*<div class="navbar navbar-expand-lg navbar-fixed-top mb-5 bg-dark navbar-dark">
         <div class="container">
 
             <div class="navbar-header">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @*@Html.ActionLink("Flores De Mayo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                @Html.ActionLink("Flores De Mayo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
 
             <div class="navbar-collapse collapse" id="navbar">
@@ -35,11 +97,135 @@
                 </div>
             </div>
         </div>
+    </div>*@
+
+    @using Microsoft.AspNet.Identity
+
+
+    <div id="sidenav" class="sidenav shadow" >
+
+        <div class="" style="height:68px" id="highlight">
+            <img src="~/Content/Images/BMIS Logo.PNG" height="70" width="170" class="mx-auto my-auto d-flex"/>
+        </div>
+
+
+
+        <div class="mt-5" id="account-details">
+            <img src="@TempData["user-profile-photo"]" height="100" width="100" class="rounded-circle mx-auto d-block border"/>
+            
+            @{ 
+                var name = @User.Identity.GetUserName();
+
+                name = name.Substring(0, name.IndexOf('@'));
+            }
+
+            <h1 class="text-center" style="font-size:21px; font-weight:700; color: #00533f;">@name</h1>
+            <p class="text-center" style="color: #00533f; font-weight: 500;">Admin</p>
+        </div>
+
+
+        <div class="mt-5" id="sidelinks">
+            <a href="/Dashboard/Index" class="" id="aboutlink">About</a>
+            <a href="/Dashboard/Index2">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+        </div>
+
     </div>
 
-    <div class="">
-        @RenderBody()
+    <div id="main" class="">
+
+
+        <!-- NAV -->
+
+        <nav class="navbar navbar-expand-lg shadow" id="topNav">
+
+            <span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="mr-2" onclick="toggleNav()">&#9776;</span>
+
+            @*<a class="navbar-brand mx-auto-md" href="#">
+                <img src="~/Content/Images/Sinisian.png" width="55" height="55" class="d-inline-block align-top" alt="">
+            </a>*@
+
+            @*<span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dropdown" aria-controls="dropdown" aria-expanded="false" aria-label="Toggle navigation">&#9776;</span>*@
+
+            <div class="ml-auto">
+
+                <ul class="nav navbar-nav">
+                    <li class="nav-item dropdown ">
+
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+
+                            <img src="@TempData["user-profile-photo"]" width="35" height="35" class="rounded-circle" />
+                            <span style="color: #00533f; font-weight: 600;">@User.Identity.GetUserName()</span>
+                        </a>
+                        <div class="dropdown-menu shadow">
+                            <a class="dropdown-item" href="">My Account</a>
+                            <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log Off</a>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+
+        @*<nav class="navbar navbar-expand-lg navbar-light shadow" style="height:75px;">
+
+        <span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="mr-3" onclick="toggleNav()">&#9776;</span>
+
+        <a class="navbar-brand" href="#">
+            <img src="~/Content/Images/Sinisian.png" width="55" height="55" class="d-inline-block align-top" alt="">
+        </a>
+
+        <div class="w-100 border">
+
+            <div class="float-right">
+                <img src="~/Content/Images/Sinisian.png" width="40" height="40" class="" />
+                <span>My Account</span>
+            </div>
+
+        </div>*@
+
+        @*<div class="float-right">
+                @using Microsoft.AspNet.Identity
+                @if (!Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <ul class="">
+                            <li class=""><a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link m-3 font-weight-bold" style="color:white;">Log off</a></li>
+                        </ul>
+                    }
+                }
+            </div>
+
+        </nav>*@
+
+        <div class="mt-5">
+            @RenderBody()
+        </div>
     </div>
+
+    <script>
+        function toggleNav() {
+
+            var navWidth = document.getElementById('sidenav'), style = window.getComputedStyle(navWidth), width = style.getPropertyValue('width');
+
+            if (width == "0px") {
+                document.getElementById("sidenav").style.width = "250px";
+                document.getElementById("main").style.marginLeft = "250px";
+                document.getElementById("topNav").style.marginLeft = "0px";
+
+            } else if (width == "250px") {
+                document.getElementById("sidenav").style.width = "0";
+                document.getElementById("main").style.marginLeft = "0";
+                document.getElementById("topNav").style.marginLeft = "0px";
+            }
+        }
+    </script>
+
 
     @RenderSection("scripts", required: false)
 
