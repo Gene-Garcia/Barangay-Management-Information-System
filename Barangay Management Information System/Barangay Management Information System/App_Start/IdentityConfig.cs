@@ -21,21 +21,21 @@ namespace Barangay_Management_Information_System
     {
         public async Task SendAsync(IdentityMessage message)
         {
-            //var apiKey = Environment.GetEnvironmentVariable("SinisianManagementInformationSystem", EnvironmentVariableTarget.User);
-            //var client = new SendGridClient(apiKey);
-            //var from = new EmailAddress("Brgy.Sinisian_Management", "Barangay Sinisian Management");
-            //var subject = message.Subject;
-            //var to = new EmailAddress(message.Destination);
-            //var msg = MailHelper.CreateSingleEmail(from, to, subject, message.Body, message.Body);
-            //if (client != null)
-            //{
-            //    await client.SendEmailAsync(msg);
-            //}
-            //else
-            //{
-            //    Trace.TraceError("Failed to create Web transport.");
-            //    await Task.FromResult(0);
-            //}
+            var apiKey = Environment.GetEnvironmentVariable("SinisianManagementInformationSystem", EnvironmentVariableTarget.User);
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("Brgy.Sinisian_Management", "Barangay Sinisian Management");
+            var subject = message.Subject;
+            var to = new EmailAddress(message.Destination);
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, message.Body, message.Body);
+            if (client != null)
+            {
+                await client.SendEmailAsync(msg);
+            }
+            else
+            {
+                Trace.TraceError("Failed to create Web transport.");
+                await Task.FromResult(0);
+            }
         }
     }
 
