@@ -1,4 +1,5 @@
-﻿using Barangay_Management_Information_System.Models.Entity;
+﻿using Barangay_Management_Information_System.Classess;
+using Barangay_Management_Information_System.Models.Entity;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Barangay_Management_Information_System.Controllers
 
         // GET: Dashboard
         [Authorize]
-        public ActionResult Index()
+        public async System.Threading.Tasks.Task<ActionResult> Index()
         {
             string userId = User.Identity.GetUserId();
             string locationStorageId = entities.AccountAssets.Where(m => m.AccountId == userId).Select(m => m.LocationStorageId).FirstOrDefault();

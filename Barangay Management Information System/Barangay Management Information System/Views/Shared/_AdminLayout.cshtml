@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Sinisian MIS</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
 
@@ -13,6 +14,8 @@
           background-color: #fafafa;
           min-width: 450px;
         }
+
+        @* side nav *@
 
         .sidenav {
           height: 100%;
@@ -23,7 +26,7 @@
           left: 0;
           overflow-x: hidden;
           transition: 0.5s;
-          background-color: #ffffff;
+          background-color: #434e52;
         }
 
         .sidenav a {
@@ -31,40 +34,45 @@
           transition: 0.3s;
         }
 
+        #sidelinks a {
+          font-size: 17px;
+          font-weight: 600;
+          padding: 20px 20px 20px 20px;
+          color: #ececec;
+        }
+
+
+        #sidelinks a:hover {
+          background-color: #ececec;
+          color: #434e52;
+          text-decoration:none;
+
+        }
+
+        #sidelinks .sublink {
+            padding-left: 40px;
+            font-size: 15px;
+            background-color: #698474;
+            color: #fafafa;
+        }
+
+        @* end side nav *@
+
         #main {
           margin-left:250px;@**@
           transition: margin-left .5s;
         }
 
         @@media screen and (max-height: 450px) {
-          .sidenav {padding-top: 15px;}
+            .sidenav {
+                padding-top: 15px;
+            }
           .sidenav a {font-size: 18px;}
         }
 
-        @* side nav *@
-
-        #highlight {
-            background-image: linear-gradient(100deg, #001510, #00bf8f);
-        }
-
-        @**@
 
         .navbar, nav {
             background-color: #ffffff;
-        }
-
-        #sidelinks a {
-            font-size: 17px;
-            font-weight: 600;
-            padding: 10px 20px 10px 20px;
-            color: #004a2f;
-        }
-
-
-        #sidelinks a:hover {
-            background-image: linear-gradient(100deg, #001510, #00bf8f);
-            color: #fafafa;
-            text-decoration:none;
         }
 
     </style>
@@ -78,57 +86,83 @@
 
 
     @*<div class="navbar navbar-expand-lg navbar-fixed-top mb-5 bg-dark navbar-dark">
-        <div class="container">
+            <div class="container">
 
-            <div class="navbar-header">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                @Html.ActionLink("Flores De Mayo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
+                <div class="navbar-header">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    @Html.ActionLink("Flores De Mayo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
 
-            <div class="navbar-collapse collapse" id="navbar">
-                <ul class="nav navbar-nav">
-                    <li class="nav-item"> <a href="@Url.Action("", "", new { })" class="nav-link">Lorem</a> </li>
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item"> <a href="@Url.Action("", "", new { })" class="nav-link">Lorem</a> </li>
 
-                </ul>
-                <div class="float-right">
-                    @Html.Partial("_LoginPartial")
+                    </ul>
+                    <div class="float-right">
+                        @Html.Partial("_LoginPartial")
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
 
     @using Microsoft.AspNet.Identity
 
 
-    <div id="sidenav" class="sidenav shadow" >
+    <div id="sidenav" class="sidenav shadow-lg">
 
-        <div class="" style="height:68px" id="highlight">
-            <img src="~/Content/Images/BMIS Logo.PNG" height="70" width="170" class="mx-auto my-auto d-flex"/>
-        </div>
+        @*<div class="" style="height:68px" id="highlight">
+                <img src="~/Content/Images/BMIS Logo.PNG" height="70" width="170" class="mx-auto my-auto d-flex"/>
+            </div>*@
 
 
 
         <div class="mt-5" id="account-details">
-            <img src="@TempData["user-profile-photo"]" height="100" width="100" class="rounded-circle mx-auto d-block border"/>
-            
-            @{ 
+            <img src="@TempData["user-profile-photo"]" height="100" width="100" class="rounded-circle mx-auto d-block border" />
+
+            @{
                 var name = @User.Identity.GetUserName();
 
                 name = name.Substring(0, name.IndexOf('@'));
             }
 
-            <h1 class="text-center" style="font-size:21px; font-weight:700; color: #00533f;">@name</h1>
-            <p class="text-center" style="color: #00533f; font-weight: 500;">Admin</p>
+            <h1 class="text-center" style="font-size:21px; font-weight:700; margin-top:10px; color: #ececec;">@name</h1>
+            <p class="text-center" style="color: #ececec; font-weight: 500; ">Admin</p>
         </div>
 
 
         <div class="mt-5" id="sidelinks">
-            <a href="/Dashboard/Index" class="" id="aboutlink">About</a>
-            <a href="/Dashboard/Index2">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
+            <a href="#"><span class="fa fa-archive mr-3"></span>Audit Trail</a>
+
+            <a href="" data-toggle="collapse" data-target="#accounts-collapse" aria-expanded="false" aria-controls="accounts-collapse"><span class="fa fa-user-circle mr-3"></span>Account <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 104px;"></span></a>
+            <div id="accounts-collapse" class="collapse" data-parent="#sidelinks">
+                <a href="#" class="sublink">Clients</a>
+                <a href="#" class="sublink">Contact</a>
+            </div>
+
+            <a href="#"><span class="fa  fa-folder-open	 mr-3"></span>Barangay Clearance</a>
+
+            <a href="" data-toggle="collapse" data-target="#officials-collapse" aria-expanded="false" aria-controls="officials-collapse"><span class="fa fa-sitemap mr-3"></span>Barangay Officials <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 28px;"></span></a>
+            <div id="officials-collapse" class="collapse" data-parent="#sidelinks">
+                <a href="#" class="sublink">Clients</a>
+                <a href="#" class="sublink">Contact</a>
+            </div>
+
+            <a href="/Dashboard/Index"><span class="fa fa-area-chart mr-3"></span>Dashboard</a>
+
+            <a href="" data-toggle="collapse" data-target="#residents-collapse" aria-expanded="false" aria-controls="residents-collapse"><span class="fa fa-id-card mr-3"></span>Sinisian Residents <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 28px;"></span></a>
+            <div id="residents-collapse" class="collapse" data-parent="#sidelinks">
+                <a href="#" class="sublink">Clients</a>
+                <a href="#" class="sublink">Contact</a>
+            </div>
+
+            <a href="" data-toggle="collapse" data-target="#summon-collapse" aria-expanded="false" aria-controls="summon-collapse"><span class="fa fa-ban mr-3"></span>Summon <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 100px;"></span></a>
+            <div id="summon-collapse" class="collapse" data-parent="#sidelinks">
+                <a href="#" class="sublink">Clients</a>
+                <a href="#" class="sublink">Contact</a>
+            </div>
+
         </div>
 
     </div>
@@ -142,9 +176,9 @@
 
             <span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="mr-2" onclick="toggleNav()">&#9776;</span>
 
-            @*<a class="navbar-brand mx-auto-md" href="#">
+            <a class="navbar-brand mx-auto-md" href="#">
                 <img src="~/Content/Images/Sinisian.png" width="55" height="55" class="d-inline-block align-top" alt="">
-            </a>*@
+            </a>
 
             @*<span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dropdown" aria-controls="dropdown" aria-expanded="false" aria-label="Toggle navigation">&#9776;</span>*@
 
@@ -160,7 +194,14 @@
                         </a>
                         <div class="dropdown-menu shadow">
                             <a class="dropdown-item" href="">My Account</a>
-                            <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log Off</a>
+
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log Off</a>
+                            }
+
                         </div>
                     </li>
                 </ul>
@@ -171,37 +212,37 @@
 
         @*<nav class="navbar navbar-expand-lg navbar-light shadow" style="height:75px;">
 
-        <span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="mr-3" onclick="toggleNav()">&#9776;</span>
+            <span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="mr-3" onclick="toggleNav()">&#9776;</span>
 
-        <a class="navbar-brand" href="#">
-            <img src="~/Content/Images/Sinisian.png" width="55" height="55" class="d-inline-block align-top" alt="">
-        </a>
+            <a class="navbar-brand" href="#">
+                <img src="~/Content/Images/Sinisian.png" width="55" height="55" class="d-inline-block align-top" alt="">
+            </a>
 
-        <div class="w-100 border">
+            <div class="w-100 border">
 
-            <div class="float-right">
-                <img src="~/Content/Images/Sinisian.png" width="40" height="40" class="" />
-                <span>My Account</span>
-            </div>
+                <div class="float-right">
+                    <img src="~/Content/Images/Sinisian.png" width="40" height="40" class="" />
+                    <span>My Account</span>
+                </div>
 
-        </div>*@
+            </div>*@
 
         @*<div class="float-right">
-                @using Microsoft.AspNet.Identity
-                @if (!Request.IsAuthenticated)
-                {
-                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    @using Microsoft.AspNet.Identity
+                    @if (!Request.IsAuthenticated)
                     {
-                        @Html.AntiForgeryToken()
+                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        {
+                            @Html.AntiForgeryToken()
 
-                        <ul class="">
-                            <li class=""><a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link m-3 font-weight-bold" style="color:white;">Log off</a></li>
-                        </ul>
+                            <ul class="">
+                                <li class=""><a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link m-3 font-weight-bold" style="color:white;">Log off</a></li>
+                            </ul>
+                        }
                     }
-                }
-            </div>
+                </div>
 
-        </nav>*@
+            </nav>*@
 
         <div class="mt-5">
             @RenderBody()
