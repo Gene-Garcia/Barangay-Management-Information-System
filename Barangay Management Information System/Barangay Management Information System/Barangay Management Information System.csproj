@@ -172,6 +172,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Classess\DisplayPictureRetriever.cs" />
     <Compile Include="Classess\KeyGenerator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminAccountController.cs" />
@@ -359,8 +360,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\AdminAccount\CreateAccount.cshtml" />
+    <Content Include="Views\Shared\_BasicLayout.cshtml" />
+    <Content Include="Views\AdminAccount\_RegisterResident.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

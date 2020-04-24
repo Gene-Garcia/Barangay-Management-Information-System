@@ -1,339 +1,316 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Sinisian MIS</title>
+﻿
+@{
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<style>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.semanticui.min.css" rel="stylesheet" />
+    body {
+        font-family: "Segoe UI";
+        background-color: #fafafa;
+        min-width: 450px;
+    }
 
-    <style>
+    @* side nav *@
 
-        body {
-          font-family: "Segoe UI";
-          background-color: #fafafa;
-          min-width: 450px;
-        }
+    .sidenav {
+        height: 100%;
+        width: 250px; @**@
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        overflow-x: hidden;
+        transition: 0.5s;
+        background-color: #434e52;
+    }
 
-        @* side nav *@
+    .sidenav a {
+        display: block;
+        transition: 0.3s;
+    }
 
+    #sidelinks a {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 20px 20px 20px 20px;
+        color: #ececec;
+    }
+
+
+    #sidelinks a:hover {
+        background-color: #ececec;
+        color: #434e52;
+        text-decoration:none;
+
+    }
+
+    #sidelinks .sublink {
+        padding-left: 60px;
+        font-size: 13px;
+        background-color: #698474;
+        color: #fafafa;
+    }
+
+    #sidelinks .fa {
+        font-size: 14px;
+    }
+
+    @* end side nav *@
+
+    #main {
+        margin-left:250px;@**@
+        transition: margin-left .5s;
+    }
+
+    @@media screen and (max-height: 450px) {
         .sidenav {
-          height: 100%;
-          width: 250px; @**@
-          position: fixed;
-          z-index: 1;
-          top: 0;
-          left: 0;
-          overflow-x: hidden;
-          transition: 0.5s;
-          background-color: #434e52;
+            padding-top: 15px;
         }
-
-        .sidenav a {
-          display: block;
-          transition: 0.3s;
-        }
-
-        #sidelinks a {
-          font-size: 14px;
-          font-weight: 600;
-          padding: 20px 20px 20px 20px;
-          color: #ececec;
-        }
+        .sidenav a {font-size: 18px;}
+    }
 
 
-        #sidelinks a:hover {
-          background-color: #ececec;
-          color: #434e52;
-          text-decoration:none;
+    .navbar, nav {
+        background-color: #ffffff;
+    }
 
-        }
+    @* Global styles intended for each page *@
 
-        #sidelinks .sublink {
-            padding-left: 60px;
-            font-size: 13px;
-            background-color: #698474;
-            color: #fafafa;
-        }
+    .page-header-title {
+        font-family: 'Myriad Hebrew';
+        font-weight: 500;
+        font-size: 35px;
+    }
 
-        #sidelinks .fa {
-            font-size: 14px;
-        }
+    @* end global styles*@
 
-        @* end side nav *@
+    @* Shake *@
 
-        #main {
-          margin-left:250px;@**@
-          transition: margin-left .5s;
-        }
+    .hvr-icon-spin {
+        display: inline-block;
+        vertical-align: middle;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    }
 
-        @@media screen and (max-height: 450px) {
-            .sidenav {
-                padding-top: 15px;
-            }
-          .sidenav a {font-size: 18px;}
-        }
+    .hvr-icon-spin .hvr-icon {
+        -webkit-transition-duration: 1s;
+        transition-duration: 1s;
+        -webkit-transition-property: transform;
+        transition-property: transform;
+        -webkit-transition-timing-function: ease-in-out;
+        transition-timing-function: ease-in-out;
+    }
 
-
-        .navbar, nav {
-            background-color: #ffffff;
-        }
-
-        @* Global styles intended for each page *@
-
-        .page-header-title {
-            font-family: 'Myriad Hebrew';
-        }
-
-        @* end global styles*@
-
-        @* Shake *@
-
-        .hvr-icon-spin {
-            display: inline-block;
-            vertical-align: middle;
-            -webkit-transform: perspective(1px) translateZ(0);
-            transform: perspective(1px) translateZ(0);
-            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-        }
-
-        .hvr-icon-spin .hvr-icon {
-            -webkit-transition-duration: 1s;
-            transition-duration: 1s;
-            -webkit-transition-property: transform;
-            transition-property: transform;
-            -webkit-transition-timing-function: ease-in-out;
-            transition-timing-function: ease-in-out;
-        }
-
-        .hvr-icon-spin:hover .hvr-icon, .hvr-icon-spin:focus .hvr-icon, .hvr-icon-spin:active .hvr-icon {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
+    .hvr-icon-spin:hover .hvr-icon, .hvr-icon-spin:focus .hvr-icon, .hvr-icon-spin:active .hvr-icon {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
 
 
 
-        @* end shake *@
-    </style>
+    @* end shake *@
+</style>
 
-</head>
-<body>
+@*<div class="navbar navbar-expand-lg navbar-fixed-top mb-5 bg-dark navbar-dark">
+        <div class="container">
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @Html.ActionLink("Flores De Mayo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
 
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.semanticui.min.js"></script>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item"> <a href="@Url.Action("", "", new { })" class="nav-link">Lorem</a> </li>
 
-
-    @*<div class="navbar navbar-expand-lg navbar-fixed-top mb-5 bg-dark navbar-dark">
-            <div class="container">
-
-                <div class="navbar-header">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    @Html.ActionLink("Flores De Mayo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-
-                <div class="navbar-collapse collapse" id="navbar">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item"> <a href="@Url.Action("", "", new { })" class="nav-link">Lorem</a> </li>
-
-                    </ul>
-                    <div class="float-right">
-                        @Html.Partial("_LoginPartial")
-                    </div>
+                </ul>
+                <div class="float-right">
+                    @Html.Partial("_LoginPartial")
                 </div>
             </div>
+        </div>
+    </div>*@
+
+@using Microsoft.AspNet.Identity
+
+
+<div id="sidenav" class="sidenav shadow-lg">
+
+    @*<div class="" style="height:68px" id="highlight">
+                <img src="~/Content/Images/BMIS Logo.PNG" height="70" width="170" class="mx-auto my-auto d-flex"/>
         </div>*@
 
-    @using Microsoft.AspNet.Identity
+    <div class="mt-4" id="account-details">
+        <img src="@TempData["user-profile-photo"]" height="100" width="100" class="rounded-circle mx-auto d-block border" />
+
+        @{
+            var name = @User.Identity.GetUserName();
+
+            name = name.Substring(0, name.IndexOf('@'));
+        }
+
+        <h1 class="text-center" style="font-size:21px; font-weight:600; margin-top:10px; color: #ececec;">@name</h1>
+        <p class="text-center" style="color: #ececec; font-weight: 500; ">Admin</p>
+    </div>
 
 
-    <div id="sidenav" class="sidenav shadow-lg">
+    <div class="mt-5" id="sidelinks">
+        <a href="#" class="hvr-icon-spin"><span class="fa fa-archive mr-3 hvr-icon"></span>Audit Trail</a>
 
-        @*<div class="" style="height:68px" id="highlight">
-                    <img src="~/Content/Images/BMIS Logo.PNG" height="70" width="170" class="mx-auto my-auto d-flex"/>
-            </div>*@
-
-        <div class="mt-4" id="account-details">
-            <img src="@TempData["user-profile-photo"]" height="100" width="100" class="rounded-circle mx-auto d-block border" />
-
-            @{
-                var name = @User.Identity.GetUserName();
-
-                name = name.Substring(0, name.IndexOf('@'));
-            }
-
-            <h1 class="text-center" style="font-size:21px; font-weight:600; margin-top:10px; color: #ececec;">@name</h1>
-            <p class="text-center" style="color: #ececec; font-weight: 500; ">Admin</p>
+        <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#accounts-collapse" aria-expanded="false" aria-controls="accounts-collapse">
+            <span class="fa fa-user-circle hvr-icon mr-3"></span>
+            Account
+            <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 115px;"></span>
+        </a>
+        <div id="accounts-collapse" class="collapse" data-parent="#sidelinks">
+            <a href="/AdminAccount/CreateAccount" class="sublink">Create Account</a>
         </div>
 
+        <a href="#" class="hvr-icon-spin"><span class="fa fa-folder-open hvr-icon mr-3"></span>Barangay Clearance</a>
 
-        <div class="mt-5" id="sidelinks">
-            <a href="#" class="hvr-icon-spin"><span class="fa fa-archive mr-3 hvr-icon"></span>Audit Trail</a>
-
-            <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#accounts-collapse" aria-expanded="false" aria-controls="accounts-collapse">
-                <span class="fa fa-user-circle hvr-icon mr-3"></span>
-                Account
-                <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 115px;"></span>
-            </a>
-            <div id="accounts-collapse" class="collapse" data-parent="#sidelinks">
-                <a href="/AdminAccount/CreateAccount" class="sublink">Create Account</a>
-            </div>
-
-            <a href="#" class="hvr-icon-spin"><span class="fa fa-folder-open hvr-icon mr-3"></span>Barangay Clearance</a>
-
-            <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#officials-collapse" aria-expanded="false" aria-controls="officials-collapse">
-                <span class="fa fa-sitemap hvr-icon mr-3"></span>
-                Barangay Officials
-                <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 53px;"></span>
-            </a>
-            <div id="officials-collapse" class="collapse" data-parent="#sidelinks">
-                <a href="#" class="sublink">Clients</a>
-                <a href="#" class="sublink">Contact</a>
-            </div>
-
-            <a href="/Dashboard/Index" class="hvr-icon-spin"><span class="fa fa-area-chart hvr-icon mr-3"></span>Dashboard</a>
-
-            <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#residents-collapse" aria-expanded="false" aria-controls="residents-collapse">
-                <span class="fa fa-id-card hvr-icon mr-3"></span>
-                Sinisian Residents
-                <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 52px;"></span>
-            </a>
-            <div id="residents-collapse" class="collapse" data-parent="#sidelinks">
-                <a href="#" class="sublink">Clients</a>
-                <a href="#" class="sublink">Contact</a>
-            </div>
-
-            <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#summon-collapse" aria-expanded="false" aria-controls="summon-collapse">
-                <span class="fa fa-ban hvr-icon mr-3"></span>
-                Summon
-                <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 112px;"></span>
-            </a>
-            <div id="summon-collapse" class="collapse" data-parent="#sidelinks">
-                <a href="#" class="sublink">Clients</a>
-                <a href="#" class="sublink">Contact</a>
-            </div>
-
-            <a href="" class="hvr-icon-spin" style="position:absolute; bottom: 0;"><span class="fa fa-question hvr-icon"></span></a>
-
+        <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#officials-collapse" aria-expanded="false" aria-controls="officials-collapse">
+            <span class="fa fa-sitemap hvr-icon mr-3"></span>
+            Barangay Officials
+            <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 53px;"></span>
+        </a>
+        <div id="officials-collapse" class="collapse" data-parent="#sidelinks">
+            <a href="#" class="sublink">Clients</a>
+            <a href="#" class="sublink">Contact</a>
         </div>
+
+        <a href="/Dashboard/Index" class="hvr-icon-spin"><span class="fa fa-area-chart hvr-icon mr-3"></span>Dashboard</a>
+
+        <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#residents-collapse" aria-expanded="false" aria-controls="residents-collapse">
+            <span class="fa fa-id-card hvr-icon mr-3"></span>
+            Sinisian Residents
+            <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 52px;"></span>
+        </a>
+        <div id="residents-collapse" class="collapse" data-parent="#sidelinks">
+            <a href="#" class="sublink">Clients</a>
+            <a href="#" class="sublink">Contact</a>
+        </div>
+
+        <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#summon-collapse" aria-expanded="false" aria-controls="summon-collapse">
+            <span class="fa fa-ban hvr-icon mr-3"></span>
+            Summon
+            <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 112px;"></span>
+        </a>
+        <div id="summon-collapse" class="collapse" data-parent="#sidelinks">
+            <a href="#" class="sublink">Clients</a>
+            <a href="#" class="sublink">Contact</a>
+        </div>
+
+        <a href="" class="hvr-icon-spin" style="position:absolute; bottom: 0;"><span class="fa fa-question hvr-icon"></span></a>
 
     </div>
 
-    <!-- Main Content of each pages -->
-    <div id="main" class="">
+</div>
 
-        <!-- NAV -->
-        <nav class="navbar navbar-expand-lg shadow" id="topNav">
+<!-- Main Content of each pages -->
+<div id="main" class="">
 
-            <span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="mr-2" onclick="toggleNav()">&#9776;</span>
+    <!-- NAV -->
+    <nav class="navbar navbar-expand-lg shadow" id="topNav">
 
-            <a class="navbar-brand mx-auto-md" href="#">
-                <img src="~/Content/Images/Sinisian.png" width="55" height="55" class="d-inline-block align-top" alt="">
-            </a>
+        <span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="mr-2" onclick="toggleNav()">&#9776;</span>
 
-            @*<span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dropdown" aria-controls="dropdown" aria-expanded="false" aria-label="Toggle navigation">&#9776;</span>*@
+        <a class="navbar-brand mx-auto-md" href="#">
+            <img src="~/Content/Images/Sinisian.png" width="55" height="55" class="d-inline-block align-top" alt="">
+        </a>
 
-            <div class="ml-auto">
+        @*<span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dropdown" aria-controls="dropdown" aria-expanded="false" aria-label="Toggle navigation">&#9776;</span>*@
 
-                <ul class="nav navbar-nav">
-                    <li class="nav-item dropdown ">
+        <div class="ml-auto">
 
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+            <ul class="nav navbar-nav">
+                <li class="nav-item dropdown ">
 
-                            <img src="@TempData["user-profile-photo"]" width="35" height="35" class="rounded-circle" />
-                            <span style="color: #00533f; font-weight: 600;">@User.Identity.GetUserName()</span>
-                        </a>
-                        <div class="dropdown-menu shadow">
-                            <a class="dropdown-item" href="">My Account</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
 
-                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
-                            {
-                                @Html.AntiForgeryToken()
+                        <img src="@TempData["user-profile-photo"]" width="35" height="35" class="rounded-circle" />
+                        <span style="color: #00533f; font-weight: 600;">@User.Identity.GetUserName()</span>
+                    </a>
+                    <div class="dropdown-menu shadow">
+                        <a class="dropdown-item" href="">My Account</a>
 
-                                <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log Off</a>
-                            }
-
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
-
-        </nav>
-
-        @*<nav class="navbar navbar-expand-lg navbar-light shadow" style="height:75px;">
-
-            <span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="mr-3" onclick="toggleNav()">&#9776;</span>
-
-            <a class="navbar-brand" href="#">
-                <img src="~/Content/Images/Sinisian.png" width="55" height="55" class="d-inline-block align-top" alt="">
-            </a>
-
-            <div class="w-100 border">
-
-                <div class="float-right">
-                    <img src="~/Content/Images/Sinisian.png" width="40" height="40" class="" />
-                    <span>My Account</span>
-                </div>
-
-            </div>*@
-
-        @*<div class="float-right">
-                    @using Microsoft.AspNet.Identity
-                    @if (!Request.IsAuthenticated)
-                    {
-                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
                         {
                             @Html.AntiForgeryToken()
 
-                            <ul class="">
-                                <li class=""><a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link m-3 font-weight-bold" style="color:white;">Log off</a></li>
-                            </ul>
+                            <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Log Off</a>
                         }
-                    }
-                </div>
 
-            </nav>*@
+                    </div>
+                </li>
+            </ul>
 
-        <div class="mt-5">
-            @RenderBody()
         </div>
 
+    </nav>
+
+    @*<nav class="navbar navbar-expand-lg navbar-light shadow" style="height:75px;">
+
+        <span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="mr-3" onclick="toggleNav()">&#9776;</span>
+
+        <a class="navbar-brand" href="#">
+            <img src="~/Content/Images/Sinisian.png" width="55" height="55" class="d-inline-block align-top" alt="">
+        </a>
+
+        <div class="w-100 border">
+
+            <div class="float-right">
+                <img src="~/Content/Images/Sinisian.png" width="40" height="40" class="" />
+                <span>My Account</span>
+            </div>
+
+        </div>*@
+
+    @*<div class="float-right">
+                @using Microsoft.AspNet.Identity
+                @if (!Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <ul class="">
+                            <li class=""><a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link m-3 font-weight-bold" style="color:white;">Log off</a></li>
+                        </ul>
+                    }
+                }
+            </div>
+
+        </nav>*@
+
+    <div class="mt-5">
+        @RenderBody()
     </div>
 
-    <script>
-        function toggleNav() {
+</div>
 
-            var navWidth = document.getElementById('sidenav'), style = window.getComputedStyle(navWidth), width = style.getPropertyValue('width');
+<script>
+    function toggleNav() {
 
-            if (width == "0px") {
-                document.getElementById("sidenav").style.width = "250px";
-                document.getElementById("main").style.marginLeft = "250px";
-                document.getElementById("topNav").style.marginLeft = "0px";
+        var navWidth = document.getElementById('sidenav'), style = window.getComputedStyle(navWidth), width = style.getPropertyValue('width');
 
-            } else if (width == "250px") {
-                document.getElementById("sidenav").style.width = "0";
-                document.getElementById("main").style.marginLeft = "0";
-                document.getElementById("topNav").style.marginLeft = "0px";
-            }
+        if (width == "0px") {
+            document.getElementById("sidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            document.getElementById("topNav").style.marginLeft = "0px";
+
+        } else if (width == "250px") {
+            document.getElementById("sidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.getElementById("topNav").style.marginLeft = "0px";
         }
+    }
 
 
-    </script>
+</script>
 
-
-
-    @RenderSection("scripts", required: false)
-
-</body>
-</html>
-
+@RenderSection("scripts", required: false)

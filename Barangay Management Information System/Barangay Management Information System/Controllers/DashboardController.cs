@@ -16,18 +16,10 @@ namespace Barangay_Management_Information_System.Controllers
 
         // GET: Dashboard
         [Authorize]
-        public async System.Threading.Tasks.Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            string userId = User.Identity.GetUserId();
-            string locationStorageId = entities.AccountAssets.Where(m => m.AccountId == userId).Select(m => m.LocationStorageId).FirstOrDefault();
-            TempData["user-profile-photo"] = entities.LocationStorages.Where(m => m.LocationStorageId == locationStorageId).Select(m => m.Address).FirstOrDefault();
+            TempData["user-profile-photo"] = DisplayPictureRetriever.GetDisplayPicture(User.Identity.GetUserId(), entities);
 
-            return View();
-        }
-
-        [Authorize]
-        public ActionResult Index2()
-        {
             return View();
         }
     }
