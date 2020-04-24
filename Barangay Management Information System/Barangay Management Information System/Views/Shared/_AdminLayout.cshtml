@@ -7,6 +7,10 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.semanticui.min.css" rel="stylesheet" />
+
     <style>
 
         body {
@@ -123,6 +127,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.semanticui.min.js"></script>
+
 
     @*<div class="navbar navbar-expand-lg navbar-fixed-top mb-5 bg-dark navbar-dark">
             <div class="container">
@@ -152,8 +159,8 @@
     <div id="sidenav" class="sidenav shadow-lg">
 
         @*<div class="" style="height:68px" id="highlight">
-                <img src="~/Content/Images/BMIS Logo.PNG" height="70" width="170" class="mx-auto my-auto d-flex"/>
-        </div>*@
+                    <img src="~/Content/Images/BMIS Logo.PNG" height="70" width="170" class="mx-auto my-auto d-flex"/>
+            </div>*@
 
         <div class="mt-4" id="account-details">
             <img src="@TempData["user-profile-photo"]" height="100" width="100" class="rounded-circle mx-auto d-block border" />
@@ -174,18 +181,18 @@
 
             <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#accounts-collapse" aria-expanded="false" aria-controls="accounts-collapse">
                 <span class="fa fa-user-circle hvr-icon mr-3"></span>
-                Account 
+                Account
                 <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 115px;"></span>
             </a>
             <div id="accounts-collapse" class="collapse" data-parent="#sidelinks">
-                <a href="#" class="sublink">Create Account</a>
+                <a href="/AdminAccount/CreateAccount" class="sublink">Create Account</a>
             </div>
 
             <a href="#" class="hvr-icon-spin"><span class="fa fa-folder-open hvr-icon mr-3"></span>Barangay Clearance</a>
 
             <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#officials-collapse" aria-expanded="false" aria-controls="officials-collapse">
                 <span class="fa fa-sitemap hvr-icon mr-3"></span>
-                Barangay Officials 
+                Barangay Officials
                 <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 53px;"></span>
             </a>
             <div id="officials-collapse" class="collapse" data-parent="#sidelinks">
@@ -197,7 +204,7 @@
 
             <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#residents-collapse" aria-expanded="false" aria-controls="residents-collapse">
                 <span class="fa fa-id-card hvr-icon mr-3"></span>
-                    Sinisian Residents 
+                Sinisian Residents
                 <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 52px;"></span>
             </a>
             <div id="residents-collapse" class="collapse" data-parent="#sidelinks">
@@ -207,7 +214,7 @@
 
             <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#summon-collapse" aria-expanded="false" aria-controls="summon-collapse">
                 <span class="fa fa-ban hvr-icon mr-3"></span>
-                Summon 
+                Summon
                 <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 112px;"></span>
             </a>
             <div id="summon-collapse" class="collapse" data-parent="#sidelinks">
@@ -319,7 +326,10 @@
                 document.getElementById("topNav").style.marginLeft = "0px";
             }
         }
+
+
     </script>
+
 
 
     @RenderSection("scripts", required: false)
