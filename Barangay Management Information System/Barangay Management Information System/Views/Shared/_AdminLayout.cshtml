@@ -35,7 +35,7 @@
         }
 
         #sidelinks a {
-          font-size: 17px;
+          font-size: 14px;
           font-weight: 600;
           padding: 20px 20px 20px 20px;
           color: #ececec;
@@ -50,10 +50,14 @@
         }
 
         #sidelinks .sublink {
-            padding-left: 40px;
-            font-size: 15px;
+            padding-left: 60px;
+            font-size: 13px;
             background-color: #698474;
             color: #fafafa;
+        }
+
+        #sidelinks .fa {
+            font-size: 14px;
         }
 
         @* end side nav *@
@@ -75,6 +79,41 @@
             background-color: #ffffff;
         }
 
+        @* Global styles intended for each page *@
+
+        .page-header-title {
+            font-family: 'Myriad Hebrew';
+        }
+
+        @* end global styles*@
+
+        @* Shake *@
+
+        .hvr-icon-spin {
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-transform: perspective(1px) translateZ(0);
+            transform: perspective(1px) translateZ(0);
+            box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        }
+
+        .hvr-icon-spin .hvr-icon {
+            -webkit-transition-duration: 1s;
+            transition-duration: 1s;
+            -webkit-transition-property: transform;
+            transition-property: transform;
+            -webkit-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
+        }
+
+        .hvr-icon-spin:hover .hvr-icon, .hvr-icon-spin:focus .hvr-icon, .hvr-icon-spin:active .hvr-icon {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+
+
+
+        @* end shake *@
     </style>
 
 </head>
@@ -114,11 +153,9 @@
 
         @*<div class="" style="height:68px" id="highlight">
                 <img src="~/Content/Images/BMIS Logo.PNG" height="70" width="170" class="mx-auto my-auto d-flex"/>
-            </div>*@
+        </div>*@
 
-
-
-        <div class="mt-5" id="account-details">
+        <div class="mt-4" id="account-details">
             <img src="@TempData["user-profile-photo"]" height="100" width="100" class="rounded-circle mx-auto d-block border" />
 
             @{
@@ -127,51 +164,67 @@
                 name = name.Substring(0, name.IndexOf('@'));
             }
 
-            <h1 class="text-center" style="font-size:21px; font-weight:700; margin-top:10px; color: #ececec;">@name</h1>
+            <h1 class="text-center" style="font-size:21px; font-weight:600; margin-top:10px; color: #ececec;">@name</h1>
             <p class="text-center" style="color: #ececec; font-weight: 500; ">Admin</p>
         </div>
 
 
         <div class="mt-5" id="sidelinks">
-            <a href="#"><span class="fa fa-archive mr-3"></span>Audit Trail</a>
+            <a href="#" class="hvr-icon-spin"><span class="fa fa-archive mr-3 hvr-icon"></span>Audit Trail</a>
 
-            <a href="" data-toggle="collapse" data-target="#accounts-collapse" aria-expanded="false" aria-controls="accounts-collapse"><span class="fa fa-user-circle mr-3"></span>Account <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 104px;"></span></a>
+            <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#accounts-collapse" aria-expanded="false" aria-controls="accounts-collapse">
+                <span class="fa fa-user-circle hvr-icon mr-3"></span>
+                Account 
+                <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 115px;"></span>
+            </a>
             <div id="accounts-collapse" class="collapse" data-parent="#sidelinks">
-                <a href="#" class="sublink">Clients</a>
-                <a href="#" class="sublink">Contact</a>
+                <a href="#" class="sublink">Create Account</a>
             </div>
 
-            <a href="#"><span class="fa  fa-folder-open	 mr-3"></span>Barangay Clearance</a>
+            <a href="#" class="hvr-icon-spin"><span class="fa fa-folder-open hvr-icon mr-3"></span>Barangay Clearance</a>
 
-            <a href="" data-toggle="collapse" data-target="#officials-collapse" aria-expanded="false" aria-controls="officials-collapse"><span class="fa fa-sitemap mr-3"></span>Barangay Officials <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 28px;"></span></a>
+            <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#officials-collapse" aria-expanded="false" aria-controls="officials-collapse">
+                <span class="fa fa-sitemap hvr-icon mr-3"></span>
+                Barangay Officials 
+                <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 53px;"></span>
+            </a>
             <div id="officials-collapse" class="collapse" data-parent="#sidelinks">
                 <a href="#" class="sublink">Clients</a>
                 <a href="#" class="sublink">Contact</a>
             </div>
 
-            <a href="/Dashboard/Index"><span class="fa fa-area-chart mr-3"></span>Dashboard</a>
+            <a href="/Dashboard/Index" class="hvr-icon-spin"><span class="fa fa-area-chart hvr-icon mr-3"></span>Dashboard</a>
 
-            <a href="" data-toggle="collapse" data-target="#residents-collapse" aria-expanded="false" aria-controls="residents-collapse"><span class="fa fa-id-card mr-3"></span>Sinisian Residents <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 28px;"></span></a>
+            <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#residents-collapse" aria-expanded="false" aria-controls="residents-collapse">
+                <span class="fa fa-id-card hvr-icon mr-3"></span>
+                    Sinisian Residents 
+                <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 52px;"></span>
+            </a>
             <div id="residents-collapse" class="collapse" data-parent="#sidelinks">
                 <a href="#" class="sublink">Clients</a>
                 <a href="#" class="sublink">Contact</a>
             </div>
 
-            <a href="" data-toggle="collapse" data-target="#summon-collapse" aria-expanded="false" aria-controls="summon-collapse"><span class="fa fa-ban mr-3"></span>Summon <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 100px;"></span></a>
+            <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#summon-collapse" aria-expanded="false" aria-controls="summon-collapse">
+                <span class="fa fa-ban hvr-icon mr-3"></span>
+                Summon 
+                <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 112px;"></span>
+            </a>
             <div id="summon-collapse" class="collapse" data-parent="#sidelinks">
                 <a href="#" class="sublink">Clients</a>
                 <a href="#" class="sublink">Contact</a>
             </div>
 
+            <a href="" class="hvr-icon-spin" style="position:absolute; bottom: 0;"><span class="fa fa-question hvr-icon"></span></a>
+
         </div>
 
     </div>
 
+    <!-- Main Content of each pages -->
     <div id="main" class="">
 
-
         <!-- NAV -->
-
         <nav class="navbar navbar-expand-lg shadow" id="topNav">
 
             <span style="font-size:25px;cursor:pointer; color:#003f30; font-weight:bold;" class="mr-2" onclick="toggleNav()">&#9776;</span>
@@ -247,6 +300,7 @@
         <div class="mt-5">
             @RenderBody()
         </div>
+
     </div>
 
     <script>
