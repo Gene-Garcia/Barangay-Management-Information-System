@@ -106,5 +106,42 @@ namespace Barangay_Management_Information_System.Controllers
                 return PartialView("_DisplayAccountTypes");
             }
         }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult AddAccountTypes()
+        {
+            return PartialView("_AddAccountTypes");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult AddAccountTypes(AspNetRole role)
+        {
+            try
+            {
+                role.Id = KeyGenerator.GenerateId( role.Name );
+                entities.AspNetRoles.Add(role);
+                entities.SaveChanges();
+
+                TempData["alert-present"] = "1";
+                TempData["alert-type"] = "alert-succes";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = "Role with name " + role.Name + " is succesfully added";
+                
+                return RedirectToAction("ModifyAccount");
+            }
+            catch (Exception e)
+            {
+                TempData["alert-present"] = "1";
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Unable to add account type, please try again later, " + e.Message.ToString();
+                return RedirectToAction("ModifyAccount");
+            }
+        }
+
+
+        // Optimize the display of alert messages, add, if tempdata has laman dont set it to '0'
     }
 }
