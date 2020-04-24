@@ -278,6 +278,7 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -288,7 +289,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\BMIS Logo.PNG" />
     <Content Include="Content\Images\Sinisian.png" />
-    <Content Include="Content\Images\User Profile Photo\gene_garcia.jpg" />
     <Content Include="Content\Images\User Profile Photo\user.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

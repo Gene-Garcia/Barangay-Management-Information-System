@@ -1,4 +1,5 @@
 ﻿using Barangay_Management_Information_System.Classess;
+using Barangay_Management_Information_System.Models;
 using Barangay_Management_Information_System.Models.Entity;
 using Microsoft.AspNet.Identity;
 using System;
@@ -26,7 +27,10 @@ namespace Barangay_Management_Information_System.Controllers
             TempData["alert-present"] = "0";
             try
             {
-                return View(entities.ResidentsInformations.OrderBy(m => m.LastName).ToArray());
+
+                List<string> registeredResidentIds = entities.AspNetUsers.Select(m => m.ResidentId).ToList();
+
+                return View(entities.ResidentsInformations.Where(m => !registeredResidentIds.Contains(m.ResidentId) ).ToList());
             }
             catch(Exception e)
             {
@@ -38,11 +42,30 @@ namespace Barangay_Management_Information_System.Controllers
             }
         }
 
-        [HttpGet]
         [Authorize]
         public ActionResult RegisterResident(string residentId)
         {
-            return PartialView("_RegisterResident", entities.ResidentsInformations.Where(m => m.ResidentId == residentId).FirstOrDefault());
+            try
+            {
+                TempData["alert-present"] = "0";
+
+                TempData["Roles"] = entities.AspNetRoles.ToList();
+                ResidentsInformation resident = entities.ResidentsInformations.Where(m => m.ResidentId == residentId).FirstOrDefault();
+                RegisterViewModel register = new RegisterViewModel();
+                register.Username = resident.FirstName + "_" + resident.LastName;
+                register.Password = "Qwertypad360!";
+                register.ResidentId = residentId;
+
+                return PartialView("_RegisterResident", register);
+            }
+            catch (Exception e)
+            {
+                TempData["alert-present"] = "1";
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Unable to create account for this resident, please try again later, " + e.Message.ToString();
+                return PartialView("_RegisterResident");
+            }
         }
     }
 }

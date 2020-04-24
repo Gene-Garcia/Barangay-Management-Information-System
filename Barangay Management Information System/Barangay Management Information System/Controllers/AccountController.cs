@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Barangay_Management_Information_System.Models;
+using Barangay_Management_Information_System.Models.Entity;
 
 namespace Barangay_Management_Information_System.Controllers
 {
@@ -75,7 +76,7 @@ namespace Barangay_Management_Information_System.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -142,6 +143,8 @@ namespace Barangay_Management_Information_System.Controllers
             return View();
         }
 
+        private DBEntities entities = new DBEntities();
+
         //
         // POST: /Account/Register
         [HttpPost]
@@ -151,11 +154,12 @@ namespace Barangay_Management_Information_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                string residentId = model.ResidentId;
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -163,9 +167,21 @@ namespace Barangay_Management_Information_System.Controllers
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    // Add ResidentId and DateCreated
+                    AspNetUser newUser = entities.AspNetUsers.Where(m => m.Id == user.Id).FirstOrDefault();
+                    newUser.ResidentId = residentId;
+                    newUser.DateCreated = DateTime.Now;
+                    entities.Entry(newUser).State = System.Data.Entity.EntityState.Modified;
+                    entities.SaveChanges();
+
+                    // Add User Role
+                    entities.AspNetUserRoles.Add( new AspNetUserRole() { RoleId = model.RoleId, UserId = user.Id } );
+                    entities.SaveChanges();
+
+                    return RedirectToAction("CreateAccount", "AdminAccount");
                 }
                 AddErrors(result);
+                
             }
 
             // If we got this far, something failed, redisplay form

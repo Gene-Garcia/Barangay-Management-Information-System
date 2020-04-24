@@ -5,6 +5,14 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<style>
+    #sidenav #sidelinks #account-link {
+        background-color: #ececec;
+        color: #434e52;
+        text-decoration: none;
+    }
+</style>
+
 <div class="container">
 
     @if (TempData["alert-present"].ToString() == "1")
@@ -97,7 +105,7 @@
 
         var Register = function (id) {
 
-            var url = "/AdminAccount/RegisterResident?userId=" + id;
+            var url = "/AdminAccount/RegisterResident?residentId=" + id;
 
             $("#modal-register-body").load(url, function () {
                 $("#modal-for-register").modal("show");
