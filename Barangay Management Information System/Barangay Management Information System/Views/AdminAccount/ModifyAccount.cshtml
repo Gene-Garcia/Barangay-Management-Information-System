@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Barangay_Management_Information_System.Models.Entity.AspNetUser>
+
+@{
+    ViewBag.Title = "ModifyAccount";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+
+    @if (TempData["alert-present"].ToString() == "1")
+    {
+        <div class="alert @TempData["alert-type"] alert-dismissible mb-5">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"].
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="page-header-title mb-2">Modify Registered Account Type</h1>
+        </div>
+
+        <div class="col-md-6">
+            <button class="btn btn-success float-right" onclick="Display('')">Account Types</button>
+        </div>
+    </div>
+
+    <div class="card shadow border-0 rounded p-3 mb-5">
+        <div class="card-body">
+
+            <table class="table table-hover w-100 dt-responsive nowrap" id="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </th>
+                        <th>
+                            Full Name
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateCreated)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>                
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                <b>@item.ResidentsInformation.LastName</b>, @item.ResidentsInformation.FirstName <i>@item.ResidentsInformation.MiddleName</i>
+                            </td>
+                            <td>
+                                @{
+                                    DateTime dateTime = (DateTime)item.DateCreated;
+                                }
+                                @dateTime.ToString("MMM dd, yyyy")
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade rounded shadow-lg mt-5" id="modal-for-acctypes" style="min-width:490px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-image: linear-gradient(100deg, #00533f, #00bf8f);">
+                <!-- Heading -->
+                <h3 class="modal-title" style="color: #ffffff;">Account Types</h3>
+                <a href="#" class="close" data-dismiss="modal" style="color: #fafafa;">&times;</a>
+            </div>
+
+            <div class="modal-body" id="modal-acctypes-body">
+                <!-- Content Body -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+<script>
+
+    var Display = function (str) {
+
+        var url = "/AdminAccount/DisplayAccountTypes";
+
+        $("#modal-acctypes-body").load(url, function () {
+            $("#modal-for-acctypes").modal("show");
+
+        })
+
+    }
+
+    $(document).ready(function () {
+        $('#table').DataTable();
+    });
+</script>    
+
+}

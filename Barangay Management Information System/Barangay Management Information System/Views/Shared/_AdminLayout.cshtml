@@ -165,6 +165,10 @@
         {
             <p class="text-center" style="color: #ececec; font-weight: 500; ">Admin</p>
         }
+        else if (User.IsInRole("CIO"))
+        {
+            <p class="text-center" style="color: #ececec; font-weight: 500; ">Chief Information Officer</p>
+        }
         else
         {
             <p class="text-center" style="color: #ececec; font-weight: 500; ">Assistant Admin</p>
@@ -183,6 +187,7 @@
         </a>
         <div id="accounts-collapse" class="collapse" data-parent="#sidelinks">
             <a href="/AdminAccount/CreateAccount" class="sublink">Create Account</a>
+            <a href="/AdminAccount/ModifyAccount" class="sublink">Modify Users' Account</a>
         </div>
 
         <a href="#" class="hvr-icon-spin"><span class="fa fa-folder-open hvr-icon mr-3"></span>Barangay Clearance</a>

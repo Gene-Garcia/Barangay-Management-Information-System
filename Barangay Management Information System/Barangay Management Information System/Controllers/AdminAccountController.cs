@@ -67,5 +67,44 @@ namespace Barangay_Management_Information_System.Controllers
                 return PartialView("_RegisterResident");
             }
         }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult ModifyAccount()
+        {
+            try
+            {
+                TempData["alert-present"] = "0";
+
+                return View(entities.AspNetUsers.ToList());
+            }
+            catch (Exception e)
+            {
+                TempData["alert-present"] = "1";
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Unable to retrieved registered accounts, please try again later, " + e.Message.ToString();
+                return View();
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult DisplayAccountTypes()
+        {
+            try
+            {
+                TempData["alert-present"] = "0";
+                return PartialView("_DisplayAccountTypes", entities.AspNetRoles.ToList());
+            }
+            catch (Exception e)
+            {
+                TempData["alert-present"] = "1";
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Unable to create account for this resident, please try again later, " + e.Message.ToString();
+                return PartialView("_DisplayAccountTypes");
+            }
+        }
     }
 }

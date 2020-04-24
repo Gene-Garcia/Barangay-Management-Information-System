@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Barangay_Management_Information_System.Models.Entity.AspNetRole>
+
+@{
+    ViewBag.Title = "DisplayAccountTypes";
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+}
+
+<button onclick="Add()" class="btn btn-success mb-3 ml-auto float-right">Add Account Type</button>
+
+<div class="table-responsive">
+    <table class="table table-hover w-100">
+        <thead>
+            <tr>
+                <th class="font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td onclick="Edit('@item.Id')">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>
+
+<div class="modal fade rounded shadow-lg mt-5" id="modal-for-add" style="min-width:490px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-image: linear-gradient(100deg, #00533f, #00bf8f);">
+                <!-- Heading -->
+                <h3 class="modal-title" style="color: #ffffff;">Add Account Type</h3>
+                <a href="#" class="close" data-dismiss="modal" style="color: #fafafa;">&times;</a>
+            </div>
+
+            <div class="modal-body" id="modal-add-body">
+                <!-- Content Body -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade rounded shadow-lg mt-5" id="modal-for-edit" style="min-width:490px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-image: linear-gradient(100deg, #00533f, #00bf8f);">
+                <!-- Heading -->
+                <h3 class="modal-title" style="color: #ffffff;">Edit Account Types</h3>
+                <a href="#" class="close" data-dismiss="modal" style="color: #fafafa;">&times;</a>
+            </div>
+
+            <div class="modal-body" id="modal-edit-body">
+                <!-- Content Body -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script>
+
+        var Edit = function (id) {
+
+            var url = "/AdminAccount/EditAccountTypes?roleId=" + id;
+
+            $("#modal-edit-body").load(url, function () {
+                $("#modal-for-edit").modal("show");
+
+            })
+
+        }
+
+        var Add = function () {
+
+            var url = "/AdminAccount/AddAccountTypes";
+
+            $("#modal-add-body").load(url, function () {
+                $("#modal-for-add").modal("show");
+
+            })
+
+        }
+    </script>
+
+}
