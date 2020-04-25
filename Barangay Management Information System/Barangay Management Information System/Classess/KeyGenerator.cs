@@ -42,13 +42,21 @@ namespace Barangay_Management_Information_System.Classess
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    finalId += id[i, j];
+                    if (id[i, j] == " ")
+                    {
+                        finalId += "0";
+                    }
+                    else
+                    {
+                        finalId += id[i, j];
+                    }                    
                 }
 
                 if (i >= 3)
                 {
 
-                } else
+                } 
+                else
                 {
                     finalId += "-";
                 }

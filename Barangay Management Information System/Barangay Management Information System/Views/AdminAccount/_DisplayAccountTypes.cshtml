@@ -5,14 +5,6 @@
     Layout = "~/Views/Shared/_BasicLayout.cshtml";
 }
 
-@if (TempData["alert-present"].ToString() == "1")
-{
-    <div class="alert @TempData["alert-type"] alert-dismissible mb-3">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"].
-    </div>
-}
-
 <button onclick="Add()" class="btn btn-success mb-3 ml-auto float-right">Add Account Type</button>
 
 <div class="table-responsive">
@@ -78,25 +70,25 @@
 
     <script>
 
-        var Edit = function (id) {
+        var Edit = function (rId) {
 
-            var url = "/AdminAccount/EditAccountTypes?roleId=" + id;
+            var url = "/AdminAccount/EditAccountType?roleId=" + rId;
+
+            //window.location.href = url;
 
             $("#modal-edit-body").load(url, function () {
-                $("#modal-for-edit").modal("show");
-
-            })
+                $("#modal-for-edit").modal("show")
+            });
 
         }
 
         var Add = function () {
 
-            var url = "/AdminAccount/AddAccountTypes";
+            var url = "/AdminAccount/AddAccountType";
 
             $("#modal-add-body").load(url, function () {
-                $("#modal-for-add").modal("show");
-
-            })
+                $("#modal-for-add").modal("show")
+            });
 
         }
     </script>

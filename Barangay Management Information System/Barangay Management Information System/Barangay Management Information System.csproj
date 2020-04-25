@@ -365,7 +365,8 @@
     <Content Include="Views\AdminAccount\_RegisterResident.cshtml" />
     <Content Include="Views\AdminAccount\ModifyAccount.cshtml" />
     <Content Include="Views\AdminAccount\_DisplayAccountTypes.cshtml" />
-    <Content Include="Views\AdminAccount\_AddAccountTypes.cshtml" />
+    <Content Include="Views\AdminAccount\_AddAccountType.cshtml" />
+    <Content Include="Views\AdminAccount\_EditAccountType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

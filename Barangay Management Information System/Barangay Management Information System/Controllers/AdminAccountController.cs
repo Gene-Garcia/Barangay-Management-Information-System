@@ -24,7 +24,6 @@ namespace Barangay_Management_Information_System.Controllers
         public ActionResult CreateAccount()
         {
             TempData["user-profile-photo"] = DisplayPictureRetriever.GetDisplayPicture(User.Identity.GetUserId(), entities);
-            TempData["alert-present"] = "0";
             try
             {
 
@@ -34,7 +33,6 @@ namespace Barangay_Management_Information_System.Controllers
             }
             catch(Exception e)
             {
-                TempData["alert-present"] = "1";
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
                 TempData["alert-msg"] = "Information cannot be retrieved at this time, please try again later";
@@ -47,8 +45,6 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
-                TempData["alert-present"] = "0";
-
                 TempData["Roles"] = entities.AspNetRoles.ToList();
                 ResidentsInformation resident = entities.ResidentsInformations.Where(m => m.ResidentId == residentId).FirstOrDefault();
                 RegisterViewModel register = new RegisterViewModel();
@@ -60,7 +56,6 @@ namespace Barangay_Management_Information_System.Controllers
             }
             catch (Exception e)
             {
-                TempData["alert-present"] = "1";
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
                 TempData["alert-msg"] = "Unable to create account for this resident, please try again later, " + e.Message.ToString();
@@ -74,13 +69,11 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
-                TempData["alert-present"] = "0";
 
                 return View(entities.AspNetUsers.ToList());
             }
             catch (Exception e)
             {
-                TempData["alert-present"] = "1";
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
                 TempData["alert-msg"] = "Unable to retrieved registered accounts, please try again later, " + e.Message.ToString();
@@ -94,12 +87,10 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
-                TempData["alert-present"] = "0";
                 return PartialView("_DisplayAccountTypes", entities.AspNetRoles.ToList());
             }
             catch (Exception e)
             {
-                TempData["alert-present"] = "1";
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
                 TempData["alert-msg"] = "Unable to create account for this resident, please try again later, " + e.Message.ToString();
@@ -109,14 +100,14 @@ namespace Barangay_Management_Information_System.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult AddAccountTypes()
+        public ActionResult AddAccountType()
         {
-            return PartialView("_AddAccountTypes");
+            return PartialView("_AddAccountType");
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult AddAccountTypes(AspNetRole role)
+        public ActionResult AddAccountType(AspNetRole role)
         {
             try
             {
@@ -124,16 +115,14 @@ namespace Barangay_Management_Information_System.Controllers
                 entities.AspNetRoles.Add(role);
                 entities.SaveChanges();
 
-                TempData["alert-present"] = "1";
-                TempData["alert-type"] = "alert-succes";
+                TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
-                TempData["alert-msg"] = "Role with name " + role.Name + " is succesfully added";
+                TempData["alert-msg"] = "Role with name " + role.Name + " is succesfully added.";
                 
                 return RedirectToAction("ModifyAccount");
             }
             catch (Exception e)
             {
-                TempData["alert-present"] = "1";
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
                 TempData["alert-msg"] = "Unable to add account type, please try again later, " + e.Message.ToString();
@@ -141,7 +130,72 @@ namespace Barangay_Management_Information_System.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult EditAccountType(string roleId)
+        {
+            try
+            {
+                AspNetRole role = entities.AspNetRoles.Where(m => m.Id == roleId).FirstOrDefault();
+                //return Content(role.Name + " name ");
+                return PartialView("_EditAccountType", role);
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Unable to find the account type, please try again later, " + e.Message.ToString();
+                return RedirectToAction("ModifyAccount");
+            }
+        }
 
-        // Optimize the display of alert messages, add, if tempdata has laman dont set it to '0'
+        [HttpPost]
+        [Authorize]
+        public ActionResult EditAccountType(AspNetRole role)
+        {
+            try
+            {
+                entities.Entry(role).State = System.Data.Entity.EntityState.Modified;
+                entities.SaveChanges();
+
+                TempData["alert-type"] = "alert-success";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = "Role updated.";
+
+                return RedirectToAction("ModifyAccount");
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Unable to edit the account type, please try again later, " + e.Message.ToString();
+                return RedirectToAction("ModifyAccount");
+            }
+        }
+
+        [Authorize]
+        public ActionResult DeleteAccountType(string roleId)
+        {
+            try
+            {
+                entities.AspNetRoles.Remove( entities.AspNetRoles.Where(m => m.Id == roleId).FirstOrDefault() );
+                entities.SaveChanges();
+
+                TempData["alert-type"] = "alert-success";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = "Role deleted.";
+
+                return RedirectToAction("ModifyAccount");
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Unable to delete the account type, please try again later, " + e.Message.ToString();
+                return RedirectToAction("ModifyAccount");
+            }
+        }
+
+        
     }
 }

@@ -1,19 +1,19 @@
 ﻿@model Barangay_Management_Information_System.Models.Entity.AspNetRole
 
 @{
-    ViewBag.Title = "_AddAccountTypes";
+    ViewBag.Title = "_EditAccountType";
     Layout = "~/Views/Shared/_BasicLayout.cshtml";
 }
 
-
-@using (Html.BeginForm("AddAccountTypes", "AdminAccount", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditAccountType", "AdminAccount", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-
-
     <div class="form-horizontal">
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-12" })
             <div class="col-md-12">
@@ -24,7 +24,11 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-12">
-                <input type="submit" value="Add" class="btn btn-success  float-right" />
+                <div class="float-right">
+                    <a href="@Url.Action("DeleteAccountType", "AdminAccount", new { roleId = Model.Id })" onclick="return confirm('Confirm Action.')" class="btn btn-danger mr-2">Delete</a>
+                    <input type="submit" value="Save" class="btn btn-success float-right" />
+                </div>
+                
             </div>
         </div>
     </div>
