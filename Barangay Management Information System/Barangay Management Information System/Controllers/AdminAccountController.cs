@@ -196,6 +196,48 @@ namespace Barangay_Management_Information_System.Controllers
             }
         }
 
-        
+        [HttpGet]
+        [Authorize]
+        public ActionResult ModifyUserAccountType(string accountId)
+        {
+            try
+            {
+                TempData["roles"] = entities.AspNetRoles.ToList();
+
+                AspNetUserRole aspNetUserRole = entities.AspNetUserRoles.Where(m => m.UserId == accountId).FirstOrDefault();
+                return PartialView("_ModifyUserAccountType", aspNetUserRole);
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Unable to configure account, please try again later, " + e.Message.ToString();
+                return RedirectToAction("ModifyAccount");
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ModifyUserAccountType(AspNetUserRole userRole)
+        {
+            try
+            {
+                entities.Entry(userRole).State = System.Data.Entity.EntityState.Modified;
+                entities.SaveChanges();
+
+                TempData["alert-type"] = "alert-success";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = "Account configured and account type modified.";
+
+                return RedirectToAction("ModifyAccount");
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Unable to configure account, please try again later, " + e.Message.ToString();
+                return RedirectToAction("ModifyAccount");
+            }
+        }
     }
 }

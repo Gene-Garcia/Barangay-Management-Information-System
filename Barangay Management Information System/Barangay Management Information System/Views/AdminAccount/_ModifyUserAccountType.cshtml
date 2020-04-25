@@ -1,0 +1,57 @@
+﻿@model Barangay_Management_Information_System.Models.Entity.AspNetUserRole
+
+@{
+    ViewBag.Title = "_ModifyUserAccountType";
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+
+    List<SelectListItem> dropRoles = new List<SelectListItem>();
+
+    foreach (var role in TempData["roles"] as List<Barangay_Management_Information_System.Models.Entity.AspNetRole>)
+    {
+
+        dropRoles.Add(new SelectListItem
+        {
+            Text = role.Name,
+            Value = role.Id
+        });
+
+    }
+}
+
+
+@using (Html.BeginForm("ModifyUserAccountType", "AdminAccount", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.UserRoleId)
+        @Html.HiddenFor(model => model.UserId)
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="form-control-plaintext border rounded p-2 font-weight-bold shadow text-center" style="font-size: 17px">
+                    @Html.DisplayFor(model => model.AspNetUser.ResidentsInformation.FirstName)
+                    @Html.DisplayFor(model => model.AspNetUser.ResidentsInformation.MiddleName)
+                    @Html.DisplayFor(model => model.AspNetUser.ResidentsInformation.LastName)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-12"></label>
+            <div class="col-md-12">
+                @Html.DropDownListFor(model => model.RoleId, dropRoles, "Select a role...", new { @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-12">
+                <input type="submit" value="Save" class="btn btn-success float-right" />
+            </div>
+        </div>
+    </div>
+}

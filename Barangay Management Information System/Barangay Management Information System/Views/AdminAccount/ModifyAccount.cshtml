@@ -56,7 +56,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr onclick="Config('@item.Id')">
                             <td class="font-weight-bold">
                                 @item.AspNetUserRoles.FirstOrDefault().AspNetRole.Name
                             </td>

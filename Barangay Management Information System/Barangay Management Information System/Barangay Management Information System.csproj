@@ -367,6 +367,7 @@
     <Content Include="Views\AdminAccount\_DisplayAccountTypes.cshtml" />
     <Content Include="Views\AdminAccount\_AddAccountType.cshtml" />
     <Content Include="Views\AdminAccount\_EditAccountType.cshtml" />
+    <Content Include="Views\AdminAccount\_ModifyUserAccountType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
