@@ -12,7 +12,7 @@
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.semanticui.min.css" rel="stylesheet" />
 
 </head>
-<body>
+<body onload="display_clock_timer()">
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
@@ -26,6 +26,22 @@
     <div>
         @RenderBody()
     </div>
+
+    <script>
+        function display_clock_timer() {
+            var refresh = 1000; // Refresh rate in milli seconds
+
+            mytime = setTimeout('display_clock()', refresh)
+        }
+
+        function display_clock() {
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+            var x = new Date().toLocaleString("en-US", options);
+            document.getElementById('date-container').innerHTML = x + " " + new Date().toLocaleTimeString();
+            display_clock_timer();
+        }
+    </script>
 
     @RenderSection("scripts", required: false)
 

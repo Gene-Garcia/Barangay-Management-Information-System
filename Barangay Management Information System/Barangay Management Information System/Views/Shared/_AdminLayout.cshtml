@@ -25,12 +25,12 @@
         background-color: #434e52;
     }
 
-    .sidenav a {
+    .sidenav a, .sidenav p {
         display: block;
         transition: 0.3s;
     }
 
-    #sidelinks a {
+    #sidelinks a, #sidelinks p {
         font-size: 14px;
         font-weight: 600;
         padding: 20px 20px 20px 20px;
@@ -38,7 +38,7 @@
     }
 
 
-    #sidelinks a:hover {
+    #sidelinks a:hover, #sidelinks p:hover {
         background-color: #ececec;
         color: #434e52;
         text-decoration:none;
@@ -224,7 +224,7 @@
             <a href="#" class="sublink">Contact</a>
         </div>
 
-        <a href="" class="hvr-icon-spin" style="position:absolute; bottom: 0;"><span class="fa fa-question hvr-icon"></span></a>
+        <p class="w-100" style="position:absolute; bottom:0;"><span id="date-container" class="text-center"></span></p>
 
     </div>
 
@@ -321,6 +321,7 @@
 </div>
 
 <script>
+
     function toggleNav() {
 
         var navWidth = document.getElementById('sidenav'), style = window.getComputedStyle(navWidth), width = style.getPropertyValue('width');

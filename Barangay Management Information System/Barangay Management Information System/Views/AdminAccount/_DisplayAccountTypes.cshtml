@@ -5,6 +5,14 @@
     Layout = "~/Views/Shared/_BasicLayout.cshtml";
 }
 
+@if (TempData["alert-type"] != null)
+{
+    <div class="alert @TempData["alert-type"] alert-dismissible mb-3">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"]
+    </div>
+}
+
 <button onclick="Add()" class="btn btn-success mb-3 ml-auto float-right">Add Account Type</button>
 
 <div class="table-responsive">

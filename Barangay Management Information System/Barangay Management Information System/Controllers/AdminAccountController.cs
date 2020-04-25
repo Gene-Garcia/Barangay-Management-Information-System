@@ -223,7 +223,7 @@ namespace Barangay_Management_Information_System.Controllers
             try
             {
                 entities.Entry(userRole).State = System.Data.Entity.EntityState.Modified;
-                entities.SaveChanges();
+                entities.SaveChanges(); 
 
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";

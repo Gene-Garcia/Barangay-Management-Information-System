@@ -15,14 +15,13 @@
 
 <div class="container">
 
-    @if (TempData["alert-present"].ToString() == "1")
+    @if (TempData["alert-type"] != null)
     {
-        <div class="alert @TempData["alert-type"] alert-dismissible mb-5">
+        <div class="alert @TempData["alert-type"] alert-dismissible mb-3">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"].
+            <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"]
         </div>
     }
-
 
     <h1 class="page-header-title">Create Account</h1>
 

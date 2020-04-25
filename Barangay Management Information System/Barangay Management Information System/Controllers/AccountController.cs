@@ -178,6 +178,10 @@ namespace Barangay_Management_Information_System.Controllers
                     entities.AspNetUserRoles.Add( new AspNetUserRole() { RoleId = model.RoleId, UserId = user.Id } );
                     entities.SaveChanges();
 
+                    TempData["alert-type"] = "alert-success";
+                    TempData["alert-header"] = "Success";
+                    TempData["alert-msg"] = newUser.ResidentsInformation.FirstName + " " + newUser.ResidentsInformation.LastName + "'s account was created.";
+
                     return RedirectToAction("CreateAccount", "AdminAccount");
                 }
                 AddErrors(result);
