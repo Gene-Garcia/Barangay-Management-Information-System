@@ -60,5 +60,38 @@ namespace Barangay_Management_Information_System.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult ChangeUsername()
+        {
+            return PartialView("_ChangeUsername");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ChangeUsername(string newUsername)
+        {
+            try
+            {
+                AspNetUser user = entities.AspNetUsers.Where(m => m.Id == User.Identity.GetUserId()).FirstOrDefault();
+                user.UserName = newUsername;
+
+                entities.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                entities.SaveChanges();
+
+                TempData["alert-type"] = "alert-success";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = "Username updated.";
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Username was not changed, please try again later " + e.Message;
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

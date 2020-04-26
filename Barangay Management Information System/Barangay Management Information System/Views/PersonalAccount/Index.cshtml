@@ -49,13 +49,13 @@
                     <div class="form-control-plaintext border rounded p-2" style="font-size: 15px">
                         @Html.DisplayFor(model => model.UserName)
                     </div>
-                    <a href="#" class="text-right float-right mt-1">Change username...</a>
+                    <a href="#" class="text-right float-right mt-1" onclick="Username()">Change username...</a>
 
                     <div class="mb-5"></div>
 
                     <label class="control-label">Password</label>
                     <div class="form-control-plaintext border rounded p-2" style="font-size: 15px">
-                        <button class="btn btn-primary btn-sm btn-block" onclick="Reset()">Change Password</button>
+                        <a href="#" class="" onclick="Reset()">Change Password..</a>
                     </div>
                 </div>
             </div>
@@ -98,9 +98,37 @@
     </div>
 </div>
 
+<div class="modal fade rounded shadow-lg mt-5" id="modal-for-username" style="min-width:490px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header" style="background-image: linear-gradient(100deg, #00533f, #00bf8f);">
+                <!-- Heading -->
+                <h3 class="modal-title" style="color: #ffffff;">Change Username</h3>
+                <a href="#" class="close" data-dismiss="modal" style="color: #fafafa;">&times;</a>
+            </div>
+
+            <div class="modal-body" id="modal-username-body">
+                <!-- Content Body -->
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts{
 
     <script>
+
+        var Username = function () {
+
+            var url = "/PersonalAccount/ChangeUsername";
+
+            $("#modal-username-body").load(url, function () {
+                $("#modal-for-username").modal("show");
+
+            });
+
+        }
 
         var Upload = function () {
 

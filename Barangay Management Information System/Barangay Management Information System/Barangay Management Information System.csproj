@@ -372,6 +372,7 @@
     <Content Include="Views\AdminAccount\_ModifyUserAccountType.cshtml" />
     <Content Include="Views\PersonalAccount\Index.cshtml" />
     <Content Include="Views\PersonalAccount\_UploadDisplayPicture.cshtml" />
+    <Content Include="Views\PersonalAccount\_ChangeUsername.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

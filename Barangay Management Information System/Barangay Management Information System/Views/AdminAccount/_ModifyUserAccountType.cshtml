@@ -18,6 +18,17 @@
     }
 }
 
+<style>
+    .form-control {
+        color: #003f30;
+        letter-spacing: 2px;
+    }
+
+    .form-control:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    }
+</style>
 
 @using (Html.BeginForm("ModifyUserAccountType", "AdminAccount", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
