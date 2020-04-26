@@ -74,12 +74,13 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
-                AspNetUser user = entities.AspNetUsers.Where(m => m.Id == User.Identity.GetUserId()).FirstOrDefault();
+                string userId = User.Identity.GetUserId();
+                AspNetUser user = entities.AspNetUsers.Where(m => m.Id == userId).FirstOrDefault();
                 user.UserName = newUsername;
 
                 entities.Entry(user).State = System.Data.Entity.EntityState.Modified;
                 entities.SaveChanges();
-
+                    
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
                 TempData["alert-msg"] = "Username updated.";
