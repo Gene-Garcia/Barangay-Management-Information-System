@@ -1,9 +1,17 @@
 ﻿@model IEnumerable<Barangay_Management_Information_System.Models.Entity.AspNetUser>
 
 @{
-    ViewBag.Title = "ModifyAccount";
+    ViewBag.Title = "Modify Account";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+<style>
+    #sidenav #sidelinks #account-link {
+        background-color: #ececec;
+        color: #434e52;
+        text-decoration: none;
+    }
+</style>
 
 <div class="container">
 
@@ -38,7 +46,7 @@
                             @Html.DisplayNameFor(model => model.Email)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.UserName)
+                            Username
                         </th>
                         <th>
                             Full Name

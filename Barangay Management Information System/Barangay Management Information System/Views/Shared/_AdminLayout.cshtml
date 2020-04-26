@@ -263,7 +263,7 @@
                         <span style="color: #00533f; font-weight: 600;">@User.Identity.GetUserName()</span>
                     </a>
                     <div class="dropdown-menu shadow">
-                        <a class="dropdown-item" href="">My Account</a>
+                        <a class="dropdown-item" href="/PersonalAccount/Index">My Account</a>
 
                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
                         {

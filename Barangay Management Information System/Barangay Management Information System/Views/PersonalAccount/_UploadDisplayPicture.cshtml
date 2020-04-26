@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "__UploadDisplayPicture";
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("UploadDisplayPicture", "PersonalAccount", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "loading()" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label class="control-label col-md-12">Upload</label>
+            <div class="col-md-12">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="displayPicture" id="displayPicture" accept="image/png, image/jpeg, image/jpg" required>
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span class="font-italic text-muted">Suggested filename - firstname_lastname</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-12">
+                <span class=" ml-2 mr-2" id="loading"></span>
+                <input type="submit" value="Change Profile Picture" id="submit-btn" class="btn btn-success  float-right" />
+            </div>
+        </div>
+
+    </div>
+}
+
+@section scripts{
+    <script>
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
+        function loading() {
+
+            var element = document.getElementById("loading");
+            element.classList.add("spinner-border");
+
+            element.classList.add("spinner-border-sm");
+
+            var button = document.getElementById("submit-btn");
+            button.classList.add("disabled");
+            button.disabled = true;
+
+            console.log("1");
+        }
+    </script>                   
+}

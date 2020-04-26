@@ -67,6 +67,7 @@ namespace Barangay_Management_Information_System.Controllers
         [Authorize]
         public ActionResult ModifyAccount()
         {
+            TempData["user-profile-photo"] = DisplayPictureRetriever.GetDisplayPicture(User.Identity.GetUserId(), entities);
             try
             {
 

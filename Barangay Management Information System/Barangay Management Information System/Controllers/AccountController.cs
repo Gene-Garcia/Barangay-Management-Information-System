@@ -251,36 +251,48 @@ namespace Barangay_Management_Information_System.Controllers
 
         //
         // GET: /Account/ResetPassword
-        [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        //[HttpGet]
+        [Authorize]
+        public ActionResult ResetPassword()
         {
-            return code == null ? View("Error") : View();
+            return PartialView("_ResetPassword");
         }
 
         //
         // POST: /Account/ResetPassword
         [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        [Authorize]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = string.Join(" ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+
+
+                return RedirectToAction("Index", "PersonalAccount");
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
-            {
-                // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+
+            string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+            var result = await UserManager.ResetPasswordAsync(user.Id, code, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                TempData["alert-type"] = "alert-success";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = "Password changed";
+                return RedirectToAction("Index", "PersonalAccount");
             }
-            AddErrors(result);
-            return View();
+
+            TempData["alert-type"] = "alert-danger";
+            TempData["alert-header"] = "Error";
+            TempData["alert-msg"] = "Password not changed.";
+            return RedirectToAction("Index", "PersonalAccount");
         }
 
         //
