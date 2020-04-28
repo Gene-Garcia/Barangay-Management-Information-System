@@ -106,7 +106,8 @@
           <Property Name="AuditTrailId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AccountId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="AuditActionsId" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="DateAction" Type="date" Nullable="false" />
+          <Property Name="DateAction" Type="datetime" Nullable="false" />
+          <Property Name="Message" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="BarangayCaptains">
           <Key>
@@ -214,7 +215,7 @@
           <Property Name="SummonId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ReportDescription" Type="varchar(max)" Nullable="false" />
           <Property Name="IncidentDate" Type="date" Nullable="false" />
-          <Property Name="DateReported" Type="date" Nullable="false" />
+          <Property Name="DateReported" Type="datetime" Nullable="false" />
           <Property Name="SummonStatusId" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="SummonStatus">
@@ -838,7 +839,8 @@
           <Property Name="AuditTrailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AccountId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AuditActionsId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DateAction" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateAction" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.AuditTrail_AccountId_AspNetUsers" FromRole="AuditTrail" ToRole="AspNetUsers" />
           <NavigationProperty Name="AuditAction" Relationship="Self.AuditTrail_AuditActionsId_AuditActions" FromRole="AuditTrail" ToRole="AuditActions" />
         </EntityType>
@@ -980,7 +982,7 @@
           <Property Name="SummonId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ReportDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IncidentDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DateReported" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateReported" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SummonStatusId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="SummonInvolvedResidents" Relationship="Self.SummonInvolvedResident_SummonId_Summons" FromRole="Summons" ToRole="SummonInvolvedResident" />
           <NavigationProperty Name="SummonStatu" Relationship="Self.Summons_SummonStatusId_SummonStatus" FromRole="Summons" ToRole="SummonStatus" />
@@ -1598,6 +1600,7 @@
                 <ScalarProperty Name="AccountId" ColumnName="AccountId" />
                 <ScalarProperty Name="AuditActionsId" ColumnName="AuditActionsId" />
                 <ScalarProperty Name="DateAction" ColumnName="DateAction" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

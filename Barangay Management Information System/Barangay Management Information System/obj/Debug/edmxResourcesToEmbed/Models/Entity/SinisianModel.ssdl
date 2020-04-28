@@ -101,7 +101,8 @@
     <Property Name="AuditTrailId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="AccountId" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="AuditActionsId" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="DateAction" Type="date" Nullable="false" />
+    <Property Name="DateAction" Type="datetime" Nullable="false" />
+    <Property Name="Message" Type="varchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="BarangayCaptains">
     <Key>
@@ -209,7 +210,7 @@
     <Property Name="SummonId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ReportDescription" Type="varchar(max)" Nullable="false" />
     <Property Name="IncidentDate" Type="date" Nullable="false" />
-    <Property Name="DateReported" Type="date" Nullable="false" />
+    <Property Name="DateReported" Type="datetime" Nullable="false" />
     <Property Name="SummonStatusId" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="SummonStatus">

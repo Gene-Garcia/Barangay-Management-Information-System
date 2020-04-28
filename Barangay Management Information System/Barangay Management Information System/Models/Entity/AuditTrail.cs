@@ -18,6 +18,7 @@ namespace Barangay_Management_Information_System.Models.Entity
         public string AccountId { get; set; }
         public string AuditActionsId { get; set; }
         public System.DateTime DateAction { get; set; }
+        public string Message { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AuditAction AuditAction { get; set; }

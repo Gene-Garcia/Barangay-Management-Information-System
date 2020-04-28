@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Barangay_Management_Information_System.Models.Entity.AuditTrail>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #sidenav #sidelinks #audit-link {
+        background-color: #ececec;
+        color: #434e52;
+        text-decoration: none;
+    }
+</style>
+
+<div class="container">
+
+    @if (TempData["alert-type"] != null)
+    {
+        <div class="alert @TempData["alert-type"] alert-dismissible mb-3">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"]
+        </div>
+    }
+
+    <h1 class="page-header-title">Audit Trail</h1>
+
+    <div class="card shadow border-0 rounded p-3 mb-5">
+        <div class="card-body table-responsive">
+
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AccountId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AuditActionsId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateAction)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Message)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AccountId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AuditActionsId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateAction)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Message)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.AuditTrailId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.AuditTrailId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.AuditTrailId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+</div>

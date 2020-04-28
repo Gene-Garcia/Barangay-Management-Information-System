@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Barangay_Management_Information_System.Models;
 using Barangay_Management_Information_System.Models.Entity;
+using Barangay_Management_Information_System.Classess;
 
 namespace Barangay_Management_Information_System.Controllers
 {
@@ -80,6 +81,12 @@ namespace Barangay_Management_Information_System.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+
+                    // Audit Trail
+                    string userId = User.Identity.GetUserId();
+                    string userName = User.Identity.Name;
+                    AuditTrailer.Record( userName + " logged in.", AuditTrailer.ACCOUNT_TYPE, userId );
+
                     return RedirectToAction("Index", "Dashboard");
                 case SignInStatus.LockedOut:
                     return View("Lockout");

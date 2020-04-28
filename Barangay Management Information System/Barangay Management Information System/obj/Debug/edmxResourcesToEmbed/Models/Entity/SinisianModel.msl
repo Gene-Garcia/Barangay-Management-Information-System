@@ -109,6 +109,7 @@
           <ScalarProperty Name="AccountId" ColumnName="AccountId" />
           <ScalarProperty Name="AuditActionsId" ColumnName="AuditActionsId" />
           <ScalarProperty Name="DateAction" ColumnName="DateAction" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
