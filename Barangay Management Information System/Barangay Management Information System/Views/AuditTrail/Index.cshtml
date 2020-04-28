@@ -3,6 +3,35 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    List<SelectListItem> actionTypeSLI = new List<SelectListItem>();
+
+    var counter = 0;
+
+    foreach(var type in TempData["ActionTypes"] as List< Barangay_Management_Information_System.Models.Entity.AuditAction >)
+    {
+
+        if (type.AuditActionsId == TempData["ActionTypeSelect"].ToString())
+        {
+            counter += 1;
+        }
+
+        actionTypeSLI.Add(new SelectListItem()
+        {
+            Value = type.AuditActionsId,
+            Text = type.Name
+        }
+        );
+
+    }
+
+    actionTypeSLI.Add(new SelectListItem()
+    {
+        Value = "",
+        Text = "No Filter"
+    }
+    );
+
 }
 
 <style>
@@ -10,6 +39,16 @@
         background-color: #ececec;
         color: #434e52;
         text-decoration: none;
+    }
+
+    .custom-select {
+        color: #003f30;
+        letter-spacing: 1px;
+    }
+
+    .custom-select:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
     }
 </style>
 
@@ -26,50 +65,101 @@
     <h1 class="page-header-title">Audit Trail</h1>
 
     <div class="card shadow border-0 rounded p-3 mb-5">
+
+        @using (Html.BeginForm("Index", "AuditTrail", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="form-inline p-3" >
+                <div class="form-group">
+                    <div class="">
+                        <select class="custom-select" name="actionSelected">
+                            @{
+                                foreach (var sLI in actionTypeSLI)
+                                {
+
+                                    if (sLI.Value == TempData["ActionTypeSelect"].ToString())
+                                    {
+                                        <option value="@sLI.Value" selected>@sLI.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@sLI.Value">@sLI.Text</option>
+                                    }
+
+
+                                }
+
+                                if (counter == 0)
+                                {
+                                    <option selected>Filter Audit by Type</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        <input type="submit" value="Filter" class="btn btn-success ml-2"/>
+                    </div>
+                </div>
+            </div>
+        }
+
         <div class="card-body table-responsive">
 
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.AccountId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.AuditActionsId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DateAction)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Message)
-                    </th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
+            <table class="table table-hover w-100 dt-responsive nowrap" id="table">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AccountId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AuditActionsId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateAction)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Message)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.AuditTrailId }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.AuditTrailId }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.AuditTrailId })
-                        </td>
+                        <th>
+                            Audit Type
+                        </th>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Message)
+                        </th>
+                        <th>
+                            Date and Time Recorded
+                        </th>
                     </tr>
-                }
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.AuditAction.Name
+                            </td>
+                            <td>
+                                @item.AspNetUser.UserName
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Message)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateAction)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
 
             </table>
         </div>
     </div>
 
 </div>
+
+@section scripts{
+
+    <script>
+
+    $(document).ready(function () {
+        $('#table').DataTable();
+    });
+
+    </script>
+
+}

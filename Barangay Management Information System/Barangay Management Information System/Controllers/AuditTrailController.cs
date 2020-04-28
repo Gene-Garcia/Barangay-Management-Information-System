@@ -15,19 +15,31 @@ namespace Barangay_Management_Information_System.Controllers
         private DBEntities entities = new DBEntities();
 
         // GET: AuditTrail
-        [HttpGet]
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string actionSelected = "")
         {
             TempData["user-profile-photo"] = DisplayPictureRetriever.GetDisplayPicture(User.Identity.GetUserId(), entities);
             try
             {
-                List<AuditTrail> audit = entities.AuditTrails.ToList();
+
+                List<AuditTrail> audit;
+
+                if (actionSelected == "")
+                {
+                    audit = entities.AuditTrails.ToList();
+                }
+                else
+                {
+                    audit = entities.AuditTrails.Where( m => m.AuditActionsId == actionSelected).ToList();
+                }
+
+                TempData["ActionTypes"] = entities.AuditActions.ToList();
+                TempData["ActionTypeSelect"] = actionSelected;
 
                 if (audit.Count < 1)
                 {
-                    TempData["alert-type"] = "alert-danger";
-                    TempData["alert-header"] = "Error";
+                    TempData["alert-type"] = "alert-info";
+                    TempData["alert-header"] = "Information";
                     TempData["alert-msg"] = "No audit trail record found.";
                 }
 
