@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Barangay_Management_Information_System.Classess
 {
-    public class DisplayPictureRetriever
+    public class UserHelper
     {
         public static string GetDisplayPicture(string userId, DBEntities entities)
         {

@@ -82,10 +82,12 @@ namespace Barangay_Management_Information_System.Controllers
             {
                 case SignInStatus.Success:
 
+                    ApplicationUser user = UserManager.FindByName(model.Username);
+
                     // Audit Trail
-                    string userId = User.Identity.GetUserId();
-                    string userName = User.Identity.Name;
-                    AuditTrailer.Record( userName + " logged in.", AuditTrailer.ACCOUNT_TYPE, userId );
+                    string userId = user.Id;
+                    string userName = user.UserName;
+                    new AuditTrailer().Record(userName + " logged in.", AuditTrailer.LOGIN_TYPE, userId );
 
                     return RedirectToAction("Index", "Dashboard");
                 case SignInStatus.LockedOut:
@@ -184,6 +186,10 @@ namespace Barangay_Management_Information_System.Controllers
                     // Add User Role
                     entities.AspNetUserRoles.Add( new AspNetUserRole() { RoleId = model.RoleId, UserId = user.Id } );
                     entities.SaveChanges();
+
+                    // Audit Trail
+                    string userId = User.Identity.GetUserId();
+                    new AuditTrailer().Record("Created an accound for " + newUser.UserName, AuditTrailer.ACCOUNT_TYPE, userId);
 
                     TempData["alert-type"] = "alert-success";
                     TempData["alert-header"] = "Success";

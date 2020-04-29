@@ -23,7 +23,7 @@ namespace Barangay_Management_Information_System.Controllers
         [Authorize]
         public ActionResult CreateAccount()
         {
-            TempData["user-profile-photo"] = DisplayPictureRetriever.GetDisplayPicture(User.Identity.GetUserId(), entities);
+            TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
             try
             {
 
@@ -67,7 +67,7 @@ namespace Barangay_Management_Information_System.Controllers
         [Authorize]
         public ActionResult ModifyAccount()
         {
-            TempData["user-profile-photo"] = DisplayPictureRetriever.GetDisplayPicture(User.Identity.GetUserId(), entities);
+            TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
             try
             {
 
@@ -116,6 +116,10 @@ namespace Barangay_Management_Information_System.Controllers
                 entities.AspNetRoles.Add(role);
                 entities.SaveChanges();
 
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+                new AuditTrailer().Record("Added " + role.Name + " as an account role.", AuditTrailer.ACCOUNT_TYPE, userId);
+
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
                 TempData["alert-msg"] = "Role with name " + role.Name + " is succesfully added.";
@@ -159,6 +163,10 @@ namespace Barangay_Management_Information_System.Controllers
                 entities.Entry(role).State = System.Data.Entity.EntityState.Modified;
                 entities.SaveChanges();
 
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+                new AuditTrailer().Record("Updated " + role.Name + ".", AuditTrailer.ACCOUNT_TYPE, userId);
+
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
                 TempData["alert-msg"] = "Role updated.";
@@ -179,8 +187,13 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
-                entities.AspNetRoles.Remove( entities.AspNetRoles.Where(m => m.Id == roleId).FirstOrDefault() );
+                AspNetRole role = entities.AspNetRoles.Where(m => m.Id == roleId).FirstOrDefault();
+                entities.AspNetRoles.Remove( role );
                 entities.SaveChanges();
+
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+                new AuditTrailer().Record("Deleted " + role.Name + " from the account roles.", AuditTrailer.ACCOUNT_TYPE, userId);
 
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
@@ -224,7 +237,12 @@ namespace Barangay_Management_Information_System.Controllers
             try
             {
                 entities.Entry(userRole).State = System.Data.Entity.EntityState.Modified;
-                entities.SaveChanges(); 
+                entities.SaveChanges();
+
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+                new AuditTrailer().Record("Modified a user role.",  AuditTrailer.ACCOUNT_TYPE, userId);
+                //AuditTrailer.Record("Modified the role of " + currentUser.UserName + " to " + currentUser.AspNetUserRoles.FirstOrDefault().AspNetRole.Name +".", AuditTrailer.ACCOUNT_TYPE, userId);
 
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";

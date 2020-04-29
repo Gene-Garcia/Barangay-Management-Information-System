@@ -121,7 +121,10 @@
                             @Html.DisplayNameFor(model => model.Message)
                         </th>
                         <th>
-                            Date and Time Recorded
+                            Date Recorded
+                        </th>
+                        <th>
+                            Time Recorded
                         </th>
                     </tr>
                 </thead>
@@ -140,7 +143,10 @@
                                 @Html.DisplayFor(modelItem => item.Message)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.DateAction)
+                                @item.DateAction.ToLongDateString()
+                            </td>
+                            <td>
+                                @item.DateAction.ToShortTimeString()
                             </td>
                         </tr>
                     }

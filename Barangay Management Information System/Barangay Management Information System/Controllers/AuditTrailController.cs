@@ -18,7 +18,7 @@ namespace Barangay_Management_Information_System.Controllers
         [Authorize]
         public ActionResult Index(string actionSelected = "")
         {
-            TempData["user-profile-photo"] = DisplayPictureRetriever.GetDisplayPicture(User.Identity.GetUserId(), entities);
+            TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
             try
             {
 
@@ -26,11 +26,11 @@ namespace Barangay_Management_Information_System.Controllers
 
                 if (actionSelected == "")
                 {
-                    audit = entities.AuditTrails.ToList();
+                    audit = entities.AuditTrails.OrderByDescending(m => m.DateAction).ToList();
                 }
                 else
                 {
-                    audit = entities.AuditTrails.Where( m => m.AuditActionsId == actionSelected).ToList();
+                    audit = entities.AuditTrails.Where( m => m.AuditActionsId == actionSelected).OrderByDescending(m => m.DateAction).ToList();
                 }
 
                 TempData["ActionTypes"] = entities.AuditActions.ToList();

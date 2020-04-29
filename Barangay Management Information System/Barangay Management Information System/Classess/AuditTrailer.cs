@@ -12,6 +12,7 @@ namespace Barangay_Management_Information_System.Classess
 
         // Constant Audit Types
         public const int ACCOUNT_TYPE               = 568556;
+        public const int LOGIN_TYPE                 = 451377;
         public const int BARANGAY_CLEARANCE_TYPE    = 112346;
         public const int BARANGAY_OFFICIAL_TYPE     = 753721;
         public const int RESIDENT_TYPE              = 342523;
@@ -19,7 +20,7 @@ namespace Barangay_Management_Information_System.Classess
 
         private const string INVALID_ACTION         = "x09jF";
 
-        public static void Record(string message, int actionType, string userId)
+        public void Record(string message, int actionType, string userId)
         {
 
             try
@@ -30,9 +31,11 @@ namespace Barangay_Management_Information_System.Classess
                 if (auditActionId != INVALID_ACTION)
                 {
 
+                    string id = CreateProperId(message, actionType);
+
                     AuditTrail auditTrail = new AuditTrail()
                     {
-                        AuditTrailId = KeyGenerator.GenerateId(message + actionType + "for-audit"),
+                        AuditTrailId = id,
                         AccountId = userId,
                         AuditActionsId = auditActionId,
                         Message = message,
@@ -48,12 +51,32 @@ namespace Barangay_Management_Information_System.Classess
 
         }
 
-        private static string DetermineActionId(int actionType)
+        private string CreateProperId(string message, int actionType)
+        {
+            string id = "";
+            AuditTrail auditTrail;
+            do
+            {
+                id = KeyGenerator.GenerateId(message + actionType + "for-audit");
+
+                auditTrail = entities.AuditTrails.Where(m => m.AuditTrailId == id).FirstOrDefault();
+
+                if (auditTrail == null)
+                    break;
+
+            } while (true);
+
+            return id;
+        }
+
+        private string DetermineActionId(int actionType)
         {
             string id = "";
 
             if (actionType == ACCOUNT_TYPE)
                 id = entities.AuditActions.Where(m => m.Name.ToLower() == "account").Select(m => m.AuditActionsId).FirstOrDefault();
+            else if (actionType == LOGIN_TYPE)
+                id = entities.AuditActions.Where(m => m.Name.ToLower() == "login").Select(m => m.AuditActionsId).FirstOrDefault();
             else if (actionType == BARANGAY_CLEARANCE_TYPE)
                 id = entities.AuditActions.Where(m => m.Name.ToLower() == "barangay clearance").Select(m => m.AuditActionsId).FirstOrDefault();
             else if (actionType == BARANGAY_OFFICIAL_TYPE)

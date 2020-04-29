@@ -18,7 +18,7 @@ namespace Barangay_Management_Information_System.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            TempData["user-profile-photo"] = DisplayPictureRetriever.GetDisplayPicture(User.Identity.GetUserId(), entities);
+            TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
 
             return View();
         }

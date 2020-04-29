@@ -17,6 +17,7 @@ namespace Barangay_Management_Information_System.Classess
         private static int DATE_LOC = 1;
         private static int HASH1_LOC = 2;
         private static int HASH2_LOC = 3;
+        private static int INTEGER_LOC = 4;
 
         private static Random rnd = new Random();
 
@@ -25,34 +26,36 @@ namespace Barangay_Management_Information_System.Classess
 
             textString = textString.Replace(" ", "");
 
-            string[,] id = { { "", "", "", "" }, { "", "", "", "" }, { "", "", "", "" }, { "", "", "", "" } };
+            string[,] id = { { "", "", "", "", "" }, { "", "", "", "", "" }, { "", "", "", "", "" }, { "", "", "", "", "" }, { "", "", "", "", "" } };
 
             fillDate(ref id);
             fillTime(ref id);
             fill(ref id, HASH1_LOC, textString);
-            fill(ref id, HASH2_LOC, textString);
+            fillRandomString(ref id);
+            fillRandomInteger(ref id);
 
-            return createId(id);
+            string[] newId = cipher(id);
+
+            string finalID = createId(newId);
+            
+            return finalID.Replace(" ", new Random().Next().ToString()+"x");
         }
 
-        private static string createId(string[,] id)
+        private static string createId(string[] id)
         {
             string finalId = "";
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 4; j++)
+            for (int i = 0; i < 5; i++)
+            {                
+                if (id[i] == " ")
                 {
-                    if (id[i, j] == " ")
-                    {
-                        finalId += "0";
-                    }
-                    else
-                    {
-                        finalId += id[i, j];
-                    }                    
+                    finalId += "0";
+                }
+                else
+                {
+                    finalId += id[i];
                 }
 
-                if (i >= 3)
+                if (i >= 4)
                 {
 
                 } 
@@ -63,6 +66,43 @@ namespace Barangay_Management_Information_System.Classess
             }
 
             return finalId;
+        }
+
+        private static string[] cipher(string[,] id)
+        {
+            int KEY = 4;
+
+            string[] id1Dimension = { "", "" , "", "", "" };
+
+            for(int i = 0; i < 5; i++)
+            {
+
+                string rowValue = "";
+
+                for (int j = 0; j < 5; j++)
+                {
+                    rowValue += id[i, j];
+                }
+
+                id1Dimension[i] = CeasarCipher.Encipher(rowValue, KEY);
+            }
+
+            return id1Dimension;
+            
+        }
+
+        private static void fillRandomInteger(ref string[,] id)
+        {
+            string strInteger = "0123456789";
+
+            fill(ref id, INTEGER_LOC, strInteger);
+        }
+
+        private static void fillRandomString(ref string[,] id)
+        {
+            string str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            fill(ref id, HASH2_LOC, str);
         }
 
         private static void fillTime(ref string[,] id)
