@@ -87,7 +87,7 @@ namespace Barangay_Management_Information_System.Controllers
                     // Audit Trail
                     string userId = user.Id;
                     string userName = user.UserName;
-                    new AuditTrailer().Record(userName + " logged in.", AuditTrailer.LOGIN_TYPE, userId );
+                    new AuditTrailer().Record(userName + " signed in.", AuditTrailer.LOGIN_TYPE, userId );
 
                     return RedirectToAction("Index", "Dashboard");
                 case SignInStatus.LockedOut:
@@ -437,6 +437,10 @@ namespace Barangay_Management_Information_System.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            // Audit Trail
+            string userId = User.Identity.GetUserId();
+            string userName = User.Identity.GetUserName();
+            new AuditTrailer().Record(userName + " signed out.", AuditTrailer.LOGIN_TYPE, userId);
             return RedirectToAction("Login", "Account");
         }
 

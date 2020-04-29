@@ -76,7 +76,7 @@ namespace Barangay_Management_Information_System.Classess
             if (actionType == ACCOUNT_TYPE)
                 id = entities.AuditActions.Where(m => m.Name.ToLower() == "account").Select(m => m.AuditActionsId).FirstOrDefault();
             else if (actionType == LOGIN_TYPE)
-                id = entities.AuditActions.Where(m => m.Name.ToLower() == "login").Select(m => m.AuditActionsId).FirstOrDefault();
+                id = entities.AuditActions.Where(m => m.Name.ToLower() == "sign in and sign off").Select(m => m.AuditActionsId).FirstOrDefault();
             else if (actionType == BARANGAY_CLEARANCE_TYPE)
                 id = entities.AuditActions.Where(m => m.Name.ToLower() == "barangay clearance").Select(m => m.AuditActionsId).FirstOrDefault();
             else if (actionType == BARANGAY_OFFICIAL_TYPE)

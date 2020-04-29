@@ -132,11 +132,11 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
+                        <tr class="">
+                            <td class="font-italic text-center">
                                 @item.AuditAction.Name
                             </td>
-                            <td>
+                            <td class="font-weight-bold">
                                 @item.AspNetUser.UserName
                             </td>
                             <td>
@@ -163,7 +163,10 @@
     <script>
 
     $(document).ready(function () {
-        $('#table').DataTable();
+        $('#table').DataTable({
+            "order": [[3, "desc"]],
+            "order": [[4, "desc"]]
+        });
     });
 
     </script>

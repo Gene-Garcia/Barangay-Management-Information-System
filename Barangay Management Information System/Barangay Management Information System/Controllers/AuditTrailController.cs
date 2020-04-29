@@ -26,14 +26,14 @@ namespace Barangay_Management_Information_System.Controllers
 
                 if (actionSelected == "")
                 {
-                    audit = entities.AuditTrails.OrderByDescending(m => m.DateAction).ToList();
+                    audit = entities.AuditTrails.OrderBy(m => m.DateAction).ToList();
                 }
                 else
                 {
-                    audit = entities.AuditTrails.Where( m => m.AuditActionsId == actionSelected).OrderByDescending(m => m.DateAction).ToList();
+                    audit = entities.AuditTrails.Where( m => m.AuditActionsId == actionSelected).OrderBy(m => m.DateAction).ToList();
                 }
 
-                TempData["ActionTypes"] = entities.AuditActions.ToList();
+                TempData["ActionTypes"] = entities.AuditActions.OrderBy(m => m.Name).ToList();
                 TempData["ActionTypeSelect"] = actionSelected;
 
                 if (audit.Count < 1)
