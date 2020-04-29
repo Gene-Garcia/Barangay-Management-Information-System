@@ -1,0 +1,86 @@
+﻿@model Barangay_Management_Information_System.Models.Entity.ResidentsInformation
+
+@{
+    ViewBag.Title = "Create Barangay Clearance";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #sidenav #sidelinks #barangay-clearance-link {
+        background-color: #ececec;
+        color: #434e52;
+        text-decoration: none;
+    }
+</style>
+
+<div class="container">
+
+    @if (TempData["alert-type"] != null)
+    {
+        <div class="alert @TempData["alert-type"] alert-dismissible mb-3">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"]
+        </div>
+    }
+
+    <h1 class="page-header-title">Generate Barangay Clearance</h1>
+
+    <div class="card shadow border-0 rounded p-3 mb-5">
+        <div class="card-body">
+
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ResidentId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ResidentId)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.LastName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.FirstName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MiddleName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MiddleName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Birthday)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Birthday)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Sex)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Sex)
+                    </dd>
+
+                </dl>
+            </div>
+
+        </div>
+    </div>
+</div>

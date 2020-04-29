@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Barangay_Management_Information_System.Models.Entity.ResidentsInformation>
+
+@{
+    ViewBag.Title = "Barangay Clearance";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #sidenav #sidelinks #barangay-clearance-link {
+        background-color: #ececec;
+        color: #434e52;
+        text-decoration: none;
+    }
+</style>
+
+<div class="container">
+
+    @if (TempData["alert-type"] != null)
+    {
+        <div class="alert @TempData["alert-type"] alert-dismissible mb-3">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"]
+        </div>
+    }
+
+    <h1 class="page-header-title">Residents List for Barangay Clearance</h1>
+
+    <div class="card shadow border-0 rounded p-3 mb-5">
+        <div class="card-body table-responsive">
+
+            <table class="table table-hover w-100 dt-responsive nowrap" id="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MiddleName)
+                        </th>
+                        <td></td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr onclick="redirect('@item.ResidentId')">
+                            <td class="font-weight-bold text-center">
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td class="text-center ">
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => item.MiddleName)
+                            </td>
+                            <td>
+                                <button class="btn btn-light btn-sm shadow" onclick="redirect('@item.ResidentId')">Generate Clearance</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script>
+
+        function redirect(residentId) {
+            var url = "/BarangayClearance/View?residentId=" + residentId;
+
+            window.location.href = url;
+        }
+
+        $(document).ready(function () {
+            $('#table').DataTable({
+                "order": [[0, "asc"]]
+            });
+        });
+    </script>
+    
+}

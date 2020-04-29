@@ -180,6 +180,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminAccountController.cs" />
     <Compile Include="Controllers\AuditTrailController.cs" />
+    <Compile Include="Controllers\BarangayClearanceController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -377,6 +378,8 @@
     <Content Include="Views\PersonalAccount\_UploadDisplayPicture.cshtml" />
     <Content Include="Views\PersonalAccount\_ChangeUsername.cshtml" />
     <Content Include="Views\AuditTrail\Index.cshtml" />
+    <Content Include="Views\BarangayClearance\Index.cshtml" />
+    <Content Include="Views\BarangayClearance\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
