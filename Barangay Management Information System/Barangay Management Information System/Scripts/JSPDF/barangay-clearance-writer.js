@@ -28,6 +28,6 @@ function generateClearanceForm() {
 
     //100 187
 
-    doc.save('Barangay Clearance.pdf');
+    doc.save(firstName + " " + lastName + " Barangay Clearance.pdf");
 
 }
