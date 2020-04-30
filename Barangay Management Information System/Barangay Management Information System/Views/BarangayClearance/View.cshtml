@@ -5,6 +5,14 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+@* JSPDF *@
+
+<script src="~/Scripts/JSPDF/jquery/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/JSPDF/jquery/jquery-ui-1.8.17.custom.min.js"></script>
+<script src="~/Scripts/JSPDF/dist/jspdf.debug.js"></script>
+<script src="~/Scripts/JSPDF/barangay-clearance-writer.js"></script>
+
+
 <style>
     #sidenav #sidelinks #barangay-clearance-link {
         background-color: #ececec;
@@ -27,6 +35,8 @@
 
     <div class="card shadow border-0 rounded p-3 mb-5">
         <div class="card-body">
+
+            <button class="btn btn-success" onclick="generateClearanceForm()">Generate</button>
 
             <div>
                 <dl class="dl-horizontal">

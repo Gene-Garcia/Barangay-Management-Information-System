@@ -329,6 +329,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JSPDF\basic.js" />
+    <Content Include="Scripts\JSPDF\dist\jspdf.debug.js" />
+    <Content Include="Scripts\JSPDF\dist\jspdf.min.js" />
+    <Content Include="Scripts\JSPDF\barangay-clearance-writer.js" />
+    <Content Include="Scripts\JSPDF\jquery\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\JSPDF\jquery\jquery-ui-1.8.17.custom.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
