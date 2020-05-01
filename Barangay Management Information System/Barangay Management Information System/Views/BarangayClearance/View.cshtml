@@ -3,6 +3,18 @@
 @{
     ViewBag.Title = "Create Barangay Clearance";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    var date = DateTime.Now;
+
+    var today = DateTime.Today;
+    var age = today.Year - Model.Birthday.Year;
+    if (Model.Birthday > today.AddYears(-age))
+    {
+        age--;
+    }
+
+    var dayDate = date.Month;
+
 }
 
 @* JSPDF *@
@@ -19,9 +31,24 @@
         color: #434e52;
         text-decoration: none;
     }
+
+    .form-control {
+        color: #003f30;
+        letter-spacing: 2px;
+    }
+
+        .form-control:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+        }
 </style>
 
 <div class="container">
+
+    <input type="hidden" id="firstName" value="@Model.FirstName" />
+    <input type="hidden" id="middleName" value="@Model.MiddleName" />
+    <input type="hidden" id="lastName" value="@Model.LastName" />
+    <input type="hidden" id="age" value="@age" />
 
     @if (TempData["alert-type"] != null)
     {
@@ -36,61 +63,91 @@
     <div class="card shadow border-0 rounded p-3 mb-5">
         <div class="card-body">
 
-            <button class="btn btn-success" onclick="generateClearanceForm()">Generate</button>
-
             <div>
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.ResidentId)
-                    </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.ResidentId)
-                    </dd>
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <p class="text-right" style="font-size: 16px">@date.ToLongDateString()</p>
+                    </div>
+                </div>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.LastName)
-                    </dt>
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <label>Surname</label>
+                        <div class="form-control-plaintext border rounded p-2" style="letter-spacing: 1px; font-size: 15px;">
+                            @Model.LastName
+                        </div>
+                    </div>
+                </div>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.LastName)
-                    </dd>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <label>First Name</label>
+                        <div class="form-control-plaintext border rounded p-2" style="letter-spacing: 1px; font-size: 15px;">
+                            @Model.FirstName
+                        </div>
+                    </div>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.FirstName)
-                    </dt>
+                    <div class="col-md-6">
+                        <label>Middle Name</label>
+                        <div class="form-control-plaintext border rounded p-2" style="letter-spacing: 1px; font-size: 15px;">
+                            @Model.MiddleName
+                        </div>
+                    </div>
+                </div>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.FirstName)
-                    </dd>
+                <div class="row mt-4">
+                    <div class="col-lg-6">
+                        <label>Date of Birth</label>
+                        <div class="form-control-plaintext border rounded p-2" style="letter-spacing: 1px; font-size: 15px;">
+                            @Model.Birthday.ToLongDateString()
+                        </div>
+                    </div>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.MiddleName)
-                    </dt>
+                    <div class="col-lg-4">
+                        <label>Age</label>
+                        <div class="form-control-plaintext border rounded p-2" style="letter-spacing: 1px; font-size: 15px;">
+                            @age y/o
+                        </div>
+                    </div>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.MiddleName)
-                    </dd>
+                    <div class="col-lg-2">
+                        <label>Message</label>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Birthday)
-                    </dt>
+                        @{
+                            var textColor = "text-danger";
+                            var msg = "Underage";
+                            if (age >= 18)
+                            {
+                                textColor = "text-success";
+                                msg = "Legal Age";
+                            }
+                        }
 
-                    <dd>
-                        @Html.DisplayFor(model => model.Birthday)
-                    </dd>
+                        <div class="form-control-plaintext border rounded p-2 @textColor font-weight-bold" style="letter-spacing: 1px; font-size: 15px;">
+                            @msg
+                        </div>
+                    </div>
+                </div>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Sex)
-                    </dt>
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <button class="btn btn-success float-right" onclick="generateClearanceForm()">Generate Clearance Form</button>
+                    </div>
+                </div>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.Sex)
-                    </dd>
-
-                </dl>
             </div>
 
         </div>
     </div>
 </div>
+
+@section scripts{
+
+    <script>
+
+
+
+    </script>
+
+}

@@ -8,14 +8,22 @@ function generateClearanceForm() {
     doc.addImage(cleranceForm, 2, 0, 206, 296);
 
 
-    var firstName = "Gene Joseph";
-    var middleName = "Villalobos";
-    var lastName = "Garcia";
+    var firstName = document.getElementById("firstName").value;
+    var middleName = document.getElementById("middleName").value;
+    var lastName = document.getElementById("lastName").value;
 
-    var age = "19";
-    
-    var dayDate = "30";
-    var monthDate = "September";
+    console.log(firstName + " --");
+
+    var age = document.getElementById("age").value;
+
+    var dateObj = new Date();
+
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    var dayDate = dateObj.getDate();
+    var monthDate = monthNames[dateObj.getMonth()];
 
     doc.setFontSize(12);
 
@@ -23,11 +31,12 @@ function generateClearanceForm() {
 
     doc.text(163, 150, age);
 
-    doc.text(59, 209, dayDate);
-    doc.text(85, 209, monthDate);
+    doc.text(59, 209, dayDate.toString());
+    doc.text(85, 209, monthDate.toString());
 
     //100 187
 
     doc.save(firstName + " " + lastName + " Barangay Clearance.pdf");
 
+    window.location.href = "/BarangayClearance/Index";
 }
