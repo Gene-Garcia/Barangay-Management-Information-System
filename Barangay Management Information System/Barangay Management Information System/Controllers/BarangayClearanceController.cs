@@ -47,5 +47,23 @@ namespace Barangay_Management_Information_System.Controllers
                 return View();
             }
         }
+
+        [Authorize]
+        public ActionResult Record(string clearanceName)
+        {
+            try
+            {
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+                string userName = User.Identity.Name;
+                new AuditTrailer().Record(userName + " generated a barangay clearance form for " + clearanceName + ".", AuditTrailer.BARANGAY_CLEARANCE_TYPE, userId);
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

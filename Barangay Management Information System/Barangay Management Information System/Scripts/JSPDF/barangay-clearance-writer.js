@@ -38,5 +38,5 @@ function generateClearanceForm() {
 
     doc.save(firstName + " " + lastName + " Barangay Clearance.pdf");
 
-    window.location.href = "/BarangayClearance/Index";
+    window.location.href = "/BarangayClearance/Record?clearanceName=" + firstName + " " + lastName;
 }
