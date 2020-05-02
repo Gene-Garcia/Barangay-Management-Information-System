@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Barangay_Management_Information_System.Models.Entity.ResidentsInformation>
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container">
+
+    @if (TempData["alert-type"] != null)
+    {
+        <div class="alert @TempData["alert-type"] alert-dismissible mb-3">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"]
+        </div>
+    }
+
+    <h1 class="page-header-title">--</h1>
+
+    <div class="card shadow border-0 rounded p-3 mb-5">
+        <div class="card-body">
+
+            @using (Html.BeginForm("View", "BarangayOfficials", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-inline mb-3">
+                        <div class="form-group mb-2">
+                            <div class="input-group float-left">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text fa fa-search"></span>
+                                </div>
+                                <input type="text" id="filterInput" placeholder="Search for names.." class="form-control">
+                            </div>
+                        </div>
+
+                        <input type="submit" value="Elect as Barangay Councelors" class="btn btn-success ml-auto" />                   
+                    </div>                    
+
+                    <div class="">
+                        <table class="table table-hover dt-responsive" id="">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">
+                                        Surname
+                                    </th>
+                                    <th class="text-center">
+                                        First Name
+                                    </th>
+                                    <th class="text-center">
+                                        Middle Name
+                                    </th>
+                                    <th class="text-center">
+                                        Select
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="table">
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="">
+                                        <td class="font-weight-bold text-center" style="font-size:16px;">
+                                            @Html.DisplayFor(modelItem => item.LastName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FirstName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MiddleName)
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox" name="residentIDs" value="@item.ResidentId" class="" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                }
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#filterInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#table tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+}

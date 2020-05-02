@@ -181,6 +181,7 @@
     <Compile Include="Controllers\AdminAccountController.cs" />
     <Compile Include="Controllers\AuditTrailController.cs" />
     <Compile Include="Controllers\BarangayClearanceController.cs" />
+    <Compile Include="Controllers\BarangayOfficialsController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -386,6 +387,8 @@
     <Content Include="Views\AuditTrail\Index.cshtml" />
     <Content Include="Views\BarangayClearance\Index.cshtml" />
     <Content Include="Views\BarangayClearance\View.cshtml" />
+    <Content Include="Views\BarangayOfficials\Index.cshtml" />
+    <Content Include="Views\BarangayOfficials\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
