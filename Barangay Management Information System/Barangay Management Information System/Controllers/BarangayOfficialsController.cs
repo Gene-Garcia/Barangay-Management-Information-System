@@ -71,7 +71,6 @@ namespace Barangay_Management_Information_System.Controllers
             }
         }
 
-        [HttpPost]
         [Authorize]
         public ActionResult ElectChairmanSK(string residentId, string fullName)
         {
@@ -112,7 +111,17 @@ namespace Barangay_Management_Information_System.Controllers
 
                 SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
 
-                TempData["SKChairman"] = skChairman;
+                if(skChairman == null)
+                {
+                    TempData["alert-type"] = "alert-warning";
+                    TempData["alert-header"] = "Warning";
+                    TempData["alert-msg"] = "It appears that you have not yet elected an SK Chairman.";
+                    return RedirectToAction("ElectSKChairman");
+                }
+
+                TempData["SKChairmanFN"] = skChairman.ResidentsInformation.FirstName;
+                TempData["SKChairmanMN"] = skChairman.ResidentsInformation.MiddleName;
+                TempData["SKChairmanLN"] = skChairman.ResidentsInformation.LastName;
 
                 int legalYear = DateTime.Now.Date.Year - 18;
                 int day = DateTime.Now.Date.Day;
@@ -125,7 +134,69 @@ namespace Barangay_Management_Information_System.Controllers
             {
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
-                TempData["alert-msg"] = "Unable to elect SK Chairman, please try again later " + e.Message;
+                TempData["alert-msg"] = "Something went wrong, please try again later " + e.Message;
+                return View();
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ElectSkCouncilors(string[] residentIds)
+        {
+            try
+            {
+                if(residentIds.Length <= 0)
+                {
+                    TempData["alert-type"] = "alert-warning";
+                    TempData["alert-header"] = "Warning";
+                    TempData["alert-msg"] = "It appears that you have not selected any residents as SK Councilors.";
+                    return RedirectToAction("ElectSKCouncilors");
+                }
+
+                List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
+                SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
+
+                for (int i = 0; i < residentIds.Length; i++)
+                {
+                    entities.SKCouncelors.Add(new SKCouncelor() 
+                    {
+                        SKCouncelorId = KeyGenerator.GenerateId(residentIds[i]),
+                        ResidentId = residentIds[i],
+                        SKChairmanId = skChairman.SKChairmanId
+                    });
+                    entities.SaveChanges();
+                }
+
+                List<string> ids = new List<string>();
+                for (int i = 0; i < residentIds.Length; i++) { ids.Add(residentIds[i]); }
+                TempData["Ids"] = ids;
+
+                return RedirectToAction("ElectSKCouncilors");
+                //return RedirectToAction("ElectCaptain");
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later " + e.Message;
+                return View();
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult ElectCaptain()
+        {
+            try
+            {
+                List<ResidentsInformation> residents = entities.ResidentsInformations.ToList();
+                return View(residents);
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later " + e.Message;
                 return View();
             }
         }
