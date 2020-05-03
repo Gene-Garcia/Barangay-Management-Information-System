@@ -391,6 +391,7 @@
     <Content Include="Views\BarangayOfficials\View.cshtml" />
     <Content Include="Views\BarangayOfficials\ElectSKChairman.cshtml" />
     <Content Include="Views\BarangayOfficials\ElectSKCouncilors.cshtml" />
+    <Content Include="Views\BarangayOfficials\ElectCaptain.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -40,6 +40,14 @@ namespace Barangay_Management_Information_System.Controllers
             try
             {
 
+                // Check first if latest term is the same as the current year
+                    // Check first if there is a null EndYear, if there is notify and redirect to change the EndYear
+
+                // Or
+                // After electing Brgy Captain, the old term will be updated of the EndYear, no need to manualy change the EndYear later
+                    // Then, to check for the latest term get the highest StartYear, or get there record where EndYear is null
+                // But there should be a new way to check if its time to elect a new batch of Officials
+
                 List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
 
                 SKChairman sKChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
@@ -89,8 +97,7 @@ namespace Barangay_Management_Information_System.Controllers
                 TempData["alert-header"] = "Success";
                 TempData["alert-msg"] = fullName + " was elected as SK Chairman of Barangay Sinisian.";
 
-                return RedirectToAction("ElectSKChairman");
-                //return RedirectToAction("ElectSKCouncilors");
+                return RedirectToAction("ElectSKCouncilors");
             }
             catch (Exception e)
             {
@@ -171,8 +178,11 @@ namespace Barangay_Management_Information_System.Controllers
                 for (int i = 0; i < residentIds.Length; i++) { ids.Add(residentIds[i]); }
                 TempData["Ids"] = ids;
 
-                return RedirectToAction("ElectSKCouncilors");
-                //return RedirectToAction("ElectCaptain");
+                TempData["alert-type"] = "alert-success";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = "New batch of SK Councilors have been elected.";
+
+                return RedirectToAction("ElectCaptain");
             }
             catch (Exception e)
             {
@@ -198,6 +208,53 @@ namespace Barangay_Management_Information_System.Controllers
                 TempData["alert-header"] = "Error";
                 TempData["alert-msg"] = "Something went wrong, please try again later " + e.Message;
                 return View();
+            }
+        }
+
+        [Authorize]
+        public ActionResult ElectBrgyCaptain(string residentId)
+        {
+            try
+            {
+                OfficialTerm term = entities.OfficialTerms.OrderByDescending(m => m.EndYear).FirstOrDefault();
+
+                // Create new Official Term, term.EndYear will be the new StartYear. new EndYear will be null can be set later
+                OfficialTerm newTerm = new OfficialTerm()
+                {
+                    OfficialTermId = KeyGenerator.GenerateId(),
+                    StartYear = (int)term.EndYear
+                };
+                entities.OfficialTerms.Add( newTerm );
+                entities.SaveChanges();
+
+                // Get the newly elected SK Chairman, The record that is not in the BarangayCaptainTable means its the new record
+                List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
+                SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
+
+                // Now, elect the barangay Captain
+                BarangayCaptain barangayCaptain = new BarangayCaptain()
+                {
+                    CaptainId = KeyGenerator.GenerateId(residentId),
+                    OfficialTermId = newTerm.OfficialTermId,
+                    ResidentId = residentId,
+                    SKChairmanId = skChairman.SKChairmanId,
+                    
+                };
+                entities.BarangayCaptains.Add(barangayCaptain);
+                entities.SaveChanges();
+
+                TempData["alert-type"] = "alert-success";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = "New Barangay Captain of Barangay Sinisian was elected.";
+
+                return RedirectToAction("ElectCaptain");
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Unable to elect Barangay Captain, please try again later " + e.Message;
+                return RedirectToAction("ElectCaptain");
             }
         }
     }
