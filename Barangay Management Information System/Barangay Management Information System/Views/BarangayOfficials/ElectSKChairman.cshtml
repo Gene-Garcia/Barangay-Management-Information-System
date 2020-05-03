@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Barangay_Management_Information_System.Models.Entity.ResidentsInformation>
+
+@{
+    ViewBag.Title = "ElectSKChairman";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #sidenav #sidelinks #barangay-officials-link {
+        background-color: #ececec;
+        color: #434e52;
+        text-decoration: none;
+    }
+</style>
+
+<div class="container">
+
+    @if (TempData["alert-type"] != null)
+    {
+        <div class="alert @TempData["alert-type"] alert-dismissible mb-3">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"]
+        </div>
+    }
+
+    <h1 class="page-header-title">Elect SK Chairman</h1>
+
+    <div class="card shadow border-0 rounded p-3 mb-5">
+
+        <div class="card-body table-responsive">
+
+            <div class="">
+                <table class="table table-striped w-100 dt-responsive nowrap" id="table">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Actions</th>
+                            <th>
+                                Last Name
+                            </th>
+                            <th>
+                                First Name
+                            </th>
+                            <th>
+                                Middle Name
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        <a href="@Url.Action("ElectChairmanSK", "BarangayOfficials", new { residentId = item.ResidentId, fullName = item.FirstName + " " + item.LastName })" class="btn btn-success btn-sm">Elect</a>
+                                    </td>
+                                    <td style="font-weight:600; font-size:16px">
+                                        @Html.DisplayFor(modelItem => item.LastName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MiddleName)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable();
+        });
+    </script>
+    } 

@@ -389,6 +389,8 @@
     <Content Include="Views\BarangayClearance\View.cshtml" />
     <Content Include="Views\BarangayOfficials\Index.cshtml" />
     <Content Include="Views\BarangayOfficials\View.cshtml" />
+    <Content Include="Views\BarangayOfficials\ElectSKChairman.cshtml" />
+    <Content Include="Views\BarangayOfficials\ElectSKCouncilors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

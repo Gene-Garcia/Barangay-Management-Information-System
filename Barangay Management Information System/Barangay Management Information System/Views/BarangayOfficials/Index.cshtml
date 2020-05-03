@@ -4,8 +4,6 @@
     ViewBag.Title = "View";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-
 <div class="container">
 
     @if (TempData["alert-type"] != null)
@@ -16,7 +14,7 @@
         </div>
     }
 
-    <h1 class="page-header-title">--</h1>
+    <h1 class="page-header-title">Title</h1>
 
     <div class="card shadow border-0 rounded p-3 mb-5">
         <div class="card-body">
@@ -38,15 +36,12 @@
                         <input type="submit" value="Elect as Barangay Councelors" class="btn btn-success ml-auto" />                   
                     </div>                    
 
-                    <div class="">
-                        <table class="table table-hover dt-responsive" id="">
-                            <thead>
-                                <tr>
+                    <div class="table-responsive">
+                        <table class="table table-striped border-0" id="">
+                            <thead class="">
+                                <tr class="">
                                     <th class="text-center">
-                                        Surname
-                                    </th>
-                                    <th class="text-center">
-                                        First Name
+                                        First Name and Surname
                                     </th>
                                     <th class="text-center">
                                         Middle Name
@@ -61,13 +56,10 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr class="">
-                                        <td class="font-weight-bold text-center" style="font-size:16px;">
-                                            @Html.DisplayFor(modelItem => item.LastName)
+                                        <td class=" text-center" style="font-size:16px;">
+                                            @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
                                         </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.FirstName)
-                                        </td>
-                                        <td>
+                                        <td class="text-center">
                                             @Html.DisplayFor(modelItem => item.MiddleName)
                                         </td>
                                         <td class="text-center">
@@ -80,6 +72,7 @@
                         </table>
                     </div>
 
+                    <a href="#main" class="btn btn-primary"><span class="fa fa-angle-double-up" style="font-size: 20px"></span></a>
                 }
 
         </div>
