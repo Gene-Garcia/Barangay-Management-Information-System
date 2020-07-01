@@ -43,13 +43,11 @@ namespace Barangay_Management_Information_System.Controllers
                 // Check first if latest term is the same as the current year
                     // Check first if there is a null EndYear, if there is notify and redirect to change the EndYear
 
-                // Or
-                // After electing Brgy Captain, the old term will be updated of the EndYear, no need to manualy change the EndYear later
-                    // Then, to check for the latest term get the highest StartYear, or get there record where EndYear is null
-                // But there should be a new way to check if its time to elect a new batch of Officials
-
                 List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
 
+                // if SKChairman table has an SKChairman that is not referenced to BarangayCaptains table
+                // that record, SKChairman, is just recently elected. The records show that an entry in SKChairman still not have its BarangayCaptain.
+                // It might occur that in electing the SK the user might have stopped.This way there would be no multiple entries that does not have reference to BarangayCaptain
                 SKChairman sKChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
 
                 if (sKChairman != null)
@@ -57,7 +55,7 @@ namespace Barangay_Management_Information_System.Controllers
                     TempData["alert-type"] = "alert-info";
                     TempData["alert-header"] = "Information";
                     TempData["alert-msg"] = "It appears that you have already elected an SK Chairman.";
-                    return View();
+                    return RedirectToAction("ElectSKCouncilors");
                 }
                 else
                 {
@@ -80,6 +78,7 @@ namespace Barangay_Management_Information_System.Controllers
         }
 
         [Authorize]
+        // A post method, but is only triggered by a button not a form
         public ActionResult ElectChairmanSK(string residentId, string fullName)
         {
             try
@@ -103,7 +102,7 @@ namespace Barangay_Management_Information_System.Controllers
             {
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
-                TempData["alert-msg"] = "Unable to elect SK Chairman, please try again later " + e.Message;
+                TempData["alert-msg"] = "Unable to elect SK Chairman, please try again. " + e.Message;
                 return RedirectToAction("ElectSKChairman");
             }
         }
@@ -125,6 +124,9 @@ namespace Barangay_Management_Information_System.Controllers
                     TempData["alert-msg"] = "It appears that you have not yet elected an SK Chairman.";
                     return RedirectToAction("ElectSKChairman");
                 }
+
+                // Verify first if skChairman has already elected councilors
+                // update the view, display the current councilors
 
                 TempData["SKChairmanFN"] = skChairman.ResidentsInformation.FirstName;
                 TempData["SKChairmanMN"] = skChairman.ResidentsInformation.MiddleName;
@@ -152,11 +154,18 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
-                if(residentIds.Length <= 0)
-                {
+                if(residentIds == null) { 
                     TempData["alert-type"] = "alert-warning";
                     TempData["alert-header"] = "Warning";
                     TempData["alert-msg"] = "It appears that you have not selected any residents as SK Councilors.";
+                    return RedirectToAction("ElectSKCouncilors");
+                }
+                
+                if (residentIds.Length <= 8) // .Length on a null object will raise an error
+                {
+                    TempData["alert-type"] = "alert-warning";
+                    TempData["alert-header"] = "Warning";
+                    TempData["alert-msg"] = "Elected SK councilors needs to be 8.";
                     return RedirectToAction("ElectSKCouncilors");
                 }
 
