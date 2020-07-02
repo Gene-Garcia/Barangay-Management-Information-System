@@ -114,7 +114,6 @@ namespace Barangay_Management_Information_System.Controllers
             try
             {
                 List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
-
                 SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
 
                 if(skChairman == null)
@@ -123,6 +122,14 @@ namespace Barangay_Management_Information_System.Controllers
                     TempData["alert-header"] = "Warning";
                     TempData["alert-msg"] = "It appears that you have not yet elected an SK Chairman.";
                     return RedirectToAction("ElectSKChairman");
+                }
+
+                if (skChairman.SKCouncelors != null)
+                {
+                    TempData["alert-type"] = "alert-primary";
+                    TempData["alert-header"] = "Information";
+                    TempData["alert-msg"] = "It appears that the new SK Chairman already has councilors.";
+                    return RedirectToAction("ElectCaptain");
                 }
 
                 // Verify first if skChairman has already elected councilors
@@ -135,7 +142,7 @@ namespace Barangay_Management_Information_System.Controllers
                 int legalYear = DateTime.Now.Date.Year - 18;
                 int day = DateTime.Now.Date.Day;
                 int month = DateTime.Now.Month;
-                var residents = entities.ResidentsInformations.Where(m => m.Birthday <= new DateTime(legalYear, month, day)).ToList();
+                var residents = entities.ResidentsInformations.Where(m => m.Birthday <= new DateTime(legalYear, month, day) && m.ResidentId != skChairman.ResidentId).ToList();
 
                 return View(residents);
             }
@@ -161,7 +168,7 @@ namespace Barangay_Management_Information_System.Controllers
                     return RedirectToAction("ElectSKCouncilors");
                 }
                 
-                if (residentIds.Length <= 8) // .Length on a null object will raise an error
+                if (residentIds.Length < 8) // .Length on a null object will raise an error
                 {
                     TempData["alert-type"] = "alert-warning";
                     TempData["alert-header"] = "Warning";
@@ -208,7 +215,16 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
-                List<ResidentsInformation> residents = entities.ResidentsInformations.ToList();
+
+                List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
+                SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
+
+                List<string> sKCouncelors = skChairman.SKCouncelors.Select(m => m.ResidentId).ToList();
+
+                int legalYear = DateTime.Now.Date.Year - 18;
+                int day = DateTime.Now.Date.Day;
+                int month = DateTime.Now.Month;
+                var residents = entities.ResidentsInformations.Where(m => m.Birthday <= new DateTime(legalYear, month, day) && m.ResidentId != skChairman.ResidentId && !sKCouncelors.Contains(m.ResidentId)).ToList();
                 return View(residents);
             }
             catch (Exception e)
@@ -226,12 +242,15 @@ namespace Barangay_Management_Information_System.Controllers
             try
             {
                 OfficialTerm term = entities.OfficialTerms.OrderByDescending(m => m.EndYear).FirstOrDefault();
+                term.EndYear = DateTime.Now.Year; // update the end year of the last term
+                entities.Entry(term).State = System.Data.Entity.EntityState.Modified;
+                entities.SaveChanges();
 
                 // Create new Official Term, term.EndYear will be the new StartYear. new EndYear will be null can be set later
                 OfficialTerm newTerm = new OfficialTerm()
                 {
                     OfficialTermId = KeyGenerator.GenerateId(),
-                    StartYear = (int)term.EndYear
+                    StartYear = (int)DateTime.Now.Year
                 };
                 entities.OfficialTerms.Add( newTerm );
                 entities.SaveChanges();
@@ -256,7 +275,7 @@ namespace Barangay_Management_Information_System.Controllers
                 TempData["alert-header"] = "Success";
                 TempData["alert-msg"] = "New Barangay Captain of Barangay Sinisian was elected.";
 
-                return RedirectToAction("ElectCaptain");
+                return RedirectToAction("Index","Dashboard");
             }
             catch (Exception e)
             {
