@@ -285,5 +285,61 @@ namespace Barangay_Management_Information_System.Controllers
                 return RedirectToAction("ElectCaptain");
             }
         }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult ElectCouncilors()
+        {
+            try
+            {
+                List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
+                SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
+
+                if (skChairman == null)
+                {
+                    TempData["alert-type"] = "alert-warning";
+                    TempData["alert-header"] = "Warning";
+                    TempData["alert-msg"] = "It appears that you have not yet elected an SK Chairman.";
+                    return RedirectToAction("ElectSKChairman");
+                }
+
+                if (skChairman.SKCouncelors != null)
+                {
+                    TempData["alert-type"] = "alert-primary";
+                    TempData["alert-header"] = "Information";
+                    TempData["alert-msg"] = "It appears that the new SK Chairman already has councilors.";
+                    return RedirectToAction("ElectCaptain");
+                }
+
+                // Verify first if skChairman has already elected councilors
+                // update the view, display the current councilors
+
+                TempData["SKChairmanFN"] = skChairman.ResidentsInformation.FirstName;
+                TempData["SKChairmanMN"] = skChairman.ResidentsInformation.MiddleName;
+                TempData["SKChairmanLN"] = skChairman.ResidentsInformation.LastName;
+
+                int legalYear = DateTime.Now.Date.Year - 18;
+                int day = DateTime.Now.Date.Day;
+                int month = DateTime.Now.Month;
+                var residents = entities.ResidentsInformations.Where(m => m.Birthday <= new DateTime(legalYear, month, day) && m.ResidentId != skChairman.ResidentId).ToList();
+
+                return View(residents);
+
+                return View();
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later " + e.Message;
+                return View();
+            }
+        }
+
+        [Authorize]
+        public ActionResult ElectCouncilors(string[] residentIds)
+        {
+            return View();
+        }
     }
 }
