@@ -13,6 +13,21 @@ namespace Barangay_Management_Information_System.Controllers
 
         private DBEntities entities = new DBEntities();
 
+        [Authorize]
+        public ActionResult OfficialsChart()
+        {
+            try
+            {
+                return View(entities.BarangayCaptains.ToList());
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later " + e.Message;
+                return View();
+            }
+        }
 
         [HttpGet]
         [Authorize]

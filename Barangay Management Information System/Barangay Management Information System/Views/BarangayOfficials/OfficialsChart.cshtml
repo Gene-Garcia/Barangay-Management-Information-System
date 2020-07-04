@@ -1,0 +1,125 @@
+﻿@model IEnumerable<Barangay_Management_Information_System.Models.Entity.BarangayCaptain>
+
+@{
+    ViewBag.Title = "Officials Chart";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #sidenav #sidelinks #barangay-officials-link {
+        background-color: #ececec;
+        color: #434e52;
+        text-decoration: none;
+    }
+</style>
+
+<div class="container">
+
+    @if (TempData["alert-type"] != null)
+    {
+        <div class="alert @TempData["alert-type"] alert-dismissible mb-3">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"]
+        </div>
+    }
+
+    <h1 class="page-header-title">Officials Chart</h1>
+
+    <div class="card shadow border-0 rounded p-3 mb-5">
+        <div class="card-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+
+                @{
+                    var ticker = 0;
+                    var active = "";
+                    foreach (var item in Model)
+                    {
+                        if (ticker == 0)
+                        {
+                            active = "active";
+                            ticker += 1;
+                        }
+                        else
+                        {
+                            active = "";
+                        }
+
+                        <li class="nav-item">
+                            <a class="nav-link @active font-weight-bold" data-toggle="tab" href="#@item.ResidentsInformation.LastName@item.ResidentsInformation.FirstName">@item.OfficialTerm.StartYear >> @item.OfficialTerm.EndYear</a>
+                        </li>
+                    }
+                }
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                @{
+                    ticker = 0;
+                    active= "";
+                    foreach (var item in Model)
+                    {
+                        if (ticker == 0)
+                        {
+                            active = "active";                            
+                            ticker += 1;
+                        }
+                        else
+                        {
+                            active = "";
+                        }
+
+                        <div class="tab-pane container @active" id="@item.ResidentsInformation.LastName@item.ResidentsInformation.FirstName">
+
+                            <h2 class="display-4 mt-5 mb-5" style="font-size:25px; font-weight:600">Barangay Officials</h2>
+
+                            <div class="card shadow-sm border-0 rounded bg-light">
+                                <div class="card-body">
+                                    <span style="font-size:16px">Hon. <b>@item.ResidentsInformation.LastName.ToUpper(),</b> @item.ResidentsInformation.FirstName @item.ResidentsInformation.MiddleName</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                @foreach (var councelor in item.BarangayCounselors)
+                                {
+                                    <div class="col-md-4 mt-4">
+                                        <div class="card shadow-sm border-0 rounded bg-light">
+                                            <div class="card-body">
+                                                <span style="font-size:14px">Councilor <b>@councelor.ResidentsInformation.LastName.ToUpper(),</b> @councelor.ResidentsInformation.FirstName @councelor.ResidentsInformation.MiddleName</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>     
+                                
+                            <h2 class="display-4 mt-5 mb-5" style="font-size:25px; font-weight:600">Sangguniang Kabataan Officials</h2>
+
+                            <div class="card shadow-sm border-0 rounded bg-light">
+                                <div class="card-body">
+                                    <span style="font-size:16px">S.K. <b>@item.SKChairman.ResidentsInformation.LastName.ToUpper(),</b> @item.SKChairman.ResidentsInformation.FirstName @item.SKChairman.ResidentsInformation.MiddleName</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                @foreach (var councelor in item.SKChairman.SKCouncelors)
+                                {
+                                    <div class="col-md-3 mt-4">
+                                        <div class="card shadow-sm border-0 rounded bg-light">
+                                            <div class="card-body">
+                                                <span style="font-size:14px">Councilor <b>@councelor.ResidentsInformation.LastName.ToUpper(),</b> @councelor.ResidentsInformation.FirstName @councelor.ResidentsInformation.MiddleName</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>     
+
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
