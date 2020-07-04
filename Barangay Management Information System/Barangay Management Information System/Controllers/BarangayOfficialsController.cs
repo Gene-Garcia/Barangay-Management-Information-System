@@ -228,12 +228,19 @@ namespace Barangay_Management_Information_System.Controllers
                     return RedirectToAction("ElectCouncilors");
                 }
 
+                List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
+                SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
+                List<string> skcouncilorsIds = entities.SKCouncelors.Where(m => m.SKChairmanId == skChairman.SKChairmanId).Select(m => m.ResidentId).ToList();
+
                 int legalYear = DateTime.Now.Date.Year - 18;
                 int day = DateTime.Now.Date.Day;
                 int month = DateTime.Now.Month;
                 var residents = entities.ResidentsInformations
-                    .Where(m => m.Birthday <= new DateTime(legalYear, month, day))
+                    .Where(m => m.Birthday <= new DateTime(legalYear, month, day)
+                    && m.ResidentId != skChairman.ResidentId
+                    && !skcouncilorsIds.Contains(m.ResidentId))
                     .ToList();
+
                 return View(residents);
             }
             catch (Exception e)
@@ -246,6 +253,7 @@ namespace Barangay_Management_Information_System.Controllers
         }
 
         [Authorize]
+        // A post method, but is only triggered by a button not a form
         public ActionResult ElectBrgyCaptain(string residentId)
         {
             try
