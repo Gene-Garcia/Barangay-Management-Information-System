@@ -1,5 +1,6 @@
 ﻿using Barangay_Management_Information_System.Classess;
 using Barangay_Management_Information_System.Models.Entity;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,32 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
-                return View(entities.BarangayCaptains.ToList());
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
+                //BarangayCaptain chairman = entities.BarangayCaptains.Where(m => m.OfficialTerm.EndYear == null).FirstOrDefault();
+                //var councelors = chairman.BarangayCounselors.ToList();
+                //SKChairman sk = chairman.SKChairman;
+                //var skcouncelors = sk.SKCouncelors.ToList();
+
+                //foreach (var c in councelors)
+                //{
+                //    entities.BarangayCounselors.Remove(c);
+                //    entities.SaveChanges();
+                //}
+
+                //foreach(var c in skcouncelors)
+                //{
+                //    entities.SKCouncelors.Remove(c);
+                //    entities.SaveChanges();
+                //}
+
+                //entities.BarangayCaptains.Remove(chairman);
+                //entities.SaveChanges();
+
+                //entities.SKChairmen.Remove(sk);
+                //entities.SaveChanges();
+
+                return View(entities.BarangayCaptains.OrderByDescending(m=>m.OfficialTerm.StartYear).ToList());
             }
             catch (Exception e)
             {
@@ -35,6 +61,8 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
                 // Check first if a barangay captain was elected already
                 // returns the barangaycaptain object that is elected but does not have elected councilors
                 List<BarangayCaptain> chairmanWithCouncilors = entities.BarangayCounselors.Select(m => m.BarangayCaptain).ToList();
@@ -82,6 +110,8 @@ namespace Barangay_Management_Information_System.Controllers
                     int day = DateTime.Now.Date.Day;
                     int month = DateTime.Now.Month;
                     var residents = entities.ResidentsInformations.Where(m => m.Birthday <= new DateTime(legalYear, month, day)).ToList();
+
+                    TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
 
                     return View(residents);
                 }
@@ -131,6 +161,8 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
                 List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
                 SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
 
@@ -161,6 +193,8 @@ namespace Barangay_Management_Information_System.Controllers
                 int day = DateTime.Now.Date.Day;
                 int month = DateTime.Now.Month;
                 var residents = entities.ResidentsInformations.Where(m => m.Birthday <= new DateTime(legalYear, month, day) && m.ResidentId != skChairman.ResidentId).ToList();
+
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
 
                 return View(residents);
             }
@@ -229,6 +263,8 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
                 // returns the barangaycaptain object that is elected but does not have elected councilors
                 List<BarangayCaptain> chairmanWithCouncilors = entities.BarangayCounselors.Select(m => m.BarangayCaptain).ToList();
                 var ids = chairmanWithCouncilors.Select(m => m.ResidentId).ToList();
@@ -256,6 +292,8 @@ namespace Barangay_Management_Information_System.Controllers
                     && !skcouncilorsIds.Contains(m.ResidentId))
                     .ToList();
 
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
                 return View(residents);
             }
             catch (Exception e)
@@ -274,9 +312,6 @@ namespace Barangay_Management_Information_System.Controllers
             try
             {
                 OfficialTerm term = entities.OfficialTerms.OrderByDescending(m => m.EndYear).FirstOrDefault();
-                //term.EndYear = DateTime.Now.Year; // update the end year of the last term
-                //entities.Entry(term).State = System.Data.Entity.EntityState.Modified;
-                //entities.SaveChanges();
 
                 // Create new Official Term, term.EndYear will be the new StartYear. new EndYear will be null can be set later
                 OfficialTerm newTerm = new OfficialTerm()
@@ -303,11 +338,9 @@ namespace Barangay_Management_Information_System.Controllers
                 entities.BarangayCaptains.Add(barangayCaptain);
                 entities.SaveChanges();
 
-                ResidentsInformation name = entities.ResidentsInformations.Where(m => m.ResidentId == residentId).FirstOrDefault();
-
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
-                TempData["alert-msg"] = name.FirstName + " " + name.LastName + " was elected as Barangay Captain of Barangay Sinisian.";
+                TempData["alert-msg"] =  "A new Sinisian Barangay Chairman was elected succesfully.";
 
                 return RedirectToAction("ElectCouncilors");
             }
@@ -326,11 +359,14 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
                 // obtain the record that has a null end year, meaning that is the latest term.
                 OfficialTerm officialTerm = entities.OfficialTerms.Where(m => m.EndYear == null).FirstOrDefault();
                 BarangayCaptain chairman = entities.BarangayCaptains.Where(m => m.OfficialTermId == officialTerm.OfficialTermId).FirstOrDefault();
 
-                if (entities.BarangayCounselors.Where(m=> m.CaptainId == chairman.CaptainId).ToList().Count > 0)
+                BarangayCounselor chairmanCouncelor = entities.BarangayCounselors.Where(m => m.CaptainId == chairman.CaptainId).FirstOrDefault();
+                if (chairmanCouncelor != null)
                 {
                     TempData["alert-type"] = "alert-warning";
                     TempData["alert-header"] = "Warning";
@@ -357,13 +393,15 @@ namespace Barangay_Management_Information_System.Controllers
                     && m.ResidentId != chairman.SKChairman.ResidentId)
                     .ToList();
 
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
                 return View(residents);
             }
             catch (Exception e)
             {
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
-                TempData["alert-msg"] = "Something went wrong, please try again later " + e.Message;
+                TempData["alert-msg"] = "Something went wrong, please try again later " + e.ToString();
                 return View();
             }
         }
