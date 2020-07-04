@@ -387,8 +387,6 @@
     <Content Include="Views\AuditTrail\Index.cshtml" />
     <Content Include="Views\BarangayClearance\Index.cshtml" />
     <Content Include="Views\BarangayClearance\View.cshtml" />
-    <Content Include="Views\BarangayOfficials\Index.cshtml" />
-    <Content Include="Views\BarangayOfficials\View.cshtml" />
     <Content Include="Views\BarangayOfficials\ElectSKChairman.cshtml" />
     <Content Include="Views\BarangayOfficials\ElectSKCouncilors.cshtml" />
     <Content Include="Views\BarangayOfficials\ElectCaptain.cshtml" />

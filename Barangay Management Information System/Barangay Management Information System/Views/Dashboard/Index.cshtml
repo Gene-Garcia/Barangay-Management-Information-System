@@ -7,23 +7,31 @@
 
 <style>
 
-    #sidelinks #aboutlink {
-        border-bottom-color: #ececec;
-        border-bottom-width: thin;
-        border-bottom-style: solid;
+    #sidelinks #dashboard-link {
+        background-color: #ececec;
+        color: #434e52;
+        text-decoration: none;
     }
 </style>
 
 <div class="container">
+
+    @if (TempData["alert-type"] != null)
+    {
+        <div class="alert @TempData["alert-type"] alert-dismissible mb-3">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"]
+        </div>
+    }
+
     <h1 class="page-header-title">Dashboard</h1>
-    <div class="card">
+
+    <div class="card shadow border-0 rounded p-3 mb-5">
         <div class="card-body">
 
-            <p class="card-text">asdfniowehfuiowheuifhuioqwhuiofhwquioefhuiowqehfuioqwheuiofhqwiouefhouiqwefqwhfiuoqwe</p>
-
+            <p>lorem lorem</p>
 
         </div>
     </div>
+
 </div>
-
-

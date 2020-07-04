@@ -15,16 +15,6 @@
 </style>
 
 
-@if(TempData["Ids"] != null)
-{
-    List<string> ids = TempData["Ids"] as List<string>;
-
-    foreach(var id in ids)
-    {
-        <span>@id</span>
-    }
-}
-
 <div class="container">
 
     @if (TempData["alert-type"] != null)
@@ -61,7 +51,7 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        <input type="submit" value="Elect as Barangay Councilors" class="btn btn-success float-right" />
+                        <input type="submit" value="Elect as SK Councilors" class="btn btn-success float-right" />
                     </div>
                 </div>
 
