@@ -315,6 +315,19 @@
         </nav>*@
 
     <div class="mt-5">
+
+        <div class="container">
+            @if (TempData["alert-type"] != null)
+            {
+                <div class="alert @TempData["alert-type"] alert-dismissible mb-5 p-3">
+                    <span class="">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"]
+                    </span>
+                </div>
+            }
+        </div>
+
         @RenderBody()
     </div>
 

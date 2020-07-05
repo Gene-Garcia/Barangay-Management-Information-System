@@ -14,6 +14,9 @@ namespace Barangay_Management_Information_System.Controllers
 
         private DBEntities entities = new DBEntities();
 
+        private const int BARANGAY_COUNCELOR_MAX_OFFICIAL = 6;
+        private const int BARANGAY_SK_COUNCELOR_MAX_OFFICIAL = 8;
+
         [Authorize]
         public ActionResult OfficialsChart()
         {
@@ -32,7 +35,7 @@ namespace Barangay_Management_Information_System.Controllers
                 //    entities.SaveChanges();
                 //}
 
-                //foreach(var c in skcouncelors)
+                //foreach (var c in skcouncelors)
                 //{
                 //    entities.SKCouncelors.Remove(c);
                 //    entities.SaveChanges();
@@ -91,10 +94,8 @@ namespace Barangay_Management_Information_System.Controllers
                     }
                 }
 
+                // Get the newly elected SK Chairman, The record that is not in the BarangayCaptainTable means its the new record
                 List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
-                // if SKChairman table has an SKChairman that is not referenced to BarangayCaptains table
-                // that record, SKChairman, is just recently elected. The records show that an entry in SKChairman still not have its BarangayCaptain.
-                // It might occur that in electing the SK the user might have stopped.This way there would be no multiple entries that does not have reference to BarangayCaptain
                 SKChairman sKChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
 
                 if (sKChairman != null)
@@ -104,30 +105,28 @@ namespace Barangay_Management_Information_System.Controllers
                     TempData["alert-msg"] = "It appears that you have already elected an SK Chairman.";
                     return RedirectToAction("ElectSKCouncilors");
                 }
-                else
-                {
-                    int legalYear = DateTime.Now.Date.Year - 18;
-                    int day = DateTime.Now.Date.Day;
-                    int month = DateTime.Now.Month;
-                    var residents = entities.ResidentsInformations.Where(m => m.Birthday <= new DateTime(legalYear, month, day)).ToList();
 
-                    TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+                int legalYear = DateTime.Now.Date.Year - 18;
+                int day = DateTime.Now.Date.Day;
+                int month = DateTime.Now.Month;
+                var residents = entities.ResidentsInformations.Where(m => m.Birthday <= new DateTime(legalYear, month, day)).ToList();
 
-                    return View(residents);
-                }
-
+                return View(residents);
+                
             }
             catch (Exception e)
             {
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
-                TempData["alert-msg"] = "Something went wrong, please try again later " + e.Message;
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
                 return View();
             }
         }
 
         [Authorize]
-        // A post method, but is only triggered by a button not a form
+        /* 
+         * A post method, but is only triggered by a button not a form.
+         */
         public ActionResult ElectChairmanSK(string residentId, string fullName)
         {
             try
@@ -140,6 +139,10 @@ namespace Barangay_Management_Information_System.Controllers
                 entities.SKChairmen.Add(chairman);
                 entities.SaveChanges();
 
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+                new AuditTrailer().Record("Elected " + fullName + " as SK Chairman.", AuditTrailer.BARANGAY_OFFICIAL_TYPE, userId);
+
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
                 TempData["alert-msg"] = fullName + " was elected as SK Chairman of Barangay Sinisian.";
@@ -150,13 +153,13 @@ namespace Barangay_Management_Information_System.Controllers
             {
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
-                TempData["alert-msg"] = "Unable to elect SK Chairman, please try again. " + e.Message;
+                TempData["alert-msg"] = "Unable to elect SK Chairman, please try again.";
                 return RedirectToAction("ElectSKChairman");
             }
         }
-
-        [HttpGet]
+        
         [Authorize]
+        [HttpGet]
         public ActionResult ElectSKCouncilors()
         {
             try
@@ -174,7 +177,7 @@ namespace Barangay_Management_Information_System.Controllers
                     return RedirectToAction("ElectSKChairman");
                 }
 
-                if (skChairman.SKCouncelors.ToList().Count > 0)
+                if (skChairman.SKCouncelors.ToList().Count >= BARANGAY_SK_COUNCELOR_MAX_OFFICIAL)
                 {
                     TempData["alert-type"] = "alert-info";
                     TempData["alert-header"] = "Information";
@@ -182,7 +185,6 @@ namespace Barangay_Management_Information_System.Controllers
                     return RedirectToAction("ElectCaptain");
                 }
 
-                // Verify first if skChairman has already elected councilors
                 // update the view, display the current councilors
 
                 TempData["SKChairmanFN"] = skChairman.ResidentsInformation.FirstName;
@@ -194,21 +196,20 @@ namespace Barangay_Management_Information_System.Controllers
                 int month = DateTime.Now.Month;
                 var residents = entities.ResidentsInformations.Where(m => m.Birthday <= new DateTime(legalYear, month, day) && m.ResidentId != skChairman.ResidentId).ToList();
 
-                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
-
                 return View(residents);
             }
             catch (Exception e)
             {
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
-                TempData["alert-msg"] = "Something went wrong, please try again later " + e.Message;
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
                 return View();
             }
         }
 
-        [HttpPost]
+        
         [Authorize]
+        [HttpPost]
         public ActionResult ElectSkCouncilors(string[] residentIds)
         {
             try
@@ -219,28 +220,42 @@ namespace Barangay_Management_Information_System.Controllers
                     TempData["alert-msg"] = "It appears that you have not selected any residents as SK Councilors.";
                     return RedirectToAction("ElectSKCouncilors");
                 }
-                
-                if (residentIds.Length < 8 || residentIds.Length > 8) // .Length on a null object will raise an error
+
+                // .Length on a null object will raise an error
+                if (residentIds.Length < BARANGAY_SK_COUNCELOR_MAX_OFFICIAL || residentIds.Length > BARANGAY_SK_COUNCELOR_MAX_OFFICIAL)
                 {
                     TempData["alert-type"] = "alert-warning";
                     TempData["alert-header"] = "Warning";
-                    TempData["alert-msg"] = "Elected SK councilors needs to be 8.";
+                    TempData["alert-msg"] = "Elected SK councilors needs to be " + BARANGAY_SK_COUNCELOR_MAX_OFFICIAL + ".";
                     return RedirectToAction("ElectSKCouncilors");
                 }
 
                 List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
                 SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
 
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+
                 for (int i = 0; i < residentIds.Length; i++)
                 {
-                    entities.SKCouncelors.Add(new SKCouncelor() 
+
+                    entities.SKCouncelors.Add(new SKCouncelor()
                     {
                         SKCouncelorId = KeyGenerator.GenerateId(residentIds[i]),
                         ResidentId = residentIds[i],
                         SKChairmanId = skChairman.SKChairmanId
                     });
                     entities.SaveChanges();
+
+                    // Audit Trail
+                    string tempResId = residentIds[i];
+                    ResidentsInformation resident = entities.ResidentsInformations.Where(m => m.ResidentId == tempResId).FirstOrDefault();
+                    if (resident != null)
+                    {
+                        new AuditTrailer().Record("Elected " + resident.FirstName + " " + resident.LastName + " as SK Councelor.", AuditTrailer.BARANGAY_OFFICIAL_TYPE, userId);
+                    }
                 }
+
 
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
@@ -252,20 +267,20 @@ namespace Barangay_Management_Information_System.Controllers
             {
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
-                TempData["alert-msg"] = "Something went wrong, please try again later " + e.Message;
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
                 return View();
             }
         }
-
-        [HttpGet]
+        
         [Authorize]
+        [HttpGet]
         public ActionResult ElectCaptain()
         {
             try
             {
                 TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
 
-                // returns the barangaycaptain object that is elected but does not have elected councilors
+                // returns the barangaycaptain object that is elected but does not have elected councilors.
                 List<BarangayCaptain> chairmanWithCouncilors = entities.BarangayCounselors.Select(m => m.BarangayCaptain).ToList();
                 var ids = chairmanWithCouncilors.Select(m => m.ResidentId).ToList();
 
@@ -279,6 +294,7 @@ namespace Barangay_Management_Information_System.Controllers
                     return RedirectToAction("ElectCouncilors");
                 }
 
+                // Helps in filtering results.
                 List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
                 SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
                 List<string> skcouncilorsIds = entities.SKCouncelors.Where(m => m.SKChairmanId == skChairman.SKChairmanId).Select(m => m.ResidentId).ToList();
@@ -292,28 +308,25 @@ namespace Barangay_Management_Information_System.Controllers
                     && !skcouncilorsIds.Contains(m.ResidentId))
                     .ToList();
 
-                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
-
                 return View(residents);
             }
             catch (Exception e)
             {
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
-                TempData["alert-msg"] = "Something went wrong, please try again later " + e.Message;
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
                 return View();
             }
         }
 
         [Authorize]
-        // A post method, but is only triggered by a button not a form
+        /* 
+         * A post method, but is only triggered by a button not a form.
+         */
         public ActionResult ElectBrgyCaptain(string residentId)
         {
             try
             {
-                OfficialTerm term = entities.OfficialTerms.OrderByDescending(m => m.EndYear).FirstOrDefault();
-
-                // Create new Official Term, term.EndYear will be the new StartYear. new EndYear will be null can be set later
                 OfficialTerm newTerm = new OfficialTerm()
                 {
                     OfficialTermId = KeyGenerator.GenerateId(),
@@ -326,7 +339,7 @@ namespace Barangay_Management_Information_System.Controllers
                 List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
                 SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
 
-                // Now, elect the barangay Captain
+                // Now, elect the barangay Chairman
                 BarangayCaptain barangayCaptain = new BarangayCaptain()
                 {
                     CaptainId = KeyGenerator.GenerateId(residentId),
@@ -338,9 +351,14 @@ namespace Barangay_Management_Information_System.Controllers
                 entities.BarangayCaptains.Add(barangayCaptain);
                 entities.SaveChanges();
 
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+                ResidentsInformation tempResInfo = entities.ResidentsInformations.Where(m => m.ResidentId == residentId).FirstOrDefault();
+                new AuditTrailer().Record("Elected " + tempResInfo.FirstName + " " + tempResInfo.LastName + " as Barangay Chairman.", AuditTrailer.BARANGAY_OFFICIAL_TYPE, userId);
+
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
-                TempData["alert-msg"] =  "A new Sinisian Barangay Chairman was elected succesfully.";
+                TempData["alert-msg"] = tempResInfo.FirstName + " " + tempResInfo.LastName + " was elected successfully as the Sinisian Barangay.";
 
                 return RedirectToAction("ElectCouncilors");
             }
@@ -393,20 +411,18 @@ namespace Barangay_Management_Information_System.Controllers
                     && m.ResidentId != chairman.SKChairman.ResidentId)
                     .ToList();
 
-                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
-
                 return View(residents);
             }
             catch (Exception e)
             {
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
-                TempData["alert-msg"] = "Something went wrong, please try again later " + e.ToString();
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
                 return View();
             }
         }
 
-        [Authorize]
+        [Authorize] 
         public ActionResult ElectCouncilors(string[] residentIds)
         {
             try
@@ -419,17 +435,20 @@ namespace Barangay_Management_Information_System.Controllers
                     return RedirectToAction("ElectCouncilors");
                 }
 
-                if (residentIds.Length < 6 || residentIds.Length > 6) // .Length on a null object will raise an error
+                if (residentIds.Length < BARANGAY_COUNCELOR_MAX_OFFICIAL || residentIds.Length > BARANGAY_COUNCELOR_MAX_OFFICIAL)
                 {
                     TempData["alert-type"] = "alert-warning";
                     TempData["alert-header"] = "Warning";
-                    TempData["alert-msg"] = "Elected councilors needs to be 6.";
+                    TempData["alert-msg"] = "Elected councilors needs to be " + BARANGAY_COUNCELOR_MAX_OFFICIAL + ".";
                     return RedirectToAction("ElectCouncilors");
                 }
 
                 // obtain the record that has a null end year, meaning that is the latest term.
                 OfficialTerm officialTerm = entities.OfficialTerms.Where(m => m.EndYear == null).FirstOrDefault();
                 BarangayCaptain chairman = entities.BarangayCaptains.Where(m => m.OfficialTermId == officialTerm.OfficialTermId).FirstOrDefault();
+
+                //Audit Trail
+                string userId = User.Identity.GetUserId();
 
                 for (int i = 0; i < residentIds.Length; i++)
                 {
@@ -440,6 +459,12 @@ namespace Barangay_Management_Information_System.Controllers
                         CaptainId = chairman.CaptainId
                     });
                     entities.SaveChanges();
+
+                    //Audit Trail
+                    string resId = residentIds[i];
+                    ResidentsInformation tempResInformation = entities.ResidentsInformations.Where(m => m.ResidentId == resId).FirstOrDefault();
+                    new AuditTrailer().Record("Elected " + tempResInformation.FirstName + " " + tempResInformation.LastName + " as Barangay Councelor.", AuditTrailer.BARANGAY_OFFICIAL_TYPE, userId);
+
                 }
 
                 List<string> ids = new List<string>();
@@ -460,5 +485,6 @@ namespace Barangay_Management_Information_System.Controllers
                 return RedirectToAction("ElectCouncilors");
             }
         }
+
     }
 }
