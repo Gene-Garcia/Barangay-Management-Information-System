@@ -40,7 +40,7 @@
                     <div class="form-group mb-2 col-md-4">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text fa fa-search"></span>
+                                <span class="input-group-text"><span class="fa fa-search-plus"></span></span>
                             </div>
                             <input type="text" id="filterInput" placeholder="Search for names.." class="form-control">
                         </div>
@@ -73,10 +73,13 @@
                     <table class="table table-striped border-0" id="">
                         <thead class="">
                             <tr class="">
-                                <th class="text-center">
-                                    First Name and Surname
+                                <th class="">
+                                    Last Name
                                 </th>
-                                <th class="text-center">
+                                <th class="">
+                                    First Name
+                                </th>
+                                <th class="">
                                     Middle Name
                                 </th>
                                 <th class="text-center">
@@ -91,10 +94,13 @@
                                 foreach (var item in Model)
                                 {
                                     <tr class="">
-                                        <td class=" text-center" style="font-size:16px;">
-                                            @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                                        <td style="font-size:16px; font-weight:600px">
+                                            @Html.DisplayFor(modelItem => item.LastName)
                                         </td>
-                                        <td class="text-center">
+                                        <td class="">
+                                            @Html.DisplayFor(modelItem => item.FirstName)
+                                        </td>
+                                        <td>
                                             @Html.DisplayFor(modelItem => item.MiddleName)
                                         </td>
                                         <td class="text-center">

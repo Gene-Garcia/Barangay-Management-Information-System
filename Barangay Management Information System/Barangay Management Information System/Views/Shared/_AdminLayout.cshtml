@@ -123,6 +123,7 @@
         border-color: #28a745;
         box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
     }
+
 </style>
 
 @*<div class="navbar navbar-expand-lg navbar-fixed-top mb-5 bg-dark navbar-dark">
@@ -189,10 +190,10 @@
 
 
     <div class="mt-5" id="sidelinks">
-        <a href="/AuditTrail/Index" class="hvr-icon-spin" id="audit-link"><span class="fa fa-archive mr-3 hvr-icon"></span>Audit Trail</a>
+        <a href="/AuditTrail/Index" class="hvr-icon-spin" id="audit-link"><span class="	fas fa-shoe-prints mr-3 hvr-icon"></span>Audit Trail</a>
 
         <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#accounts-collapse" aria-expanded="false" aria-controls="accounts-collapse" id="account-link">
-            <span class="fa fa-user-circle hvr-icon mr-3"></span>
+            <span class="fa fa-user hvr-icon mr-3"></span>
             Account
             <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 115px;"></span>
         </a>
@@ -201,12 +202,12 @@
             <a href="/AdminAccount/ModifyAccount" class="sublink">Modify Users' Account</a>
         </div>
 
-        <a href="/BarangayClearance/Index" class="hvr-icon-spin" id="barangay-clearance-link"><span class="fa fa-folder-open hvr-icon mr-3"></span>Barangay Clearance</a>
+        <a href="/BarangayClearance/Index" class="hvr-icon-spin" id="barangay-clearance-link"><span class="fas fa-house-user	 hvr-icon mr-3"></span>Barangay Clearance</a>
 
         <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#officials-collapse" aria-expanded="false" aria-controls="officials-collapse" id="barangay-officials-link">
             <span class="fa fa-sitemap hvr-icon mr-3"></span>
             Barangay Officials
-            <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 53px;"></span>
+            <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 50px;"></span>
         </a>
         <div id="officials-collapse" class="collapse" data-parent="#sidelinks">
             <a href="/BarangayOfficials/ElectSKChairman" class="sublink">Elect</a>
@@ -214,7 +215,7 @@
             <a href="/BarangayOfficials/AssignSpecialOfficials" class="sublink">Assign Special Officials</a>
         </div>
 
-        <a href="/Dashboard/Index" class="hvr-icon-spin" id="dashboard-link"><span class="fa fa-area-chart hvr-icon mr-3"></span>Dashboard</a>
+        <a href="/Dashboard/Index" class="hvr-icon-spin" id="dashboard-link"><span class="far fa-chart-bar	 hvr-icon mr-3"></span>Dashboard</a>
 
         <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#residents-collapse" aria-expanded="false" aria-controls="residents-collapse">
             <span class="fa fa-id-card hvr-icon mr-3"></span>
@@ -227,16 +228,16 @@
         </div>
 
         <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#summon-collapse" aria-expanded="false" aria-controls="summon-collapse">
-            <span class="fa fa-ban hvr-icon mr-3"></span>
+            <span class="fas fa-file-signature	 mr-3"></span>
             Summon
-            <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 112px;"></span>
+            <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 108px;"></span>
         </a>
         <div id="summon-collapse" class="collapse" data-parent="#sidelinks">
             <a href="#" class="sublink">Clients</a>
             <a href="#" class="sublink">Contact</a>
         </div>
 
-        <p class="w-100" style="position:absolute; bottom:0;"><span id="date-container" class="text-center"></span></p>
+        @*<p class="w-100" style="position:absolute; bottom:0;"><span id="date-container" class="text-center"></span></p>*@
 
     </div>
 
@@ -275,13 +276,13 @@
                         <span style="color: #00533f; font-weight: 600;">@User.Identity.GetUserName()</span>
                     </a>
                     <div class="dropdown-menu shadow">
-                        <a class="dropdown-item" href="/PersonalAccount/Index">My Account</a>
+                        <a class="dropdown-item" href="/PersonalAccount/Index"><span class="fas fa-user-edit mr-2"></span>My Account</a>
 
                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
                         {
                             @Html.AntiForgeryToken()
 
-                            <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Sign Off</a>
+                            <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><span class="fas fa-user-clock	 mr-2"></span>Sign Off</a>
                         }
 
                     </div>

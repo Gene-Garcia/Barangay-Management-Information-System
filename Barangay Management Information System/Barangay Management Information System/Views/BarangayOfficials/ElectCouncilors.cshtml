@@ -29,7 +29,7 @@
                     <div class="form-group mb-2 col-md-4">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text fa fa-search"></span>
+                                <span class="input-group-text"><span class="fa fa-search-plus"></span>
                             </div>
                             <input type="text" id="filterInput" placeholder="Search for names.." class="form-control">
                         </div>
@@ -37,7 +37,7 @@
 
                     <div class="form-group mb-2 col-md-4">
                         <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 15px">
-                            Barangay Chairman <span class="font-weight-bold">@TempData["ChairmanLN"]</span>, @TempData["ChairmanFN"] @TempData["ChairmanMN"]
+                            <span class="fas fa-user-tie mr-2" style="font-size:17px"></span>Barangay Chairman <span class="font-weight-bold">@TempData["ChairmanLN"]</span>, @TempData["ChairmanFN"] @TempData["ChairmanMN"]
                         </div>
                     </div>
 
@@ -50,14 +50,17 @@
                     <table class="table table-striped border-0" id="">
                         <thead class="">
                             <tr class="">
-                                <th class="text-center">
-                                    First Name and Surname
+                                <th class="">
+                                    Last Name
                                 </th>
-                                <th class="text-center">
+                                <th>
+                                    First Name
+                                </th>
+                                <th class="">
                                     Middle Name
                                 </th>
                                 <th class="text-center">
-                                    Select
+                                    Select Candidate
                                 </th>
                             </tr>
                         </thead>
@@ -68,10 +71,13 @@
                                 foreach (var item in Model)
                                 {
                                     <tr class="">
-                                        <td class=" text-center" style="font-size:16px;">
-                                            @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                                        <td style=" font-weight:600px;font-size:16px;">
+                                            @Html.DisplayFor(modelItem => item.LastName)
                                         </td>
-                                        <td class="text-center">
+                                        <td class="">
+                                            @Html.DisplayFor(modelItem => item.FirstName)
+                                        </td>
+                                        <td class="">
                                             @Html.DisplayFor(modelItem => item.MiddleName)
                                         </td>
                                         <td class="text-center">

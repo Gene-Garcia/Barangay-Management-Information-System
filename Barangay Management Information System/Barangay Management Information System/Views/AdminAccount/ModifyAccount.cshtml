@@ -21,7 +21,7 @@
         </div>
 
         <div class="col-md-6">
-            <button class="btn btn-success float-right" onclick="Display('')">Account Types</button>
+            <button class="btn btn-success float-right p-2" onclick="Display('')"><span class="far fa-id-badge mr-2" style="font-size:18px"></span>Account Types</button>
         </div>
     </div>
 
@@ -46,10 +46,12 @@
                         <th>
                             Date Created
                         </th>
-                        <th>
+                        @*<th>
                             Age
+                        </th>*@
+                        <th>
+                            Configure
                         </th>
-                        <th></th>
                     </tr>
                 </thead>                
 
@@ -75,7 +77,7 @@
                                 }
                                 @dateTime.ToString("MMM dd, yyyy")
                             </td>
-                            <td>
+                            @*<td>
                                 @{
                                     var today = DateTime.Today;
                                     var age = today.Year - item.ResidentsInformation.Birthday.Year;
@@ -85,9 +87,9 @@
                                     }
                                 }
                                 <span>@age y/o</span>
-                            </td>
+                            </td>*@
                             <td>                                
-                                <button class="btn btn-light btn-sm shadow-sm ">Configuration</button>
+                                <button class="btn btn-success btn-sm shadow-sm "><span class="fas fa-edit" style="font-size:17px"></span></button>
                             </td>
                         </tr>
                     }

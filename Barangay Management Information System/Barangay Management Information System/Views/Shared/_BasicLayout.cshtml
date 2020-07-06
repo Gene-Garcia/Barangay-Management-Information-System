@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Sinisian MIS</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.semanticui.min.css" rel="stylesheet" />
 
 </head>
-<body onload="display_clock_timer()">
+<body @*onload="display_clock_timer()"*@>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
@@ -27,7 +27,7 @@
         @RenderBody()
     </div>
 
-    <script>
+    @*<script>
         function display_clock_timer() {
             var refresh = 1000; // Refresh rate in milli seconds
 
@@ -41,7 +41,7 @@
             document.getElementById('date-container').innerHTML = x + " " + new Date().toLocaleTimeString();
             display_clock_timer();
         }
-    </script>
+    </script>*@
 
     @RenderSection("scripts", required: false)
 

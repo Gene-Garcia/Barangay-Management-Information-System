@@ -24,8 +24,7 @@
             <div class="">
                 <table class="table table-striped w-100 dt-responsive nowrap" id="table">
                     <thead>
-                        <tr class="text-center">
-                            <th>Actions</th>
+                        <tr class="">
                             <th>
                                 Last Name
                             </th>
@@ -35,6 +34,9 @@
                             <th>
                                 Middle Name
                             </th>
+                            <th>
+                                Elect
+                            </th>
                         </tr>
                     </thead>
 
@@ -43,10 +45,7 @@
                         {
                             foreach (var item in Model)
                             {
-                                <tr>
-                                    <td class="text-center">
-                                        <a href="@Url.Action("ElectBrgyCaptain", "BarangayOfficials", new { residentId = item.ResidentId, fullName = item.FirstName + " " + item.LastName })" class="btn btn-success btn-sm">Elect</a>
-                                    </td>
+                                <tr>                                    
                                     <td style="font-weight:600; font-size:16px">
                                         @Html.DisplayFor(modelItem => item.LastName)
                                     </td>
@@ -55,6 +54,9 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.MiddleName)
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="@Url.Action("ElectBrgyCaptain", "BarangayOfficials", new { residentId = item.ResidentId, fullName = item.FirstName + " " + item.LastName })" class="btn btn-success btn-sm"><span class="fa fa-vote-yea"></span></a>
                                     </td>
                                 </tr>
                             }

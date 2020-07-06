@@ -23,16 +23,18 @@
             <table class="table table-hover w-100 dt-responsive nowrap" id="table">
                 <thead>
                     <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.LastName)
+                        <th class="font-weight-bold">
+                            Last Name
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FirstName)
+                        <th class="font-weight-bold">
+                            First Name
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.MiddleName)
+                        <th class="font-weight-bold">
+                            Middle Name
                         </th>
-                        <td></td>
+                        <td class="font-weight-bold">
+                            Generate Clearance
+                        </td>
                     </tr>
                 </thead>
 
@@ -40,17 +42,17 @@
                     @foreach (var item in Model)
                     {
                         <tr onclick="redirect('@item.ResidentId')">
-                            <td class="font-weight-bold text-center">
+                            <td class="font-weight-bold">
                                 @Html.DisplayFor(modelItem => item.LastName)
                             </td>
-                            <td class="text-center ">
+                            <td class="">
                                 @Html.DisplayFor(modelItem => item.FirstName)
                             </td>
-                            <td class="text-center">
+                            <td class="">
                                 @Html.DisplayFor(modelItem => item.MiddleName)
                             </td>
                             <td>
-                                <button class="btn btn-light btn-sm shadow" onclick="redirect('@item.ResidentId')">Generate Clearance</button>
+                                <button class="btn btn-success btn-sm shadow" onclick="redirect('@item.ResidentId')"><span class="fa fa-print p-1" style="font-size:17px"></span></button>
                             </td>
                         </tr>
                     }
