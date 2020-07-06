@@ -81,6 +81,7 @@ namespace Barangay_Management_Information_System.Controllers
                 List<string> councelorIds = chairman.BarangayCounselors.Select(m => m.ResidentId).ToList();
                 string skChairmanId = chairman.SKChairman.ResidentId;
                 List<string> skCouncelorIds = chairman.SKChairman.SKCouncelors.Select(m => m.ResidentId).ToList();
+                List<string> specialPos = chairman.AssignedOfficials.Select(m => m.ResidentId).ToList();
 
                 TempData["Positions"] = entities.AssignedPositions.ToList();
 
@@ -92,7 +93,8 @@ namespace Barangay_Management_Information_System.Controllers
                     && m.ResidentId != chairmanId
                     && !councelorIds.Contains(m.ResidentId)
                     && m.ResidentId != skChairmanId
-                    && !skCouncelorIds.Contains(m.ResidentId))
+                    && !skCouncelorIds.Contains(m.ResidentId)
+                    && !specialPos.Contains(m.ResidentId))
                     .ToList();
 
                 return View(residents);
