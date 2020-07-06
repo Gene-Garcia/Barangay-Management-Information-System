@@ -47,7 +47,7 @@ namespace Barangay_Management_Information_System.Controllers
                 new ImageUploader().SaveImage(displayPicture, userId);
 
                 TempData["alert-type"] = "alert-success";
-                TempData["alert-header"] = "success";
+                TempData["alert-header"] = "Success";
                 TempData["alert-msg"] = "Display picture updated.";
 
                 return RedirectToAction("Index");

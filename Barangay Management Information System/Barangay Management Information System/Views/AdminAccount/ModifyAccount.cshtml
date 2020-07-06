@@ -15,14 +15,6 @@
 
 <div class="container">
 
-    @if(TempData["alert-type"] != null)
-    {
-        <div class="alert @TempData["alert-type"] alert-dismissible mb-3">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>@TempData["alert-header"]!</strong> @TempData["alert-msg"]
-        </div>
-    }    
-
     <div class="row">
         <div class="col-md-6">
             <h1 class="page-header-title mb-2">Modify Account Type</h1>
