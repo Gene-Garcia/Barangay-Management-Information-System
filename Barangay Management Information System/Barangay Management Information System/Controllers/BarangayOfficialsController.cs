@@ -53,10 +53,127 @@ namespace Barangay_Management_Information_System.Controllers
             {
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
-                TempData["alert-msg"] = "Something went wrong, please try again later " + e.Message;
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
                 return View();
             }
         }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult AssignSpecialOfficials()
+        {
+            try
+            {
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
+                OfficialTerm term = null;
+
+                term = entities.OfficialTerms.Where(m => m.EndYear == null).FirstOrDefault();
+                // if there is no null endyear record, then retrieve the highest end year. It is the latest record
+                if (term == null) 
+                {
+                    term = entities.OfficialTerms.OrderByDescending(m => m.EndYear).FirstOrDefault();
+                }
+
+                BarangayCaptain chairman = entities.BarangayCaptains.Where(m => m.OfficialTermId == term.OfficialTermId).FirstOrDefault();
+
+                string chairmanId = chairman.ResidentId;
+                List<string> councelorIds = chairman.BarangayCounselors.Select(m => m.ResidentId).ToList();
+                string skChairmanId = chairman.SKChairman.ResidentId;
+                List<string> skCouncelorIds = chairman.SKChairman.SKCouncelors.Select(m => m.ResidentId).ToList();
+
+                TempData["Positions"] = entities.AssignedPositions.ToList();
+
+                int legalYear = DateTime.Now.Date.Year - 18;
+                int day = DateTime.Now.Date.Day;
+                int month = DateTime.Now.Month;
+                var residents = entities.ResidentsInformations
+                    .Where(m => m.Birthday <= new DateTime(legalYear, month, day)
+                    && m.ResidentId != chairmanId
+                    && !councelorIds.Contains(m.ResidentId)
+                    && m.ResidentId != skChairmanId
+                    && !skCouncelorIds.Contains(m.ResidentId))
+                    .ToList();
+
+                return View(residents);
+
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later." + e.ToString();
+                return View();
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AssignSpecialOfficials(string positionId, string[] residentIds)
+        {
+            try
+            {
+                if (positionId == null)
+                {
+                    return RedirectToAction("AssignSpecialOfficials");
+                }
+
+                if (positionId == "none")
+                {
+                    TempData["alert-type"] = "alert-warning";
+                    TempData["alert-header"] = "Warning";
+                    TempData["alert-msg"] = "Please select an assigned position.";
+                    return RedirectToAction("AssignSpecialOfficials");
+                }
+
+                if (residentIds == null)
+                {
+                    TempData["alert-type"] = "alert-warning";
+                    TempData["alert-header"] = "Warning";
+                    TempData["alert-msg"] = "Must select atleast 1 resident for the position.";
+                    return RedirectToAction("AssignSpecialOfficials");
+                }
+
+                //Audit Trail
+                string userId = User.Identity.GetUserId();
+                string posName = entities.AssignedPositions.Where(m => m.PositionId == positionId).Select(m => m.Name).FirstOrDefault();
+                string chairman = entities.BarangayCaptains.OrderByDescending(m => m.OfficialTerm.StartYear).Select(m=>m.CaptainId).FirstOrDefault();
+
+                foreach (var residentId in residentIds)
+                {
+                    entities.AssignedOfficials.Add(new AssignedOfficial()
+                    {
+                        AssignedOfficialId = KeyGenerator.GenerateId(residentId+chairman),
+                        PositionId = positionId,
+                        ResidentId = residentId,
+                        CaptainId = chairman
+                    });
+                    entities.SaveChanges();
+
+                    //Audit Trail
+                    ResidentsInformation tempResInfo = entities.ResidentsInformations.Where(m => m.ResidentId == residentId).FirstOrDefault();
+                    string tempName = tempResInfo.FirstName + " " + tempResInfo.LastName;
+                    new AuditTrailer().Record("Assigned " + tempName + " for the position of " + posName, AuditTrailer.BARANGAY_OFFICIAL_TYPE, userId);
+                }
+
+                TempData["alert-type"] = "alert-success";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = "Successfully assigned resident(s) for " + posName + " position.";
+
+                return RedirectToAction("OfficialsChart");
+            }
+            catch(Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later." + e.ToString();
+                return RedirectToAction("OfficialsChart");
+            }
+        }
+
+        /*
+         *  The following ActionResult methods are used for election
+         */
 
         [HttpGet]
         [Authorize]

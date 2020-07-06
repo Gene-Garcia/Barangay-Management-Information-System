@@ -112,6 +112,17 @@
 
 
     @* end shake *@
+
+    @* For form glows *@
+    .form-control, .custom-select {
+        color: #003f30;
+        letter-spacing: 2px;
+    }
+
+    .form-control:focus, .custom-select:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    }
 </style>
 
 @*<div class="navbar navbar-expand-lg navbar-fixed-top mb-5 bg-dark navbar-dark">
@@ -200,6 +211,7 @@
         <div id="officials-collapse" class="collapse" data-parent="#sidelinks">
             <a href="/BarangayOfficials/ElectSKChairman" class="sublink">Elect</a>
             <a href="/BarangayOfficials/OfficialsChart" class="sublink">Officials Chart</a>
+            <a href="/BarangayOfficials/AssignSpecialOfficials" class="sublink">Assign Special Officials</a>
         </div>
 
         <a href="/Dashboard/Index" class="hvr-icon-spin" id="dashboard-link"><span class="fa fa-area-chart hvr-icon mr-3"></span>Dashboard</a>
