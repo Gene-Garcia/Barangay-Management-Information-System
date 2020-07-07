@@ -60,6 +60,76 @@ namespace Barangay_Management_Information_System.Controllers
 
         [Authorize]
         [HttpGet]
+        public ActionResult EditOfficialTerm()
+        {
+            try
+            {
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
+                var toEdit = entities.OfficialTerms.Where(m => m.EndYear == null).FirstOrDefault();
+
+                if (toEdit == null)
+                {
+                    TempData["alert-type"] = "alert-info";
+                    TempData["alert-header"] = "Information";
+                    TempData["alert-msg"] = "The term is already updated.";
+                    return RedirectToAction("OfficialsChart");
+                }
+
+                var otherTerms = entities.OfficialTerms.Where(m => m.OfficialTermId != toEdit.OfficialTermId).ToList();
+                TempData["terms"] = otherTerms;
+
+                toEdit.EndYear = toEdit.StartYear; // Initial exam
+                return View( toEdit );
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
+                return View();
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditOfficialTerm(OfficialTerm term)
+        {
+            try
+            {
+                if (term.StartYear >= (int)term.EndYear)
+                {
+                    TempData["alert-type"] = "alert-warning";
+                    TempData["alert-header"] = "Warning";
+                    TempData["alert-msg"] = "The start year cannot be identical and greater than the end year.";
+                    return RedirectToAction("EditOfficialTerm");
+                }
+
+                entities.Entry(term).State = System.Data.Entity.EntityState.Modified;
+                entities.SaveChanges();
+
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+                string endYear = term.EndYear.ToString();
+                new AuditTrailer().Record("End year of an official term is set to " + endYear + ".", AuditTrailer.BARANGAY_OFFICIAL_TYPE, userId);
+
+                TempData["alert-type"] = "alert-success";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = "The end year of the current was successfully updated.";
+
+                return RedirectToAction("OfficialsChart");
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
+                return View();
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
         public ActionResult AssignSpecialOfficials()
         {
             try
@@ -202,14 +272,20 @@ namespace Barangay_Management_Information_System.Controllers
 
                 if (entities.OfficialTerms.Where(m => m.EndYear == null).FirstOrDefault() != null)
                 {
-                    return Content("Change End Year");
+                    TempData["alert-type"] = "alert-info";
+                    TempData["alert-header"] = "Information";
+                    TempData["alert-msg"] = "It appears that the last recorded official term's end year has not beend updated. Please update the record first before starting election.";
+                    return RedirectToAction("EditOfficialTerm");
                 }
                 else
                 {
                     OfficialTerm latestTerm = entities.OfficialTerms.OrderByDescending(m => m.EndYear).FirstOrDefault();
                     if (latestTerm.EndYear != DateTime.Now.Year)
                     {
-                        return Content("It is still not time for election");
+                        TempData["alert-type"] = "alert-info";
+                        TempData["alert-header"] = "Information";
+                        TempData["alert-msg"] = "It appears that the last recorded official term has not ended yet.";
+                        return RedirectToAction("OfficialsChart");
                     }
                 }
 
