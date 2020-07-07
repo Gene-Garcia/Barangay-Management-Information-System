@@ -108,7 +108,7 @@ namespace Barangay_Management_Information_System.Controllers
                 entities.Entry(term).State = System.Data.Entity.EntityState.Modified;
                 entities.SaveChanges();
 
-                // Audit Trail
+                // Audit Trail  
                 string userId = User.Identity.GetUserId();
                 string endYear = term.EndYear.ToString();
                 new AuditTrailer().Record("End year of an official term is set to " + endYear + ".", AuditTrailer.BARANGAY_OFFICIAL_TYPE, userId);

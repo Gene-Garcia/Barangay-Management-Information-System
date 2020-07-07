@@ -186,6 +186,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonalAccountController.cs" />
+    <Compile Include="Controllers\ResidentsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -394,6 +395,7 @@
     <Content Include="Views\BarangayOfficials\OfficialsChart.cshtml" />
     <Content Include="Views\BarangayOfficials\AssignSpecialOfficials.cshtml" />
     <Content Include="Views\BarangayOfficials\EditOfficialTerm.cshtml" />
+    <Content Include="Views\Residents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
