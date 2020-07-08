@@ -11,6 +11,23 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.semanticui.min.css" rel="stylesheet" />
 
+    <style>
+        ::selection {
+            background-color: #effcef;
+        }
+
+        @* For form glows *@ 
+        .form-control, .custom-select {
+            color: #003f30;
+            letter-spacing: 2px;
+        }
+
+        .form-control:focus, .custom-select:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+        }
+    </style>
+
 </head>
 <body @*onload="display_clock_timer()"*@>
 

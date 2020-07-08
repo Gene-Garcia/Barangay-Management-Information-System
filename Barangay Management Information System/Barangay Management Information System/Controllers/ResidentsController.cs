@@ -1,5 +1,7 @@
-﻿using Barangay_Management_Information_System.Models;
+﻿using Barangay_Management_Information_System.Classess;
+using Barangay_Management_Information_System.Models;
 using Barangay_Management_Information_System.Models.Entity;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,8 @@ namespace Barangay_Management_Information_System.Controllers
 
             try
             {
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
                 List<ResidentsInformation> residents = null;
                 if (deceased == "deceased")
                 {
@@ -131,7 +135,10 @@ namespace Barangay_Management_Information_System.Controllers
                 }
                 else // Update
                 {
-                    return Content("Update" + model.Birthdate);
+
+                    EditResident(model);
+
+                    return RedirectToAction("Index");
                 }
 
             }
@@ -141,6 +148,62 @@ namespace Barangay_Management_Information_System.Controllers
                 TempData["alert-header"] = "Error";
                 TempData["alert-msg"] = "Something went wrong, please try again later." + e.ToString();
                 return View("Index");
+            }
+        }
+
+        private void EditResident(RegisterResidentViewModel model)
+        {
+            try
+            {
+                ResidentsInformation resident = entities.ResidentsInformations.Where(m => m.ResidentId == model.ResidentID).FirstOrDefault();
+                resident.FirstName = model.FirstName;
+                resident.LastName = model.LastName;
+                resident.MiddleName = model.MiddleName;
+                resident.Birthday = model.Birthdate;
+                resident.Sex = model.Sex;
+
+                entities.Entry(resident).State = System.Data.Entity.EntityState.Modified;
+                entities.SaveChanges();
+
+                if (resident.ResidentsLocations.FirstOrDefault() == null)
+                {
+                    HouseHoldAddress houseHoldAddress = new HouseHoldAddress()
+                    {
+                        AddressId = KeyGenerator.GenerateId(model.Address),
+                        Address = model.Address,
+                        SiteId = model.SiteID
+                    };
+                    entities.HouseHoldAddresses.Add(houseHoldAddress);
+                    entities.SaveChanges();
+
+                    ResidentsLocation residentsLocation = new ResidentsLocation()
+                    {
+                        ResidentLocationId = KeyGenerator.GenerateId(model.ResidentID + model.Address),
+                        ResidentId = model.ResidentID,
+                        AddressId = houseHoldAddress.AddressId
+                    };
+                    entities.ResidentsLocations.Add(residentsLocation);
+                    entities.SaveChanges();
+
+                }
+                else
+                {
+                    HouseHoldAddress houseHoldAddress = resident.ResidentsLocations.FirstOrDefault().HouseHoldAddress;
+                    houseHoldAddress.Address = model.Address;
+                    houseHoldAddress.SiteId = model.SiteID;
+                    entities.Entry(resident).State = System.Data.Entity.EntityState.Modified;
+                    entities.SaveChanges();
+                }
+
+                TempData["alert-type"] = "alert-success";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = "Resident successfully updated.";
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later." + e.ToString();
             }
         }
     }

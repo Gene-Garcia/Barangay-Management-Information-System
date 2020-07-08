@@ -35,7 +35,7 @@
 
     </div>
 
-    <div class="form-row">
+    <div class="form-row mb-4">
 
         <div class="col-md-4">
             <label style="font-weight:600">Sex</label>
@@ -73,14 +73,14 @@
 
         @if (Model.ResidentsLocations.FirstOrDefault() != null) {
 
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <label style="font-weight:600">Address</label>
                 <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
                     <p>@Model.ResidentsLocations.FirstOrDefault().HouseHoldAddress.Address</p>
                 </div>
             </div>
 
-            <div class="col-md-10">
+            <div class="col-md-4">
                 <label style="font-weight:600">Site</label>
                 <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
                     <p>@Model.ResidentsLocations.FirstOrDefault().HouseHoldAddress.Site.Name</p>
