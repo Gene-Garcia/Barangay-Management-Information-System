@@ -131,12 +131,13 @@ namespace Barangay_Management_Information_System.Controllers
                 // Add
                 if (model.ResidentID == null)
                 {
-                    return Content("Add");
+                    AddResident(model);
+
+                    return RedirectToAction("Index");
                 }
                 else // Update
                 {
-
-                    EditResident(model);
+                    UpdateResident(model);
 
                     return RedirectToAction("Index");
                 }
@@ -151,7 +152,53 @@ namespace Barangay_Management_Information_System.Controllers
             }
         }
 
-        private void EditResident(RegisterResidentViewModel model)
+        private void AddResident(RegisterResidentViewModel model)
+        {
+            try
+            {
+                ResidentsInformation resident = new ResidentsInformation()
+                {
+                    ResidentId = KeyGenerator.GenerateId(model.FirstName + model.LastName),
+                    FirstName = model.FirstName,
+                    MiddleName = model.MiddleName,
+                    LastName = model.LastName,
+                    Sex = model.Sex,
+                    Birthday = model.Birthdate
+                };
+                entities.ResidentsInformations.Add(resident);
+                entities.SaveChanges();
+
+                HouseHoldAddress houseHoldAddress = new HouseHoldAddress()
+                {
+                    AddressId = KeyGenerator.GenerateId(model.Address),
+                    Address = model.Address,
+                    SiteId = model.SiteID
+                };
+                entities.HouseHoldAddresses.Add(houseHoldAddress);
+                entities.SaveChanges();
+
+                ResidentsLocation residentsLocation = new ResidentsLocation()
+                {
+                    ResidentLocationId = KeyGenerator.GenerateId(model.ResidentID + model.Address),
+                    ResidentId = resident.ResidentId,
+                    AddressId = houseHoldAddress.AddressId
+                };
+                entities.ResidentsLocations.Add(residentsLocation);
+                entities.SaveChanges();
+
+                TempData["alert-type"] = "alert-success";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = model.FirstName + " " + model.LastName + " was successfully recorded as a resident of Sinisian.";
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later." + e.ToString();
+            }            
+        }
+
+        private void UpdateResident(RegisterResidentViewModel model)
         {
             try
             {
@@ -197,7 +244,7 @@ namespace Barangay_Management_Information_System.Controllers
 
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
-                TempData["alert-msg"] = "Resident successfully updated.";
+                TempData["alert-msg"] = model.FirstName + " " + model.LastName +" record was successfully updated.";
             }
             catch (Exception e)
             {
