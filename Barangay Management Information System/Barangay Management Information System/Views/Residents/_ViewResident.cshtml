@@ -1,0 +1,94 @@
+﻿@model Barangay_Management_Information_System.Models.Entity.ResidentsInformation
+
+@{
+    ViewBag.Title = "View Resident";
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+}
+
+
+<div class="pl-5 pr-5 pt-3 pb-5">
+
+    <div class="form-row mb-4">
+        <div class="col-md-12">
+            <label style="font-weight:600">Last Name</label>
+            <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                <p>@Model.LastName</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row mb-4">
+
+        <div class="col-md-6">
+            <label style="font-weight:600">First Name</label>
+            <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                <p>@Model.FirstName</p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label style="font-weight:600">Middle Name</label>
+            <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                <p>@Model.MiddleName</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-row">
+
+        <div class="col-md-4">
+            <label style="font-weight:600">Sex</label>
+            <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                <p>@Model.Sex</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label style="font-weight:600">Birthdate</label>
+            <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                <p>@Model.Birthday.ToString("MMM dd, yyyy")</p>
+            </div>
+        </div>
+
+        @{
+            var today = DateTime.Today;
+            var age = today.Year - Model.Birthday.Year;
+            if (Model.Birthday > today.AddYears(-age))
+            {
+                age--;
+            }
+        }
+
+        <div class="col-md-4">
+            <label style="font-weight:600">Age</label>
+            <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                <p>@age year(s) old</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-row">
+
+        @if (Model.ResidentsLocations.FirstOrDefault() != null) {
+
+            <div class="col-md-10">
+                <label style="font-weight:600">Address</label>
+                <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                    <p>@Model.ResidentsLocations.FirstOrDefault().HouseHoldAddress.Address</p>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                <label style="font-weight:600">Site</label>
+                <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                    <p>@Model.ResidentsLocations.FirstOrDefault().HouseHoldAddress.Site.Name</p>
+                </div>
+            </div>
+
+        }
+
+    </div>
+
+</div>

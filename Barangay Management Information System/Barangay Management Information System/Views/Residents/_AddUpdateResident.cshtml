@@ -1,0 +1,141 @@
+﻿@model Barangay_Management_Information_System.Models.RegisterResidentViewModel
+
+@{
+    ViewBag.Title = "Add Update Resident";
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+
+    List<SelectListItem> sitesSLI = new List<SelectListItem>();
+
+    foreach (var site in TempData["Sites"] as List<Barangay_Management_Information_System.Models.Entity.Site>)
+    {
+        sitesSLI.Add( new SelectListItem()
+        {
+            Text = site.Name,
+            Value = site.SiteId
+        });
+    }
+
+    List<SelectListItem> sexSLI = new List<SelectListItem>();
+    sexSLI.Add(new SelectListItem() { Text = "Male", Value = "Male" });
+    sexSLI.Add(new SelectListItem() { Text = "Female", Value = "Female" });
+
+}
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal pl-5 pr-5 pt-3 pb-5">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.ResidentID)
+
+        <div class="form-row">
+
+            <div class="form-group col-md-12">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            @{
+                var formClass = "col-md-4";
+                var messageDisplay = "Copy the date from the left";
+                if (Model.ResidentID == null || Model.ResidentID == "")
+                {
+                    messageDisplay = "Birthdate";
+                    formClass = "col-md-6";
+                }
+
+            }
+
+            <div class="form-group @formClass">
+                @Html.LabelFor(model => model.Sex, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.Sex, sexSLI, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @if (formClass == "col-md-4")
+            {
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.Birthdate, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        <p class="border rounded p-2">@Model.Birthdate.ToString("MM/dd/yyyy")</p>
+                        @Html.ValidationMessageFor(model => model.Birthdate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+
+            <div class="form-group @formClass">
+                <label class="control-label col-md-12">@messageDisplay</label>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Birthdate, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Birthdate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.SiteID, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.SiteID, sitesSLI, new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.SiteID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-8">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-12">
+                <input type="submit" value="Update" class="btn btn-success float-right" />
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{
+    <script>
+        @Scripts.Render("~/bundles/jqueryval")
+    </script>
+    }

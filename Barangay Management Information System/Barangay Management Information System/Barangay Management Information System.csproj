@@ -286,6 +286,7 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RegisterResidentViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -396,6 +397,8 @@
     <Content Include="Views\BarangayOfficials\AssignSpecialOfficials.cshtml" />
     <Content Include="Views\BarangayOfficials\EditOfficialTerm.cshtml" />
     <Content Include="Views\Residents\Index.cshtml" />
+    <Content Include="Views\Residents\_ViewResident.cshtml" />
+    <Content Include="Views\Residents\_AddUpdateResident.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
