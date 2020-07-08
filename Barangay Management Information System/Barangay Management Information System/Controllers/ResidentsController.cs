@@ -28,6 +28,7 @@ namespace Barangay_Management_Information_System.Controllers
                 {
                     // deceased
                     residents = entities.ResidentsInformations.Where(m => m.Deceaseds.FirstOrDefault() != null).ToList();
+                    TempData["isDeceased"] = true;
                 }
                 else
                 {
@@ -45,6 +46,64 @@ namespace Barangay_Management_Information_System.Controllers
             }
 
             return Content(deceased);
+        }
+
+        [Authorize]
+        public ActionResult DeceaseResident(string residentID)
+        {
+            try
+            {
+                if (residentID == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                ResidentsInformation resident = entities.ResidentsInformations.Where(m => m.ResidentId == residentID).FirstOrDefault();
+
+                if (resident == null)
+                {
+                    TempData["alert-type"] = "alert-info";
+                    TempData["alert-header"] = "Information";
+                    TempData["alert-msg"] = "User cannot be found.";
+                    return RedirectToAction("Index");
+                }
+
+                int age = CalculateAge(resident.Birthday);
+
+                Deceased deceased = new Deceased()
+                {
+                    DeceasedId = KeyGenerator.GenerateId(resident.FirstName + resident.LastName + resident.Birthday),
+                    ResidentId = resident.ResidentId,
+                    DeathDate = DateTime.Now.Date,
+                    Age = age
+                };
+
+                entities.Deceaseds.Add(deceased);
+                entities.SaveChanges();
+
+                TempData["alert-type"] = "alert-success";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = resident.FirstName + " " + resident.LastName + " is set as a deceased Sinisian resident.";
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
+                return RedirectToAction("Index");
+            }
+        }
+
+        private int CalculateAge(DateTime dateOfBirth)
+        {
+            int age = 0;
+            age = DateTime.Now.Year - dateOfBirth.Year;
+            if (DateTime.Now.DayOfYear < dateOfBirth.DayOfYear)
+                age = age - 1;
+
+            return age;
         }
 
         [Authorize]
@@ -147,7 +206,7 @@ namespace Barangay_Management_Information_System.Controllers
             {
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
-                TempData["alert-msg"] = "Something went wrong, please try again later." + e.ToString();
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
                 return View("Index");
             }
         }
@@ -194,7 +253,7 @@ namespace Barangay_Management_Information_System.Controllers
             {
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
-                TempData["alert-msg"] = "Something went wrong, please try again later." + e.ToString();
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
             }            
         }
 
@@ -250,7 +309,7 @@ namespace Barangay_Management_Information_System.Controllers
             {
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
-                TempData["alert-msg"] = "Something went wrong, please try again later." + e.ToString();
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
             }
         }
     }

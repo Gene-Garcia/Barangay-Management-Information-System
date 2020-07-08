@@ -18,11 +18,21 @@
 
     <div class="row">
         <div class="col-md-6">
-            <h1 class="page-header-title mb-2">Sinisian Residents</h1>
+            @if (TempData["isDeceased"] != null && (bool)TempData["isDeceased"] == true)
+            {
+                <h1 class="page-header-title mb-2">Deceased Sinisian Residents</h1>
+            }
+            else
+            {
+                <h1 class="page-header-title mb-2">Sinisian Residents</h1>
+            }
         </div>
 
         <div class="col-md-6">
-            <button class="btn btn-success float-right p-2" onclick="AddUpdateResident('')" style="font-weight:600"><span class="	fas fa-user-plus mr-2" style="font-size:18px"></span>Record Resident</button>
+            @if (!(TempData["isDeceased"] != null && (bool)TempData["isDeceased"] == true))
+            {
+                <button class="btn btn-success float-right p-2" onclick="AddUpdateResident('')" style="font-weight:600"><span class="	fas fa-user-plus mr-2" style="font-size:18px"></span>Record Resident</button>
+            }
         </div>
     </div>
 
@@ -66,7 +76,11 @@
                                     <td class="text-center">
                                         <button onclick="ViewResident('@item.ResidentId')" class="btn btn-success btn-sm mr-2 ml-2"><span class="fa fa-info-circle mr-2 ml-2" style="font-size:18px"></span></button>
                                         <button onclick="AddUpdateResident('@item.ResidentId')" class="btn btn-primary btn-sm mr-2 ml-2"><span class="fas fa-user-edit mr-2 ml-2" style="font-size:18px"></span></button>
-                                        <a href="@Url.Action("", "", new {  })" class="btn btn-danger btn-sm mr-2 ml-2"><span class="fas fa-skull-crossbones mr-2 ml-2" style="font-size:18px"></span></a>
+
+                                        @if (!(TempData["isDeceased"] != null && (bool)TempData["isDeceased"] == true))
+                                        {
+                                            <a href="@Url.Action("DeceaseResident", "Residents", new { residentID = item.ResidentId })" class="btn btn-danger btn-sm mr-2 ml-2"><span class="fas fa-skull-crossbones mr-2 ml-2" style="font-size:18px"></span></a>
+                                        }
                                     </td>
                                 </tr>
                             }
