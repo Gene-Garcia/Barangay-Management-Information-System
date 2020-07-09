@@ -24,7 +24,7 @@ namespace Barangay_Management_Information_System.Controllers
             {
                 TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
 
-                //BarangayCaptain chairman = entities.BarangayCaptains.Where(m => m.OfficialTerm.EndYear == null).FirstOrDefault();
+                //BarangayCaptain chairman = entities.BarangayChairmen.Where(m => m.OfficialTerm.EndYear == null).FirstOrDefault();
                 //var councelors = chairman.BarangayCounselors.ToList();
                 //SKChairman sk = chairman.SKChairman;
                 //var skcouncelors = sk.SKCouncelors.ToList();
@@ -41,13 +41,13 @@ namespace Barangay_Management_Information_System.Controllers
                 //    entities.SaveChanges();
                 //}
 
-                //entities.BarangayCaptains.Remove(chairman);
+                //entities.BarangayChairmen.Remove(chairman);
                 //entities.SaveChanges();
 
                 //entities.SKChairmen.Remove(sk);
                 //entities.SaveChanges();
 
-                return View(entities.BarangayCaptains.OrderByDescending(m=>m.OfficialTerm.StartYear).ToList());
+                return View(entities.BarangayChairmen.OrderByDescending(m=>m.OfficialTerm.StartYear).ToList());
             }
             catch (Exception e)
             {
@@ -145,7 +145,7 @@ namespace Barangay_Management_Information_System.Controllers
                     term = entities.OfficialTerms.OrderByDescending(m => m.EndYear).FirstOrDefault();
                 }
 
-                BarangayCaptain chairman = entities.BarangayCaptains.Where(m => m.OfficialTermId == term.OfficialTermId).FirstOrDefault();
+                BarangayChairman chairman = entities.BarangayChairmen.Where(m => m.OfficialTermId == term.OfficialTermId).FirstOrDefault();
 
                 string chairmanId = chairman.ResidentId;
                 List<string> councelorIds = chairman.BarangayCounselors.Select(m => m.ResidentId).ToList();
@@ -209,7 +209,7 @@ namespace Barangay_Management_Information_System.Controllers
                 //Audit Trail
                 string userId = User.Identity.GetUserId();
                 string posName = entities.AssignedPositions.Where(m => m.PositionId == positionId).Select(m => m.Name).FirstOrDefault();
-                string chairman = entities.BarangayCaptains.OrderByDescending(m => m.OfficialTerm.StartYear).Select(m=>m.CaptainId).FirstOrDefault();
+                string chairman = entities.BarangayChairmen.OrderByDescending(m => m.OfficialTerm.StartYear).Select(m=>m.ChairmanId).FirstOrDefault();
 
                 foreach (var residentId in residentIds)
                 {
@@ -257,10 +257,10 @@ namespace Barangay_Management_Information_System.Controllers
 
                 // Check first if a barangay captain was elected already
                 // returns the barangaycaptain object that is elected but does not have elected councilors
-                List<BarangayCaptain> chairmanWithCouncilors = entities.BarangayCounselors.Select(m => m.BarangayCaptain).ToList();
+                List<BarangayChairman> chairmanWithCouncilors = entities.BarangayCounselors.Select(m => m.BarangayChairman).ToList();
                 var ids = chairmanWithCouncilors.Select(m => m.ResidentId).ToList();
 
-                BarangayCaptain chairmanWithNoCouncilors = entities.BarangayCaptains.Where(m => !ids.Contains(m.ResidentId)).FirstOrDefault();
+                BarangayChairman chairmanWithNoCouncilors = entities.BarangayChairmen.Where(m => !ids.Contains(m.ResidentId)).FirstOrDefault();
 
                 if (chairmanWithNoCouncilors != null)
                 {
@@ -290,7 +290,7 @@ namespace Barangay_Management_Information_System.Controllers
                 }
 
                 // Get the newly elected SK Chairman, The record that is not in the BarangayCaptainTable means its the new record
-                List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
+                List<string> SK = entities.BarangayChairmen.Select(m => m.SKChairmanId).ToList();
                 SKChairman sKChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
 
                 if (sKChairman != null)
@@ -361,7 +361,7 @@ namespace Barangay_Management_Information_System.Controllers
             {
                 TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
 
-                List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
+                List<string> SK = entities.BarangayChairmen.Select(m => m.SKChairmanId).ToList();
                 SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
 
                 if(skChairman == null)
@@ -425,7 +425,7 @@ namespace Barangay_Management_Information_System.Controllers
                     return RedirectToAction("ElectSKCouncilors");
                 }
 
-                List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
+                List<string> SK = entities.BarangayChairmen.Select(m => m.SKChairmanId).ToList();
                 SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
 
                 // Audit Trail
@@ -476,10 +476,10 @@ namespace Barangay_Management_Information_System.Controllers
                 TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
 
                 // returns the barangaycaptain object that is elected but does not have elected councilors.
-                List<BarangayCaptain> chairmanWithCouncilors = entities.BarangayCounselors.Select(m => m.BarangayCaptain).ToList();
+                List<BarangayChairman> chairmanWithCouncilors = entities.BarangayCounselors.Select(m => m.BarangayChairman).ToList();
                 var ids = chairmanWithCouncilors.Select(m => m.ResidentId).ToList();
 
-                BarangayCaptain chairmanWithNoCouncilors = entities.BarangayCaptains.Where(m => !ids.Contains(m.ResidentId)).FirstOrDefault();
+                BarangayChairman chairmanWithNoCouncilors = entities.BarangayChairmen.Where(m => !ids.Contains(m.ResidentId)).FirstOrDefault();
 
                 if (chairmanWithNoCouncilors != null)
                 {
@@ -490,7 +490,7 @@ namespace Barangay_Management_Information_System.Controllers
                 }
 
                 // Helps in filtering results.
-                List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
+                List<string> SK = entities.BarangayChairmen.Select(m => m.SKChairmanId).ToList();
                 SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
                 List<string> skcouncilorsIds = entities.SKCouncelors.Where(m => m.SKChairmanId == skChairman.SKChairmanId).Select(m => m.ResidentId).ToList();
 
@@ -531,19 +531,19 @@ namespace Barangay_Management_Information_System.Controllers
                 entities.SaveChanges();
 
                 // Get the newly elected SK Chairman, The record that is not in the BarangayCaptainTable means its the new record
-                List<string> SK = entities.BarangayCaptains.Select(m => m.SKChairmanId).ToList();
+                List<string> SK = entities.BarangayChairmen.Select(m => m.SKChairmanId).ToList();
                 SKChairman skChairman = entities.SKChairmen.Where(m => !SK.Contains(m.SKChairmanId)).FirstOrDefault();
 
                 // Now, elect the barangay Chairman
-                BarangayCaptain barangayCaptain = new BarangayCaptain()
+                BarangayChairman barangayCaptain = new BarangayChairman()
                 {
-                    CaptainId = KeyGenerator.GenerateId(residentId),
+                    ChairmanId = KeyGenerator.GenerateId(residentId),
                     OfficialTermId = newTerm.OfficialTermId,
                     ResidentId = residentId,
                     SKChairmanId = skChairman.SKChairmanId,
                     
                 };
-                entities.BarangayCaptains.Add(barangayCaptain);
+                entities.BarangayChairmen.Add(barangayCaptain);
                 entities.SaveChanges();
 
                 // Audit Trail
@@ -576,9 +576,9 @@ namespace Barangay_Management_Information_System.Controllers
 
                 // obtain the record that has a null end year, meaning that is the latest term.
                 OfficialTerm officialTerm = entities.OfficialTerms.Where(m => m.EndYear == null).FirstOrDefault();
-                BarangayCaptain chairman = entities.BarangayCaptains.Where(m => m.OfficialTermId == officialTerm.OfficialTermId).FirstOrDefault();
+                BarangayChairman chairman = entities.BarangayChairmen.Where(m => m.OfficialTermId == officialTerm.OfficialTermId).FirstOrDefault();
 
-                BarangayCounselor chairmanCouncelor = entities.BarangayCounselors.Where(m => m.CaptainId == chairman.CaptainId).FirstOrDefault();
+                BarangayCounselor chairmanCouncelor = entities.BarangayCounselors.Where(m => m.ChairmanId == chairman.ChairmanId).FirstOrDefault();
                 if (chairmanCouncelor != null)
                 {
                     TempData["alert-type"] = "alert-warning";
@@ -640,7 +640,7 @@ namespace Barangay_Management_Information_System.Controllers
 
                 // obtain the record that has a null end year, meaning that is the latest term.
                 OfficialTerm officialTerm = entities.OfficialTerms.Where(m => m.EndYear == null).FirstOrDefault();
-                BarangayCaptain chairman = entities.BarangayCaptains.Where(m => m.OfficialTermId == officialTerm.OfficialTermId).FirstOrDefault();
+                BarangayChairman chairman = entities.BarangayChairmen.Where(m => m.OfficialTermId == officialTerm.OfficialTermId).FirstOrDefault();
 
                 //Audit Trail
                 string userId = User.Identity.GetUserId();
@@ -651,7 +651,7 @@ namespace Barangay_Management_Information_System.Controllers
                     {
                         BarangayCounselorId = KeyGenerator.GenerateId(residentIds[i]),
                         ResidentId = residentIds[i],
-                        CaptainId = chairman.CaptainId
+                        ChairmanId = chairman.ChairmanId
                     });
                     entities.SaveChanges();
 

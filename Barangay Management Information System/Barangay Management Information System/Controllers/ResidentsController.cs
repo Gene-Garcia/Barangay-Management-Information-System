@@ -83,7 +83,7 @@ namespace Barangay_Management_Information_System.Controllers
 
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
-                TempData["alert-msg"] = resident.FirstName + " " + resident.LastName + " is set as a deceased Sinisian resident.";
+                TempData["alert-msg"] = resident.FirstName + " " + resident.LastName + " is set as a deceased Sinisian resident.";  
 
                 // Audit Trail
                 string userId = User.Identity.GetUserId();

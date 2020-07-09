@@ -12,16 +12,16 @@ namespace Barangay_Management_Information_System.Models.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class BarangayCaptain
+    public partial class BarangayChairman
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BarangayCaptain()
+        public BarangayChairman()
         {
             this.AssignedOfficials = new HashSet<AssignedOfficial>();
             this.BarangayCounselors = new HashSet<BarangayCounselor>();
         }
     
-        public string CaptainId { get; set; }
+        public string ChairmanId { get; set; }
         public string ResidentId { get; set; }
         public string SKChairmanId { get; set; }
         public string OfficialTermId { get; set; }

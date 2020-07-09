@@ -19,7 +19,7 @@ namespace Barangay_Management_Information_System.Models.Entity
         public string PositionId { get; set; }
         public string CaptainId { get; set; }
     
-        public virtual BarangayCaptain BarangayCaptain { get; set; }
+        public virtual BarangayChairman BarangayChairman { get; set; }
         public virtual AssignedPosition AssignedPosition { get; set; }
         public virtual ResidentsInformation ResidentsInformation { get; set; }
     }

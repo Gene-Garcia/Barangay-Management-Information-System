@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="SinisianDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -104,11 +104,11 @@
     <Property Name="DateAction" Type="datetime" Nullable="false" />
     <Property Name="Message" Type="varchar(max)" Nullable="false" />
   </EntityType>
-  <EntityType Name="BarangayCaptains">
+  <EntityType Name="BarangayChairman">
     <Key>
-      <PropertyRef Name="CaptainId" />
+      <PropertyRef Name="ChairmanId" />
     </Key>
-    <Property Name="CaptainId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ChairmanId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ResidentId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="SKChairmanId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="OfficialTermId" Type="varchar" MaxLength="50" Nullable="false" />
@@ -119,7 +119,7 @@
     </Key>
     <Property Name="BarangayCounselorId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ResidentId" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="CaptainId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ChairmanId" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Deceased">
     <Key>
@@ -164,6 +164,7 @@
     <Property Name="MiddleName" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Birthday" Type="date" Nullable="false" />
     <Property Name="Sex" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateRecorded" Type="date" />
   </EntityType>
   <EntityType Name="ResidentsLocation">
     <Key>
@@ -265,11 +266,11 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="AssignedOfficials_CaptainId_BarangayCaptains">
-    <End Role="BarangayCaptains" Type="Self.BarangayCaptains" Multiplicity="1" />
+    <End Role="BarangayChairman" Type="Self.BarangayChairman" Multiplicity="1" />
     <End Role="AssignedOfficials" Type="Self.AssignedOfficials" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="BarangayCaptains">
-        <PropertyRef Name="CaptainId" />
+      <Principal Role="BarangayChairman">
+        <PropertyRef Name="ChairmanId" />
       </Principal>
       <Dependent Role="AssignedOfficials">
         <PropertyRef Name="CaptainId" />
@@ -326,49 +327,49 @@
   </Association>
   <Association Name="BarangayCaptains_OfficialTermId_OfficialTerm">
     <End Role="OfficialTerm" Type="Self.OfficialTerm" Multiplicity="1" />
-    <End Role="BarangayCaptains" Type="Self.BarangayCaptains" Multiplicity="*" />
+    <End Role="BarangayChairman" Type="Self.BarangayChairman" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="OfficialTerm">
         <PropertyRef Name="OfficialTermId" />
       </Principal>
-      <Dependent Role="BarangayCaptains">
+      <Dependent Role="BarangayChairman">
         <PropertyRef Name="OfficialTermId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="BarangayCaptains_ResidentId_ResidentsInformations">
     <End Role="ResidentsInformations" Type="Self.ResidentsInformations" Multiplicity="1" />
-    <End Role="BarangayCaptains" Type="Self.BarangayCaptains" Multiplicity="*" />
+    <End Role="BarangayChairman" Type="Self.BarangayChairman" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ResidentsInformations">
         <PropertyRef Name="ResidentId" />
       </Principal>
-      <Dependent Role="BarangayCaptains">
+      <Dependent Role="BarangayChairman">
         <PropertyRef Name="ResidentId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="BarangayCaptains_SKChairmanId_SKChairman">
     <End Role="SKChairman" Type="Self.SKChairman" Multiplicity="1" />
-    <End Role="BarangayCaptains" Type="Self.BarangayCaptains" Multiplicity="*" />
+    <End Role="BarangayChairman" Type="Self.BarangayChairman" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="SKChairman">
         <PropertyRef Name="SKChairmanId" />
       </Principal>
-      <Dependent Role="BarangayCaptains">
+      <Dependent Role="BarangayChairman">
         <PropertyRef Name="SKChairmanId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="BarangayCounselor_CaptainId_BarangayCaptains">
-    <End Role="BarangayCaptains" Type="Self.BarangayCaptains" Multiplicity="1" />
+    <End Role="BarangayChairman" Type="Self.BarangayChairman" Multiplicity="1" />
     <End Role="BarangayCounselor" Type="Self.BarangayCounselor" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="BarangayCaptains">
-        <PropertyRef Name="CaptainId" />
+      <Principal Role="BarangayChairman">
+        <PropertyRef Name="ChairmanId" />
       </Principal>
       <Dependent Role="BarangayCounselor">
-        <PropertyRef Name="CaptainId" />
+        <PropertyRef Name="ChairmanId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -570,7 +571,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="SinisianDatabaseModelStoreContainer">
+  <EntityContainer Name="DBModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AccountAssets" EntityType="Self.AccountAssets" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -582,7 +583,7 @@
     <EntitySet Name="AssignedPositions" EntityType="Self.AssignedPositions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AuditActions" EntityType="Self.AuditActions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AuditTrail" EntityType="Self.AuditTrail" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="BarangayCaptains" EntityType="Self.BarangayCaptains" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BarangayChairman" EntityType="Self.BarangayChairman" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BarangayCounselor" EntityType="Self.BarangayCounselor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Deceased" EntityType="Self.Deceased" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HouseHoldAddress" EntityType="Self.HouseHoldAddress" Schema="dbo" store:Type="Tables" />
@@ -610,7 +611,7 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
     <AssociationSet Name="AssignedOfficials_CaptainId_BarangayCaptains" Association="Self.AssignedOfficials_CaptainId_BarangayCaptains">
-      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+      <End Role="BarangayChairman" EntitySet="BarangayChairman" />
       <End Role="AssignedOfficials" EntitySet="AssignedOfficials" />
     </AssociationSet>
     <AssociationSet Name="AssignedOfficials_PositionId_AssignedPositions" Association="Self.AssignedOfficials_PositionId_AssignedPositions">
@@ -631,18 +632,18 @@
     </AssociationSet>
     <AssociationSet Name="BarangayCaptains_OfficialTermId_OfficialTerm" Association="Self.BarangayCaptains_OfficialTermId_OfficialTerm">
       <End Role="OfficialTerm" EntitySet="OfficialTerm" />
-      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+      <End Role="BarangayChairman" EntitySet="BarangayChairman" />
     </AssociationSet>
     <AssociationSet Name="BarangayCaptains_ResidentId_ResidentsInformations" Association="Self.BarangayCaptains_ResidentId_ResidentsInformations">
       <End Role="ResidentsInformations" EntitySet="ResidentsInformations" />
-      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+      <End Role="BarangayChairman" EntitySet="BarangayChairman" />
     </AssociationSet>
     <AssociationSet Name="BarangayCaptains_SKChairmanId_SKChairman" Association="Self.BarangayCaptains_SKChairmanId_SKChairman">
       <End Role="SKChairman" EntitySet="SKChairman" />
-      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+      <End Role="BarangayChairman" EntitySet="BarangayChairman" />
     </AssociationSet>
     <AssociationSet Name="BarangayCounselor_CaptainId_BarangayCaptains" Association="Self.BarangayCounselor_CaptainId_BarangayCaptains">
-      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+      <End Role="BarangayChairman" EntitySet="BarangayChairman" />
       <End Role="BarangayCounselor" EntitySet="BarangayCounselor" />
     </AssociationSet>
     <AssociationSet Name="BarangayCounselor_ResidentId_ResidentsInformations" Association="Self.BarangayCounselor_ResidentId_ResidentsInformations">

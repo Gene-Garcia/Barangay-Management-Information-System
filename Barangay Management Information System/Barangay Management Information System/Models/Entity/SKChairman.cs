@@ -17,7 +17,7 @@ namespace Barangay_Management_Information_System.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SKChairman()
         {
-            this.BarangayCaptains = new HashSet<BarangayCaptain>();
+            this.BarangayChairmen = new HashSet<BarangayChairman>();
             this.SKCouncelors = new HashSet<SKCouncelor>();
         }
     
@@ -25,7 +25,7 @@ namespace Barangay_Management_Information_System.Models.Entity
         public string ResidentId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BarangayCaptain> BarangayCaptains { get; set; }
+        public virtual ICollection<BarangayChairman> BarangayChairmen { get; set; }
         public virtual ResidentsInformation ResidentsInformation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SKCouncelor> SKCouncelors { get; set; }

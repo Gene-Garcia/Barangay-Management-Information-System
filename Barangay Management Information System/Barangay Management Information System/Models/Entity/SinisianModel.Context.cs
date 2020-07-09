@@ -36,7 +36,7 @@ namespace Barangay_Management_Information_System.Models.Entity
         public virtual DbSet<AssignedPosition> AssignedPositions { get; set; }
         public virtual DbSet<AuditAction> AuditActions { get; set; }
         public virtual DbSet<AuditTrail> AuditTrails { get; set; }
-        public virtual DbSet<BarangayCaptain> BarangayCaptains { get; set; }
+        public virtual DbSet<BarangayChairman> BarangayChairmen { get; set; }
         public virtual DbSet<BarangayCounselor> BarangayCounselors { get; set; }
         public virtual DbSet<Deceased> Deceaseds { get; set; }
         public virtual DbSet<HouseHoldAddress> HouseHoldAddresses { get; set; }

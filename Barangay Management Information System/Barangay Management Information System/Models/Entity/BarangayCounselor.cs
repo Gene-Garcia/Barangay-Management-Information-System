@@ -16,9 +16,9 @@ namespace Barangay_Management_Information_System.Models.Entity
     {
         public string BarangayCounselorId { get; set; }
         public string ResidentId { get; set; }
-        public string CaptainId { get; set; }
+        public string ChairmanId { get; set; }
     
-        public virtual BarangayCaptain BarangayCaptain { get; set; }
+        public virtual BarangayChairman BarangayChairman { get; set; }
         public virtual ResidentsInformation ResidentsInformation { get; set; }
     }
 }

@@ -221,7 +221,7 @@
     <Compile Include="Models\Entity\AuditTrail.cs">
       <DependentUpon>SinisianModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\BarangayCaptain.cs">
+    <Compile Include="Models\Entity\BarangayChairman.cs">
       <DependentUpon>SinisianModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\BarangayCounselor.cs">

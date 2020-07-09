@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="SinisianDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="C__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -92,7 +92,7 @@
     <Property Name="ResidentId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="PositionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="CaptainId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="BarangayCaptain" Relationship="Self.AssignedOfficials_CaptainId_BarangayCaptains" FromRole="AssignedOfficials" ToRole="BarangayCaptains" />
+    <NavigationProperty Name="BarangayChairman" Relationship="Self.AssignedOfficials_CaptainId_BarangayCaptains" FromRole="AssignedOfficials" ToRole="BarangayChairman" />
     <NavigationProperty Name="AssignedPosition" Relationship="Self.AssignedOfficials_PositionId_AssignedPositions" FromRole="AssignedOfficials" ToRole="AssignedPositions" />
     <NavigationProperty Name="ResidentsInformation" Relationship="Self.AssignedOfficials_ResidentId_ResidentsInformations" FromRole="AssignedOfficials" ToRole="ResidentsInformations" />
   </EntityType>
@@ -124,19 +124,19 @@
     <NavigationProperty Name="AspNetUser" Relationship="Self.AuditTrail_AccountId_AspNetUsers" FromRole="AuditTrail" ToRole="AspNetUsers" />
     <NavigationProperty Name="AuditAction" Relationship="Self.AuditTrail_AuditActionsId_AuditActions" FromRole="AuditTrail" ToRole="AuditActions" />
   </EntityType>
-  <EntityType Name="BarangayCaptain">
+  <EntityType Name="BarangayChairman">
     <Key>
-      <PropertyRef Name="CaptainId" />
+      <PropertyRef Name="ChairmanId" />
     </Key>
-    <Property Name="CaptainId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ChairmanId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="ResidentId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="SKChairmanId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="OfficialTermId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="AssignedOfficials" Relationship="Self.AssignedOfficials_CaptainId_BarangayCaptains" FromRole="BarangayCaptains" ToRole="AssignedOfficials" />
-    <NavigationProperty Name="OfficialTerm" Relationship="Self.BarangayCaptains_OfficialTermId_OfficialTerm" FromRole="BarangayCaptains" ToRole="OfficialTerm" />
-    <NavigationProperty Name="ResidentsInformation" Relationship="Self.BarangayCaptains_ResidentId_ResidentsInformations" FromRole="BarangayCaptains" ToRole="ResidentsInformations" />
-    <NavigationProperty Name="SKChairman" Relationship="Self.BarangayCaptains_SKChairmanId_SKChairman" FromRole="BarangayCaptains" ToRole="SKChairman" />
-    <NavigationProperty Name="BarangayCounselors" Relationship="Self.BarangayCounselor_CaptainId_BarangayCaptains" FromRole="BarangayCaptains" ToRole="BarangayCounselor" />
+    <NavigationProperty Name="AssignedOfficials" Relationship="Self.AssignedOfficials_CaptainId_BarangayCaptains" FromRole="BarangayChairman" ToRole="AssignedOfficials" />
+    <NavigationProperty Name="OfficialTerm" Relationship="Self.BarangayCaptains_OfficialTermId_OfficialTerm" FromRole="BarangayChairman" ToRole="OfficialTerm" />
+    <NavigationProperty Name="ResidentsInformation" Relationship="Self.BarangayCaptains_ResidentId_ResidentsInformations" FromRole="BarangayChairman" ToRole="ResidentsInformations" />
+    <NavigationProperty Name="SKChairman" Relationship="Self.BarangayCaptains_SKChairmanId_SKChairman" FromRole="BarangayChairman" ToRole="SKChairman" />
+    <NavigationProperty Name="BarangayCounselors" Relationship="Self.BarangayCounselor_CaptainId_BarangayCaptains" FromRole="BarangayChairman" ToRole="BarangayCounselor" />
   </EntityType>
   <EntityType Name="BarangayCounselor">
     <Key>
@@ -144,8 +144,8 @@
     </Key>
     <Property Name="BarangayCounselorId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="ResidentId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="CaptainId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="BarangayCaptain" Relationship="Self.BarangayCounselor_CaptainId_BarangayCaptains" FromRole="BarangayCounselor" ToRole="BarangayCaptains" />
+    <Property Name="ChairmanId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BarangayChairman" Relationship="Self.BarangayCounselor_CaptainId_BarangayCaptains" FromRole="BarangayCounselor" ToRole="BarangayChairman" />
     <NavigationProperty Name="ResidentsInformation" Relationship="Self.BarangayCounselor_ResidentId_ResidentsInformations" FromRole="BarangayCounselor" ToRole="ResidentsInformations" />
   </EntityType>
   <EntityType Name="Deceased">
@@ -184,7 +184,7 @@
     <Property Name="OfficialTermId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="StartYear" Type="Int32" Nullable="false" />
     <Property Name="EndYear" Type="Int32" />
-    <NavigationProperty Name="BarangayCaptains" Relationship="Self.BarangayCaptains_OfficialTermId_OfficialTerm" FromRole="OfficialTerm" ToRole="BarangayCaptains" />
+    <NavigationProperty Name="BarangayChairmen" Relationship="Self.BarangayCaptains_OfficialTermId_OfficialTerm" FromRole="OfficialTerm" ToRole="BarangayChairman" />
   </EntityType>
   <EntityType Name="ResidentsInformation">
     <Key>
@@ -196,9 +196,10 @@
     <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DateRecorded" Type="DateTime" Precision="0" />
     <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUsers_ResidentId_ResidentsInformations" FromRole="ResidentsInformations" ToRole="AspNetUsers" />
     <NavigationProperty Name="AssignedOfficials" Relationship="Self.AssignedOfficials_ResidentId_ResidentsInformations" FromRole="ResidentsInformations" ToRole="AssignedOfficials" />
-    <NavigationProperty Name="BarangayCaptains" Relationship="Self.BarangayCaptains_ResidentId_ResidentsInformations" FromRole="ResidentsInformations" ToRole="BarangayCaptains" />
+    <NavigationProperty Name="BarangayChairmen" Relationship="Self.BarangayCaptains_ResidentId_ResidentsInformations" FromRole="ResidentsInformations" ToRole="BarangayChairman" />
     <NavigationProperty Name="BarangayCounselors" Relationship="Self.BarangayCounselor_ResidentId_ResidentsInformations" FromRole="ResidentsInformations" ToRole="BarangayCounselor" />
     <NavigationProperty Name="Deceaseds" Relationship="Self.Deceased_DeceasedId_ResidentsInformations" FromRole="ResidentsInformations" ToRole="Deceased" />
     <NavigationProperty Name="ResidentsLocations" Relationship="Self.ResidentsLocation_ResidentId_ResidentsInformations" FromRole="ResidentsInformations" ToRole="ResidentsLocation" />
@@ -231,7 +232,7 @@
     </Key>
     <Property Name="SKChairmanId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="ResidentId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="BarangayCaptains" Relationship="Self.BarangayCaptains_SKChairmanId_SKChairman" FromRole="SKChairman" ToRole="BarangayCaptains" />
+    <NavigationProperty Name="BarangayChairmen" Relationship="Self.BarangayCaptains_SKChairmanId_SKChairman" FromRole="SKChairman" ToRole="BarangayChairman" />
     <NavigationProperty Name="ResidentsInformation" Relationship="Self.SKChairman_ResidentId_ResidentsInformations" FromRole="SKChairman" ToRole="ResidentsInformations" />
     <NavigationProperty Name="SKCouncelors" Relationship="Self.SKCouncelor_SKChairmanId_SKChairman" FromRole="SKChairman" ToRole="SKCouncelor" />
   </EntityType>
@@ -387,11 +388,11 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="AssignedOfficials_CaptainId_BarangayCaptains">
-    <End Role="BarangayCaptains" Type="Self.BarangayCaptain" Multiplicity="1" />
+    <End Role="BarangayChairman" Type="Self.BarangayChairman" Multiplicity="1" />
     <End Role="AssignedOfficials" Type="Self.AssignedOfficial" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="BarangayCaptains">
-        <PropertyRef Name="CaptainId" />
+      <Principal Role="BarangayChairman">
+        <PropertyRef Name="ChairmanId" />
       </Principal>
       <Dependent Role="AssignedOfficials">
         <PropertyRef Name="CaptainId" />
@@ -436,49 +437,49 @@
   </Association>
   <Association Name="BarangayCaptains_OfficialTermId_OfficialTerm">
     <End Role="OfficialTerm" Type="Self.OfficialTerm" Multiplicity="1" />
-    <End Role="BarangayCaptains" Type="Self.BarangayCaptain" Multiplicity="*" />
+    <End Role="BarangayChairman" Type="Self.BarangayChairman" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="OfficialTerm">
         <PropertyRef Name="OfficialTermId" />
       </Principal>
-      <Dependent Role="BarangayCaptains">
+      <Dependent Role="BarangayChairman">
         <PropertyRef Name="OfficialTermId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="BarangayCaptains_ResidentId_ResidentsInformations">
     <End Role="ResidentsInformations" Type="Self.ResidentsInformation" Multiplicity="1" />
-    <End Role="BarangayCaptains" Type="Self.BarangayCaptain" Multiplicity="*" />
+    <End Role="BarangayChairman" Type="Self.BarangayChairman" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ResidentsInformations">
         <PropertyRef Name="ResidentId" />
       </Principal>
-      <Dependent Role="BarangayCaptains">
+      <Dependent Role="BarangayChairman">
         <PropertyRef Name="ResidentId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="BarangayCaptains_SKChairmanId_SKChairman">
     <End Role="SKChairman" Type="Self.SKChairman" Multiplicity="1" />
-    <End Role="BarangayCaptains" Type="Self.BarangayCaptain" Multiplicity="*" />
+    <End Role="BarangayChairman" Type="Self.BarangayChairman" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="SKChairman">
         <PropertyRef Name="SKChairmanId" />
       </Principal>
-      <Dependent Role="BarangayCaptains">
+      <Dependent Role="BarangayChairman">
         <PropertyRef Name="SKChairmanId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="BarangayCounselor_CaptainId_BarangayCaptains">
-    <End Role="BarangayCaptains" Type="Self.BarangayCaptain" Multiplicity="1" />
+    <End Role="BarangayChairman" Type="Self.BarangayChairman" Multiplicity="1" />
     <End Role="BarangayCounselor" Type="Self.BarangayCounselor" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="BarangayCaptains">
-        <PropertyRef Name="CaptainId" />
+      <Principal Role="BarangayChairman">
+        <PropertyRef Name="ChairmanId" />
       </Principal>
       <Dependent Role="BarangayCounselor">
-        <PropertyRef Name="CaptainId" />
+        <PropertyRef Name="ChairmanId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -638,7 +639,7 @@
     <EntitySet Name="AssignedPositions" EntityType="Self.AssignedPosition" />
     <EntitySet Name="AuditActions" EntityType="Self.AuditAction" />
     <EntitySet Name="AuditTrails" EntityType="Self.AuditTrail" />
-    <EntitySet Name="BarangayCaptains" EntityType="Self.BarangayCaptain" />
+    <EntitySet Name="BarangayChairmen" EntityType="Self.BarangayChairman" />
     <EntitySet Name="BarangayCounselors" EntityType="Self.BarangayCounselor" />
     <EntitySet Name="Deceaseds" EntityType="Self.Deceased" />
     <EntitySet Name="HouseHoldAddresses" EntityType="Self.HouseHoldAddress" />
@@ -686,7 +687,7 @@
       <End Role="AuditTrail" EntitySet="AuditTrails" />
     </AssociationSet>
     <AssociationSet Name="AssignedOfficials_CaptainId_BarangayCaptains" Association="Self.AssignedOfficials_CaptainId_BarangayCaptains">
-      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+      <End Role="BarangayChairman" EntitySet="BarangayChairmen" />
       <End Role="AssignedOfficials" EntitySet="AssignedOfficials" />
     </AssociationSet>
     <AssociationSet Name="AssignedOfficials_PositionId_AssignedPositions" Association="Self.AssignedOfficials_PositionId_AssignedPositions">
@@ -703,18 +704,18 @@
     </AssociationSet>
     <AssociationSet Name="BarangayCaptains_OfficialTermId_OfficialTerm" Association="Self.BarangayCaptains_OfficialTermId_OfficialTerm">
       <End Role="OfficialTerm" EntitySet="OfficialTerms" />
-      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+      <End Role="BarangayChairman" EntitySet="BarangayChairmen" />
     </AssociationSet>
     <AssociationSet Name="BarangayCaptains_ResidentId_ResidentsInformations" Association="Self.BarangayCaptains_ResidentId_ResidentsInformations">
       <End Role="ResidentsInformations" EntitySet="ResidentsInformations" />
-      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+      <End Role="BarangayChairman" EntitySet="BarangayChairmen" />
     </AssociationSet>
     <AssociationSet Name="BarangayCaptains_SKChairmanId_SKChairman" Association="Self.BarangayCaptains_SKChairmanId_SKChairman">
       <End Role="SKChairman" EntitySet="SKChairmen" />
-      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+      <End Role="BarangayChairman" EntitySet="BarangayChairmen" />
     </AssociationSet>
     <AssociationSet Name="BarangayCounselor_CaptainId_BarangayCaptains" Association="Self.BarangayCounselor_CaptainId_BarangayCaptains">
-      <End Role="BarangayCaptains" EntitySet="BarangayCaptains" />
+      <End Role="BarangayChairman" EntitySet="BarangayChairmen" />
       <End Role="BarangayCounselor" EntitySet="BarangayCounselors" />
     </AssociationSet>
     <AssociationSet Name="BarangayCounselor_ResidentId_ResidentsInformations" Association="Self.BarangayCounselor_ResidentId_ResidentsInformations">

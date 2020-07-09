@@ -19,7 +19,7 @@ namespace Barangay_Management_Information_System.Models.Entity
         {
             this.AspNetUsers = new HashSet<AspNetUser>();
             this.AssignedOfficials = new HashSet<AssignedOfficial>();
-            this.BarangayCaptains = new HashSet<BarangayCaptain>();
+            this.BarangayChairmen = new HashSet<BarangayChairman>();
             this.BarangayCounselors = new HashSet<BarangayCounselor>();
             this.Deceaseds = new HashSet<Deceased>();
             this.ResidentsLocations = new HashSet<ResidentsLocation>();
@@ -35,13 +35,14 @@ namespace Barangay_Management_Information_System.Models.Entity
         public string MiddleName { get; set; }
         public System.DateTime Birthday { get; set; }
         public string Sex { get; set; }
+        public Nullable<System.DateTime> DateRecorded { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssignedOfficial> AssignedOfficials { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BarangayCaptain> BarangayCaptains { get; set; }
+        public virtual ICollection<BarangayChairman> BarangayChairmen { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BarangayCounselor> BarangayCounselors { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
