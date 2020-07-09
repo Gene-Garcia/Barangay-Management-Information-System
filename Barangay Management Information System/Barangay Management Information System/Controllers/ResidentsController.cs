@@ -84,6 +84,11 @@ namespace Barangay_Management_Information_System.Controllers
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
                 TempData["alert-msg"] = resident.FirstName + " " + resident.LastName + " is set as a deceased Sinisian resident.";
+
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+                new AuditTrailer().Record(resident.FirstName + " " + resident.LastName + " is set as a deceased resident.", AuditTrailer.RESIDENT_TYPE, userId);
+
                 return RedirectToAction("Index");
 
             }
@@ -248,6 +253,11 @@ namespace Barangay_Management_Information_System.Controllers
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
                 TempData["alert-msg"] = model.FirstName + " " + model.LastName + " was successfully recorded as a resident of Sinisian.";
+
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+                new AuditTrailer().Record(model.FirstName + " " + model.LastName + " is created a record as Sinisan resident.", AuditTrailer.RESIDENT_TYPE, userId);
+
             }
             catch (Exception e)
             {
@@ -304,6 +314,10 @@ namespace Barangay_Management_Information_System.Controllers
                 TempData["alert-type"] = "alert-success";
                 TempData["alert-header"] = "Success";
                 TempData["alert-msg"] = model.FirstName + " " + model.LastName +" record was successfully updated.";
+
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+                new AuditTrailer().Record(model.FirstName + " " + model.LastName + "'s records were updated and modified.", AuditTrailer.RESIDENT_TYPE, userId);
             }
             catch (Exception e)
             {
