@@ -32,7 +32,7 @@ namespace Barangay_Management_Information_System.Controllers
                 }
                 else
                 {
-                    residents = entities.ResidentsInformations.ToList();
+                    residents = entities.ResidentsInformations.Where(m => m.Deceaseds.FirstOrDefault() == null).ToList();
                 }
 
                 return View(residents);

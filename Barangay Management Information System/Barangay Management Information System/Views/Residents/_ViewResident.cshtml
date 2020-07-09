@@ -69,7 +69,7 @@
 
     </div>
 
-    <div class="form-row">
+    <div class="form-row mb-5">
 
         @if (Model.ResidentsLocations.FirstOrDefault() != null) {
 
@@ -90,5 +90,43 @@
         }
 
     </div>
+
+    @if(Model.Deceaseds.FirstOrDefault() != null)
+    {
+        <h3>Deceased Resident Information</h3>
+
+        <div class="form-row">
+
+            <div class="col-md-4">
+                <label style="font-weight:600">Death Date</label>
+                <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                    <p>@Model.Deceaseds.FirstOrDefault().DeathDate.ToString("MMM dd, yyyy")</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label style="font-weight:600">Years Passed after Death</label>
+                <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                    @{
+                        today = DateTime.Today;
+                        age = today.Year - Model.Deceaseds.FirstOrDefault().DeathDate.Year;
+                        if (Model.Deceaseds.FirstOrDefault().DeathDate > today.AddYears(-age))
+                        {
+                            age--;
+                        }
+                    }
+                    <p>@age years </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label style="font-weight:600">Age Died</label>
+                <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                    <p>@Model.Deceaseds.FirstOrDefault().Age</p>
+                </div>
+            </div>
+
+        </div>
+    }
 
 </div>
