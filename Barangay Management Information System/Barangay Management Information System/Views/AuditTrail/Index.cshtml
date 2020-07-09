@@ -125,7 +125,7 @@
                                 @Html.DisplayFor(modelItem => item.Message)
                             </td>
                             <td>
-                                @item.DateAction.ToLongDateString()
+                                @item.DateAction.ToString("MMM dd, yyyy")
                             </td>
                             <td>
                                 @item.DateAction.ToShortTimeString()
