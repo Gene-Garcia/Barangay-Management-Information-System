@@ -16,6 +16,8 @@ namespace Barangay_Management_Information_System.Models
 
         public string DateCitizenRecord { get; set; }
         public int DateCitizenRecordCount { get; set; }
+        public int DateCitizenRecordCountSinisianProper { get; set; }
+        public int DateCitizenRecordCountSinisianNorth { get; set; }
 
     }
 }

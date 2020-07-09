@@ -48,7 +48,9 @@ namespace Barangay_Management_Information_System.Controllers
             {
                 dbvm.Add( new DashboardViewModel() {
                     DateCitizenRecord = date.ToString("MMM dd, yyyy"),
-                    DateCitizenRecordCount = entities.ResidentsInformations.Where(m => m.DateRecorded == date).Count()
+                    DateCitizenRecordCount = entities.ResidentsInformations.Where(m => m.DateRecorded == date).Count(),
+                    DateCitizenRecordCountSinisianNorth = entities.ResidentsInformations.Where(m => m.DateRecorded == date && m.ResidentsLocations.FirstOrDefault().HouseHoldAddress.Site.Name.ToLower() == "north sinisian").Count(),
+                    DateCitizenRecordCountSinisianProper = entities.ResidentsInformations.Where(m => m.DateRecorded == date && m.ResidentsLocations.FirstOrDefault().HouseHoldAddress.Site.Name.ToLower() == "sinisian proper").Count()
                 });
             }
 

@@ -96,12 +96,16 @@
     <script>
         // Chart 1, Date Residents Recorded, Line Chart
         $.getJSON("/Dashboard/GetDateResidentRecorded/", function (data) {
-            var counter = 0;
             labels = [];
             dataDataset = [];
+            dataDataset2 = [];
+            dataDataset3 = [];
+
             $.each(data, function (i, item) {
                 labels.push(item.DateCitizenRecord)
                 dataDataset.push(item.DateCitizenRecordCount)
+                dataDataset2.push(item.DateCitizenRecordCountSinisianProper)
+                dataDataset3.push(item.DateCitizenRecordCountSinisianNorth)
             });
 
             var residentRecordedChart = {
@@ -115,6 +119,24 @@
                         lineTension: 0, 
                         fill: false,
                         data: dataDataset
+                    },
+                    {
+                        label: "Sinisian Proper",
+                        borderColor: "#bac964",
+                        backgroundColor: "#bac964",
+                        borderWidth: 3,
+                        lineTension: 0,
+                        fill: false,
+                        data: dataDataset2
+                    },
+                    {
+                        label: "Sinisian North",
+                        borderColor: "#5b8c85",
+                        backgroundColor: "#5b8c85",
+                        borderWidth: 3,
+                        lineTension: 0,
+                        fill: false,
+                        data: dataDataset3  
                     }
                 ]
             };
