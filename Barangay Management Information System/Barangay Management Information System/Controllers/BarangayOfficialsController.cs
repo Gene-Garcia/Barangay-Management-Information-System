@@ -24,7 +24,7 @@ namespace Barangay_Management_Information_System.Controllers
             {
                 TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
 
-                //BarangayCaptain chairman = entities.BarangayChairmen.Where(m => m.OfficialTerm.EndYear == null).FirstOrDefault();
+                //BarangayChairman chairman = entities.BarangayChairmen.Where(m => m.OfficialTerm.EndYear == null).FirstOrDefault();
                 //var councelors = chairman.BarangayCounselors.ToList();
                 //SKChairman sk = chairman.SKChairman;
                 //var skcouncelors = sk.SKCouncelors.ToList();
