@@ -1,9 +1,11 @@
-﻿
+﻿@model Barangay_Management_Information_System.Models.DashboardViewModel
+
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
 
 <style>
 
@@ -13,8 +15,13 @@
         text-decoration: none;
     }
 
-    .container {
-        background-color: inherit;
+    .card {
+        background-color: #fafafa;
+    }
+
+    .row {
+        background-color: #ffffff;
+        margin-bottom: 70px;
     }
 </style>
 
@@ -22,12 +29,114 @@
 
     <h1 class="page-header-title">Dashboard</h1>
 
-    <div class="card shadow border-0 rounded p-3 mb-5">
+    <div class="card border-0 rounded mb-5">
         <div class="card-body">
 
-            <p>lorem lorem</p>
+            <div class="row shadow">
+
+                <div class="col-lg-3 mb-4 mt-4">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h2 class="" style="font-size:18px;">Sinisian Resident</h2>
+                            <h2 class="float-left" style="font-size:35px; margin-top:0px">@Model.Residents</h2>
+                            <span class="fas fa-id-card-alt	float-right" style="font-size:50px"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-4 mt-4">
+                    <div class="card text-white bg-info">
+                        <div class="card-body">
+                            <h2 class="" style="font-size:18px;">Senior Citizen</h2>
+                            <h2 class="float-left" style="font-size:35px; margin-top:0px">@Model.SeniorCitizens</h2>
+                            <span class="fas fa-wheelchair float-right" style="font-size:50px"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-4 mt-4">
+                    <div class="card text-white bg-danger">
+                        <div class="card-body">
+                            <h2 class="" style="font-size:18px;">Deceased</h2>
+                            <h2 class="float-left" style="font-size:35px; margin-top:0px">@Model.Deceased</h2>
+                            <span class="fas fa-dove float-right" style="font-size:50px"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 mb-4 mt-4">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h2 class="" style="font-size:18px;">Registered Voters</h2>
+                            <h2 class="float-left" style="font-size:35px; margin-top:0px">@Model.Voters</h2>
+                            <span class="fas fa-vote-yea float-right" style="font-size:50px"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Line Chart, Date when the resident was recorded -->
+            <div class="row shadow">
+
+                <div class="col-md-12 mb-4 mt-4">
+                    <canvas id="residentRecordedChart"></canvas>
+                </div>
+
+            </div>
 
         </div>
     </div>
 
 </div>
+
+@section scripts{
+
+    <script>
+        // Chart 1, Date Residents Recorded, Line Chart
+        $.getJSON("/Dashboard/GetDateResidentRecorded/", function (data) {
+            var counter = 0;
+            labels = [];
+            dataDataset = [];
+            $.each(data, function (i, item) {
+                labels.push(item.DateCitizenRecord)
+                dataDataset.push(item.DateCitizenRecordCount)
+            });
+
+            var residentRecordedChart = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Sinisian Resident(s)",
+                        borderColor: "#184d47",
+                        backgroundColor: "#96bb7c",
+                        borderWidth: 3,
+                        lineTension: 0, 
+                        fill: false,
+                        data: dataDataset
+                    }
+                ]
+            };
+
+            var chart1 = document.getElementById("residentRecordedChart").getContext("2d");
+
+            var residentRecordedChart = new Chart(chart1,
+                {
+                    type: "line",
+                    data: residentRecordedChart,
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+
+                    }
+                });
+        });
+    </script>
+
+}
