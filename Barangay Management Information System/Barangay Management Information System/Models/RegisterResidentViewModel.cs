@@ -43,5 +43,7 @@ namespace Barangay_Management_Information_System.Models
         [Display(Name = "Address")]
         public string Address { get; set; }
 
+        public DateTime DateRecorded { get; set; }
+
     }
 }

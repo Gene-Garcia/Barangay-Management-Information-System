@@ -166,6 +166,7 @@ namespace Barangay_Management_Information_System.Controllers
                     viewModel.MiddleName = resident.MiddleName;
                     viewModel.Sex = resident.Sex;
                     viewModel.Birthdate = resident.Birthday;
+                    viewModel.DateRecorded = (DateTime)resident.DateRecorded;
 
                     if (resident.ResidentsLocations.FirstOrDefault() != null)
                     {
@@ -227,7 +228,8 @@ namespace Barangay_Management_Information_System.Controllers
                     MiddleName = model.MiddleName,
                     LastName = model.LastName,
                     Sex = model.Sex,
-                    Birthday = model.Birthdate
+                    Birthday = model.Birthdate,
+                    DateRecorded = DateTime.Now
                 };
                 entities.ResidentsInformations.Add(resident);
                 entities.SaveChanges();
@@ -277,6 +279,7 @@ namespace Barangay_Management_Information_System.Controllers
                 resident.MiddleName = model.MiddleName;
                 resident.Birthday = model.Birthdate;
                 resident.Sex = model.Sex;
+                resident.DateRecorded = model.DateRecorded;
 
                 entities.Entry(resident).State = System.Data.Entity.EntityState.Modified;
                 entities.SaveChanges();
