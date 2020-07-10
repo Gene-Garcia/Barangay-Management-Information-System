@@ -32,5 +32,13 @@ namespace Barangay_Management_Information_System.Models
         public int SPDistribution { get; set; }
         public int UndefinedDistribution { get; set; }
 
+        // Chart 5, Line
+        public string DateAccountCreated { get; set; }
+        public int DateAccountCreatedCount { get; set; }
+
+        // Chart 6, Pie
+        // Chart 5, Line
+        public string AccountTypes { get; set; }
+        public int AccountTypeUsersCount { get; set; }
     }
 }

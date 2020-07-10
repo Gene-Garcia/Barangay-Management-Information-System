@@ -144,6 +144,43 @@ namespace Barangay_Management_Information_System.Controllers
 
             return Content(JsonConvert.SerializeObject(dbvm), "application/json");
 
+        }        
+
+        [Authorize]
+        public ContentResult GetDateAccountsCreated()
+        {
+            List<DashboardViewModel> dbvm = new List<DashboardViewModel>();
+
+            List<DateTime> dates = entities.AspNetUsers.OrderBy(m=>m.DateCreated).GroupBy(m => m.DateCreated).Select(m => m.FirstOrDefault().DateCreated.Value).ToList();
+
+            foreach (var date in dates)
+            {
+                dbvm.Add( new DashboardViewModel() { 
+                    DateAccountCreated = date.ToString("MMM dd, yyyy"),
+                    DateAccountCreatedCount = entities.AspNetUsers.Where(m => m.DateCreated == date).Count()
+                });
+            }
+
+            return Content(JsonConvert.SerializeObject(dbvm), "application/json");
+
+        }
+
+        [Authorize]
+        public ContentResult GetAccountTypesDistribution()
+        {
+            List<DashboardViewModel> dbvm = new List<DashboardViewModel>();
+
+            List<AspNetRole> roles = entities.AspNetRoles.OrderBy(m => m.Name).ToList();
+
+            foreach(var role in roles)
+            {
+                dbvm.Add( new DashboardViewModel() {
+                    AccountTypes = role.Name,
+                    AccountTypeUsersCount = entities.AspNetUsers.Where(m=>m.AspNetUserRoles.FirstOrDefault().AspNetRole.Name == role.Name).Count()
+                });
+            }
+
+            return Content(JsonConvert.SerializeObject(dbvm), "application/json");
         }
     }
 }

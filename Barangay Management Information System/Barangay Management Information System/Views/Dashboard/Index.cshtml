@@ -85,34 +85,29 @@
 
             <!-- Line Chart, Date when the resident was recorded -->
             <div class="row">
-
                 <div class="col-lg-12 mb-4 mt-4">
                     <div class="card border-0 my-chart shadow">
                         <div class="card-body">
                             <canvas id="residentRecordedChart"></canvas>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
-
             </div>
 
             <!-- Bar, Age Distribution -->
             <div class="row">
-
                 <div class="col-lg-12 mb-3 ">
-
                     <div class="card border-0 my-chart shadow">
                         <div class="card-body">
                             <canvas id="ageDistributionChart"></canvas>
                         </div>
                     </div>
                 </div>
-
             </div>
 
+            <!-- Doughnut and Pie, Sex and Sitio -->
             <div class="row">
-
-                <div class="col-lg-6 mb-5">
+                <div class="col-lg-6 mb-3">
                     <div class="card border-0 my-chart shadow h-100">
                         <div class="card-body">
                             <canvas id="sexDistributionChart" class="mt-5" height="200"></canvas>
@@ -120,14 +115,32 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 mb-5">
+                <div class="col-lg-6 mb-3">
                     <div class="card border-0 my-chart shadow h-100">
                         <div class="card-body">
                             <canvas id="sitioDistributionChart" class="mt-5" height="200"></canvas>
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <!-- Line Chart and pie, Date when the account was created and account types -->
+            <div class="row">
+                <div class="col-lg-7 mb-4 mt-4">
+                    <div class="card border-0 my-chart shadow">
+                        <div class="card-body">
+                            <canvas id="accountsCreatedChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 mb-4 mt-4">
+                    <div class="card border-0 my-chart shadow h-100">
+                        <div class="card-body">
+                            <canvas id="accountTypesDistributionChart" class="mt-3" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -138,7 +151,7 @@
 @section scripts{
 
     <script>
-        // Chart 1, Date Residents Recorded, Line Chart
+        // Chart 1
         $.getJSON("/Dashboard/GetDateResidentRecorded/", function (data) {
             labels = [];
             dataDataset = [];
@@ -301,7 +314,7 @@
                 });
         });
 
-        // Chart 3
+        // Chart 4
         $.getJSON("/Dashboard/GetSitioDistribution/", function (data) {
 
             var ctx = document.getElementById("sitioDistributionChart").getContext("2d");
@@ -317,6 +330,93 @@
                                 borderWidth: 1,
                                 fill: true,
                                 data: [data.NSDistribution, data.SPDistribution, data.UndefinedDistribution]
+                            }
+                        ]
+                    },
+
+                    options: {
+                        legend: {
+                            boxWidth: 1,
+                            position: "left"
+                        }
+                    }
+                });
+        });
+
+        // Chart 5
+        $.getJSON("/Dashboard/GetDateAccountsCreated/", function (data) {
+            labels = []; // Dates
+            dataDataset = [];
+
+            $.each(data, function (i, item) {
+                labels.push(item.DateAccountCreated)
+                dataDataset.push(item.DateAccountCreatedCount)
+            });
+
+            var ctx = document.getElementById("accountsCreatedChart").getContext("2d");
+            var residentRecordedChart = new Chart(ctx,
+                {
+                    type: "line",
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: "Accounts",
+                                borderColor: "#184d47",
+                                backgroundColor: "rgba(238, 252, 238, 0.5)",
+                                borderWidth: 3,
+                                pointBorderWidth: 2,
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: "#e8f9e9",
+
+                                lineTension: 0.1,
+
+                                fill: false,
+                                data: dataDataset
+                            }
+                        ]
+                    },
+
+                    options: {
+                        legend: {
+                            boxWidth: 1,
+                            position: "bottom"
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+
+                    }
+                });
+        });
+
+        // Chart 6
+        $.getJSON("/Dashboard/GetAccountTypesDistribution/", function (data) {
+            labels = []; // Dates
+            dataDataset = [];
+
+            $.each(data, function (i, item) {
+                labels.push(item.AccountTypes)
+                dataDataset.push(item.AccountTypeUsersCount)
+            });
+
+            var ctx = document.getElementById("accountTypesDistributionChart").getContext("2d");
+            var residentRecordedChart = new Chart(ctx,
+                {
+                    type: "pie",
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                borderColor: "#2b580c",
+                                backgroundColor: ["#2b580c", "#cceabb", "#d1f5d3"],
+                                borderWidth: 1,
+                                fill: true,
+                                data: dataDataset
                             }
                         ]
                     },
