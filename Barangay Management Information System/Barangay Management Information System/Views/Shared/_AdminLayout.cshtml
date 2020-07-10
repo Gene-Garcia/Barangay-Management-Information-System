@@ -85,28 +85,31 @@
 
     @* end global styles*@
 
-    @* Shake *@
-
-    .hvr-icon-spin {
+    @* grow *@
+    .hvr-icon-grow-rotate {
         display: inline-block;
         vertical-align: middle;
         -webkit-transform: perspective(1px) translateZ(0);
         transform: perspective(1px) translateZ(0);
         box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
     }
 
-    .hvr-icon-spin .hvr-icon {
-        -webkit-transition-duration: 1s;
-        transition-duration: 1s;
+    .hvr-icon-grow-rotate .hvr-icon {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
         -webkit-transition-property: transform;
         transition-property: transform;
-        -webkit-transition-timing-function: ease-in-out;
-        transition-timing-function: ease-in-out;
+        -webkit-transition-timing-function: ease-out;
+        transition-timing-function: ease-out;
     }
 
-    .hvr-icon-spin:hover .hvr-icon, .hvr-icon-spin:focus .hvr-icon, .hvr-icon-spin:active .hvr-icon {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
+    .hvr-icon-grow-rotate:hover .hvr-icon, .hvr-icon-grow-rotate:focus .hvr-icon, .hvr-icon-grow-rotate:active .hvr-icon {
+        -webkit-transform: scale(1.5) rotate(12deg);
+        transform: scale(1.5) rotate(12deg);
     }
     @* end shake *@
 
@@ -176,9 +179,9 @@
 
 
     <div class="mt-5" id="sidelinks">
-        <a href="/AuditTrail/Index" class="hvr-icon-spin" id="audit-link"><span class="	fas fa-shoe-prints mr-3 hvr-icon"></span>Audit Trail</a>
+        <a href="/AuditTrail/Index" class="hvr-icon-grow-rotate" id="audit-link"><span class="	fas fa-shoe-prints mr-3 hvr-icon"></span>Audit Trail</a>
 
-        <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#accounts-collapse" aria-expanded="false" aria-controls="accounts-collapse" id="account-link">
+        <a href="" class="hvr-icon-grow-rotate" data-toggle="collapse" data-target="#accounts-collapse" aria-expanded="false" aria-controls="accounts-collapse" id="account-link">
             <span class="fa fa-user hvr-icon mr-3"></span>
             Account
             <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 115px;"></span>
@@ -188,9 +191,9 @@
             <a href="/AdminAccount/ModifyAccount" class="sublink">Modify Users' Account</a>
         </div>
 
-        <a href="/BarangayClearance/Index" class="hvr-icon-spin" id="barangay-clearance-link"><span class="fas fa-house-user	 hvr-icon mr-3"></span>Barangay Clearance</a>
+        <a href="/BarangayClearance/Index" class="hvr-icon-grow-rotate" id="barangay-clearance-link"><span class="fas fa-house-user	 hvr-icon mr-3"></span>Barangay Clearance</a>
 
-        <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#officials-collapse" aria-expanded="false" aria-controls="officials-collapse" id="barangay-officials-link">
+        <a href="" class="hvr-icon-grow-rotate" data-toggle="collapse" data-target="#officials-collapse" aria-expanded="false" aria-controls="officials-collapse" id="barangay-officials-link">
             <span class="fa fa-sitemap hvr-icon mr-3"></span>
             Barangay Officials
             <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 50px;"></span>
@@ -202,9 +205,9 @@
             <a href="/BarangayOfficials/AssignSpecialOfficials" class="sublink">Assign Special Officials</a>
         </div>
 
-        <a href="/Dashboard/Index" class="hvr-icon-spin" id="dashboard-link"><span class="far fa-chart-bar	 hvr-icon mr-3"></span>Dashboard</a>
+        <a href="/Dashboard/Index" class="hvr-icon-grow-rotate" id="dashboard-link"><span class="far fa-chart-bar	 hvr-icon mr-3"></span>Dashboard</a>
 
-        <a href="" class="hvr-icon-spin" id="sinisian-residents-link" data-toggle="collapse" data-target="#residents-collapse" aria-expanded="false" aria-controls="residents-collapse">
+        <a href="" class="hvr-icon-grow-rotate" id="sinisian-residents-link" data-toggle="collapse" data-target="#residents-collapse" aria-expanded="false" aria-controls="residents-collapse">
             <span class="fa fa-id-card hvr-icon mr-3"></span>
             Sinisian Residents
             <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 52px;"></span>
@@ -214,7 +217,7 @@
             <a href="/Residents/Index?deceased=deceased" class="sublink">Display Deceased Resident</a>
         </div>
 
-        <a href="" class="hvr-icon-spin" data-toggle="collapse" data-target="#summon-collapse" aria-expanded="false" aria-controls="summon-collapse">
+        <a href="" class="hvr-icon-grow-rotate" data-toggle="collapse" data-target="#summon-collapse" aria-expanded="false" aria-controls="summon-collapse">
             <span class="fas fa-file-signature hvr-icon mr-3"></span>
             Summon
             <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 108px;"></span>
