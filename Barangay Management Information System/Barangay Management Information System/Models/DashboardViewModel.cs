@@ -13,11 +13,15 @@ namespace Barangay_Management_Information_System.Models
         public int Deceased { get; set; }
         public int Voters { get; set; }
 
-
+        // Chart 1, Line
         public string DateCitizenRecord { get; set; }
         public int DateCitizenRecordCount { get; set; }
         public int DateCitizenRecordCountSinisianProper { get; set; }
         public int DateCitizenRecordCountSinisianNorth { get; set; }
+
+        // Chart 2, Bar
+        public int MaleAgeDistribution { get; set; }
+        public int FemaleAgeDistribution { get; set; }
 
     }
 }

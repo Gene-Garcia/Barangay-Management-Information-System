@@ -56,5 +56,69 @@ namespace Barangay_Management_Information_System.Controllers
 
             return Content(JsonConvert.SerializeObject(dbvm), "application/json");
         }
+
+        [Authorize]
+        public ContentResult GetAgeDistribution()
+        {
+            List<DashboardViewModel> dbvm = new List<DashboardViewModel>();
+            // "Under 5 years", "5 to 17 years", "18 to 24 years", "25 to 44 years", "45 to 64 years", "65 years and over"
+
+            DateTime below5 = new DateTime(DateTime.Now.Year - 4, DateTime.Now.Month, DateTime.Now.Day);
+
+            dbvm.Add(new DashboardViewModel()
+            {
+                MaleAgeDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "male" && m.Birthday >= below5).Count(),
+                FemaleAgeDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "female" && m.Birthday >= below5).Count()
+            });
+
+            DateTime five = new DateTime(DateTime.Now.Year - 5, DateTime.Now.Month, DateTime.Now.Day);
+            DateTime seventeen = new DateTime(DateTime.Now.Year - 17, DateTime.Now.Month, DateTime.Now.Day);
+
+            dbvm.Add(new DashboardViewModel()
+            {
+                MaleAgeDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "male" && m.Birthday <= five && m.Birthday >= seventeen).Count(),
+                FemaleAgeDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "female" && m.Birthday <= five && m.Birthday >= seventeen).Count()
+            });
+
+            DateTime eighteen = new DateTime(DateTime.Now.Year - 18, DateTime.Now.Month, DateTime.Now.Day);
+            DateTime twentyfour = new DateTime(DateTime.Now.Year - 24, DateTime.Now.Month, DateTime.Now.Day);
+
+            dbvm.Add(new DashboardViewModel()
+            {
+                MaleAgeDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "male" && m.Birthday <= eighteen && m.Birthday >= twentyfour).Count(),
+                FemaleAgeDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "female" && m.Birthday <= eighteen && m.Birthday >= twentyfour).Count()
+            });
+
+            DateTime twentyfive = new DateTime(DateTime.Now.Year - 25, DateTime.Now.Month, DateTime.Now.Day);
+            DateTime fourtyfour = new DateTime(DateTime.Now.Year - 44, DateTime.Now.Month, DateTime.Now.Day);
+
+            dbvm.Add(new DashboardViewModel()
+            {
+                MaleAgeDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "male" && m.Birthday <= twentyfive && m.Birthday >= fourtyfour).Count(),
+                FemaleAgeDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "female" && m.Birthday <= twentyfive && m.Birthday >= fourtyfour).Count()
+            });
+
+
+            DateTime fourtyfive = new DateTime(DateTime.Now.Year - 45, DateTime.Now.Month, DateTime.Now.Day);
+            DateTime sixtyfour = new DateTime(DateTime.Now.Year - 64, DateTime.Now.Month, DateTime.Now.Day);
+
+            dbvm.Add(new DashboardViewModel()
+            {
+                MaleAgeDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "male" && m.Birthday <= fourtyfive && m.Birthday >= sixtyfour).Count(),
+                FemaleAgeDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "female" && m.Birthday <= fourtyfive && m.Birthday >= sixtyfour).Count()
+            });
+
+
+            DateTime over65 = new DateTime(DateTime.Now.Year - 65, DateTime.Now.Month, DateTime.Now.Day);
+
+            dbvm.Add(new DashboardViewModel()
+            {
+                MaleAgeDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "male" && m.Birthday <= over65).Count(),
+                FemaleAgeDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "female" && m.Birthday <= over65).Count()
+            });
+
+
+            return Content(JsonConvert.SerializeObject(dbvm), "application/json");
+        }
     }
 }
