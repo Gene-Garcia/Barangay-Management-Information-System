@@ -110,7 +110,7 @@
                 <div class="col-lg-6 mb-3">
                     <div class="card border-0 my-chart shadow h-100">
                         <div class="card-body">
-                            <canvas id="sexDistributionChart" class="mt-5" height="200"></canvas>
+                            <canvas id="sexDistributionChart" class="mb-3" height="200"></canvas>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,8 @@
                 <div class="col-lg-6 mb-3">
                     <div class="card border-0 my-chart shadow h-100">
                         <div class="card-body">
-                            <canvas id="sitioDistributionChart" class="mt-5" height="200"></canvas>
+
+                            <canvas id="sitioDistributionChart" class="mb-3" height="200"></canvas>
                         </div>
                     </div>
                 </div>
@@ -137,7 +138,7 @@
                 <div class="col-lg-5 mb-4 mt-4">
                     <div class="card border-0 my-chart shadow h-100">
                         <div class="card-body">
-                            <canvas id="accountTypesDistributionChart" class="mt-3" height="200"></canvas>
+                            <canvas id="accountTypesDistributionChart" class="mt-2" height="200"></canvas>
                         </div>
                     </div>
                 </div>
@@ -216,6 +217,13 @@
                     },
 
                     options: {
+                        title: {
+                            display: true,
+                            text: 'Recorded Sinisian Residents per Date',
+                            fontSize: 17,
+
+                            lineHeight: 2
+                        },
                         legend: {
                             boxWidth: 1,
                             position: "bottom"
@@ -269,6 +277,13 @@
                     },
 
                     options: {
+                        title: {
+                            display: true,
+                            text: 'Resident Age Bracket per Sex',
+                            fontSize: 17,
+
+                            lineHeight: 2
+                        },
                         legend: {
                             boxWidth: 1,
                             position: "bottom"
@@ -306,6 +321,13 @@
                     },
 
                     options: {
+                        title: {
+                            display: true,
+                            text: 'Sex Count',
+                            fontSize: 17,
+
+                            lineHeight: 2
+                        },
                         legend: {
                             boxWidth: 1,
                             position: "left"
@@ -335,6 +357,13 @@
                     },
 
                     options: {
+                        title: {
+                            display: true,
+                            text: 'Residents per Sitio',
+                            fontSize: 17,
+
+                            lineHeight: 2
+                        },
                         legend: {
                             boxWidth: 1,
                             position: "left"
@@ -378,6 +407,13 @@
                     },
 
                     options: {
+                        title: {
+                            display: true,
+                            text: 'Accounts Created per Date',
+                            fontSize: 17,
+
+                            lineHeight: 2
+                        },
                         legend: {
                             boxWidth: 1,
                             position: "bottom"
@@ -422,6 +458,13 @@
                     },
 
                     options: {
+                        title: {
+                            display: true,
+                            text: 'Account Roles And Types',
+                            fontSize: 17,
+
+                            lineHeight: 2
+                        },
                         legend: {
                             boxWidth: 1,
                             position: "left"
