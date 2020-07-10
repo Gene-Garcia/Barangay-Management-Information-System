@@ -27,5 +27,10 @@ namespace Barangay_Management_Information_System.Models
         public int MaleSexDistribution { get; set; }
         public int FemaleSexDistribution { get; set; }
 
+        // Chart 4, Pie
+        public int NSDistribution { get; set; }
+        public int SPDistribution { get; set; }
+        public int UndefinedDistribution { get; set; }
+
     }
 }

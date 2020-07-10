@@ -132,5 +132,18 @@ namespace Barangay_Management_Information_System.Controllers
             return Content(JsonConvert.SerializeObject(dbvm), "application/json");
 
         }
+
+        [Authorize]
+        public ContentResult GetSitioDistribution()
+        {
+            DashboardViewModel dbvm = new DashboardViewModel();
+
+            dbvm.NSDistribution = entities.ResidentsInformations.Where(m => m.ResidentsLocations.FirstOrDefault().HouseHoldAddress.Site.Name.ToLower() == "north sinisian").Count();
+            dbvm.SPDistribution = entities.ResidentsInformations.Where(m => m.ResidentsLocations.FirstOrDefault().HouseHoldAddress.Site.Name.ToLower() == "sinisian proper").Count();
+            dbvm.UndefinedDistribution = entities.ResidentsInformations.Where(m => m.ResidentsLocations.FirstOrDefault().HouseHoldAddress.Site.Name.ToLower() != "sinisian proper" && m.ResidentsLocations.FirstOrDefault().HouseHoldAddress.Site.Name.ToLower() != "north sinisian").Count();
+
+            return Content(JsonConvert.SerializeObject(dbvm), "application/json");
+
+        }
     }
 }

@@ -96,22 +96,34 @@
 
             </div>
 
-            <!-- Bar and Pie, Age and Sex-->
+            <!-- Bar, Age Distribution -->
             <div class="row">
 
-                <div class="col-lg-8  mb-5 ">
+                <div class="col-lg-12 mb-3 ">
 
-                    <div class="cardborder-0 my-chart shadow">
+                    <div class="card border-0 my-chart shadow">
                         <div class="card-body">
                             <canvas id="ageDistributionChart"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-lg-4  mb-5">
-                    <div class="card border-0 my-chart shadow h-100" >
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-6 mb-5">
+                    <div class="card border-0 my-chart shadow h-100">
                         <div class="card-body">
-                            <canvas id="sexDistributionChart" class="mt-5" height="250"></canvas>
+                            <canvas id="sexDistributionChart" class="mt-5" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-5">
+                    <div class="card border-0 my-chart shadow h-100">
+                        <div class="card-body">
+                            <canvas id="sitioDistributionChart" class="mt-5" height="200"></canvas>
                         </div>
                     </div>
                 </div>
@@ -283,7 +295,36 @@
                     options: {
                         legend: {
                             boxWidth: 1,
-                            position: "bottom"
+                            position: "left"
+                        }
+                    }
+                });
+        });
+
+        // Chart 3
+        $.getJSON("/Dashboard/GetSitioDistribution/", function (data) {
+
+            var ctx = document.getElementById("sitioDistributionChart").getContext("2d");
+            var residentRecordedChart = new Chart(ctx,
+                {
+                    type: "pie",
+                    data: {
+                        labels: ["North Sinisian", "Sinisian Proper", "Undefined"],
+                        datasets: [
+                            {
+                                borderColor : "#2b580c",
+                                backgroundColor: ["#2b580c", "#cceabb", "#d1f5d3"],
+                                borderWidth: 1,
+                                fill: true,
+                                data: [data.NSDistribution, data.SPDistribution, data.UndefinedDistribution]
+                            }
+                        ]
+                    },
+
+                    options: {
+                        legend: {
+                            boxWidth: 1,
+                            position: "left"
                         }
                     }
                 });
