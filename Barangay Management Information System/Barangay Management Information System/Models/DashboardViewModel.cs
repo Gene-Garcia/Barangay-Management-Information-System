@@ -23,5 +23,9 @@ namespace Barangay_Management_Information_System.Models
         public int MaleAgeDistribution { get; set; }
         public int FemaleAgeDistribution { get; set; }
 
+        // Chart 3, Doughnut
+        public int MaleSexDistribution { get; set; }
+        public int FemaleSexDistribution { get; set; }
+
     }
 }

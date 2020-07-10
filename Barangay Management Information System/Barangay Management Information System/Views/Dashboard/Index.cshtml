@@ -15,8 +15,13 @@
         text-decoration: none;
     }
 
+
+    .container, .card {
+        background-color: #fafafa;
+    }
     .row {
-        margin-bottom: 50px;
+        margin-bottom: 40px;
+        background-color: #fafafa;
     }
 
     .my-chart {
@@ -81,8 +86,12 @@
             <!-- Line Chart, Date when the resident was recorded -->
             <div class="row">
 
-                <div class="col-md-12 mb-4 mt-4 my-chart shadow">
-                    <canvas id="residentRecordedChart"></canvas>
+                <div class="col-lg-12 mb-4 mt-4">
+                    <div class="card border-0 my-chart shadow">
+                        <div class="card-body">
+                            <canvas id="residentRecordedChart"></canvas>
+                        </div>                        
+                    </div>
                 </div>
 
             </div>
@@ -90,16 +99,20 @@
             <!-- Bar and Pie, Age and Sex-->
             <div class="row">
 
-                <div class="card border-0 col-lg-8 mb-4 mt-4 my-chart shadow">
-                    <div class="card-body">
-                        <canvas id="ageDistributionChart"></canvas>
+                <div class="col-lg-8  mb-5 ">
+
+                    <div class="cardborder-0 my-chart shadow">
+                        <div class="card-body">
+                            <canvas id="ageDistributionChart"></canvas>
+                        </div>
                     </div>
                 </div>
 
-
-                <div class="card border-0 col-lg-4 mb-4 mt-4 my-chart shadow">
-                    <div class="card-body">
-                        <canvas id="sexDistributionChart"></canvas>
+                <div class="col-lg-4  mb-5">
+                    <div class="card border-0 my-chart shadow h-100" >
+                        <div class="card-body">
+                            <canvas id="sexDistributionChart" class="mt-5" height="250"></canvas>
+                        </div>
                     </div>
                 </div>
 
@@ -143,6 +156,8 @@
                                 pointHoverRadius: 5,
                                 pointHoverBackgroundColor: "#e8f9e9",
 
+                                lineTension: 0.1,
+
                                 fill: true,
                                 data: dataDataset
                             },
@@ -156,7 +171,6 @@
                                 pointHoverRadius: 5,
                                 pointHoverBackgroundColor: "#edffea",
 
-                                lineTension: 0.1,
                                 fill: false,
                                 data: dataDataset2
                             },
@@ -170,7 +184,6 @@
                                 pointHoverRadius: 5,
                                 pointHoverBackgroundColor: "#edffea",
 
-                                lineTension: 0.1,
                                 fill: false,
                                 data: dataDataset3
                             }
@@ -231,6 +244,10 @@
                     },
 
                     options: {
+                        legend: {
+                            boxWidth: 1,
+                            position: "bottom"
+                        },
                         scales: {
                             yAxes: [{
                                 ticks: {
@@ -239,6 +256,35 @@
                             }]
                         }
 
+                    }
+                });
+        });
+
+        // Chart 3
+        $.getJSON("/Dashboard/GetSexDistribution/", function (data) {
+
+            var ctx = document.getElementById("sexDistributionChart").getContext("2d");
+            var residentRecordedChart = new Chart(ctx,
+                {
+                    type: "doughnut",
+                    data: {
+                        labels: ["Male", "Female"],
+                        datasets: [
+                            {
+                                borderColor: ["#2b580c", "#2b580c"],
+                                backgroundColor: ["#2b580c", "#cceabb"],
+                                borderWidth:1,
+                                fill: true,
+                                data: [data.MaleSexDistribution, data.FemaleSexDistribution]
+                            }
+                        ]
+                    },
+
+                    options: {
+                        legend: {
+                            boxWidth: 1,
+                            position: "bottom"
+                        }
                     }
                 });
         });

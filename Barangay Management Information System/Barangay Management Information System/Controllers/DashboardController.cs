@@ -120,5 +120,17 @@ namespace Barangay_Management_Information_System.Controllers
 
             return Content(JsonConvert.SerializeObject(dbvm), "application/json");
         }
+
+        [Authorize]
+        public ContentResult GetSexDistribution()
+        {
+            DashboardViewModel dbvm = new DashboardViewModel();
+
+            dbvm.MaleSexDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "male").Count();
+            dbvm.FemaleSexDistribution = entities.ResidentsInformations.Where(m => m.Sex.ToLower() == "female").Count();
+
+            return Content(JsonConvert.SerializeObject(dbvm), "application/json");
+
+        }
     }
 }
