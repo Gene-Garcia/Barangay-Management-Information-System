@@ -10,7 +10,13 @@ namespace Barangay_Management_Information_System.Models
     {
 
         public Summon Summon { get; set; }
-        public List<string> AssociatedResidentID { get; set; }
+        public CheckBoxModel[] CheckBoxes { get; set; }
+
+        public class CheckBoxModel{
+            public string ResidentId { get; set; }
+            public string FullName { get; set; }
+            public bool IsSelected { get; set; }
+        }
 
     }
 }

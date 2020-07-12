@@ -402,10 +402,10 @@
     <Content Include="Views\Residents\Index.cshtml" />
     <Content Include="Views\Residents\_ViewResident.cshtml" />
     <Content Include="Views\Residents\_AddUpdateResident.cshtml" />
+    <Content Include="Views\Summon\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Summon\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

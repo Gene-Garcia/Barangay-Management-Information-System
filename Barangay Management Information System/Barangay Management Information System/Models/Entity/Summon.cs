@@ -11,7 +11,8 @@ namespace Barangay_Management_Information_System.Models.Entity
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Summon
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +23,8 @@ namespace Barangay_Management_Information_System.Models.Entity
     
         public string SummonId { get; set; }
         public string ReportDescription { get; set; }
+
+        [DataType(DataType.Date)]
         public System.DateTime IncidentDate { get; set; }
         public System.DateTime DateReported { get; set; }
         public string SummonStatusId { get; set; }
