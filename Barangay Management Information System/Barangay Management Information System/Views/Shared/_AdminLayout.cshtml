@@ -170,9 +170,13 @@
         {
             <p class="text-center" style="color: #ececec; font-weight: 500; ">Chief Information Officer</p>
         }
-        else
+        else if (User.IsInRole("Assistant Admin"))
         {
             <p class="text-center" style="color: #ececec; font-weight: 500; ">Assistant Admin</p>
+        }
+        else
+        {
+            <p class="text-center" style="color: #ececec; font-weight: 500; ">User</p>
         }
 
     </div>
