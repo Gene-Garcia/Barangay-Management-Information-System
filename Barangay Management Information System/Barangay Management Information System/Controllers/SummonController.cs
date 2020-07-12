@@ -90,5 +90,36 @@ namespace Barangay_Management_Information_System.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        [Authorize]
+        public ActionResult Search(string searchInput)
+        {
+            try
+            {
+                if (searchInput == null)
+                {
+                    
+                    return View();
+                }
+
+                Summon summon = entities.Summons.Where(m => m.SummonId == searchInput.Trim()).FirstOrDefault();
+
+                if (summon == null)
+                {
+                    TempData["alert-type"] = "alert-info";
+                    TempData["alert-header"] = "Information";
+                    TempData["alert-msg"] = "Summon report with id \"" + searchInput + "\" cannot be found. Please try again";
+                }
+
+                return View(summon);
+            }
+            catch(Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later." + e.ToString();
+                return View();
+            }
+        }
     }
 }

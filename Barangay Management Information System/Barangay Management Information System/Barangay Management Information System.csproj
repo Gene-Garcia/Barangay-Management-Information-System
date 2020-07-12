@@ -403,6 +403,7 @@
     <Content Include="Views\Residents\_ViewResident.cshtml" />
     <Content Include="Views\Residents\_AddUpdateResident.cshtml" />
     <Content Include="Views\Summon\Index.cshtml" />
+    <Content Include="Views\Summon\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
