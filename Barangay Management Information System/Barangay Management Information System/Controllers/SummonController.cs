@@ -1,6 +1,7 @@
 ﻿using Barangay_Management_Information_System.Classess;
 using Barangay_Management_Information_System.Models;
 using Barangay_Management_Information_System.Models.Entity;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
                 SummonViewModel viewModel = new SummonViewModel();
 
                 List<ResidentsInformation> residents = entities.ResidentsInformations.Where(m=>m.Deceaseds.FirstOrDefault() == null).ToList();
@@ -96,9 +99,10 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
                 if (searchInput == null)
-                {
-                    
+                {                    
                     return View();
                 }
 
@@ -118,6 +122,57 @@ namespace Barangay_Management_Information_System.Controllers
                 TempData["alert-type"] = "alert-danger";
                 TempData["alert-header"] = "Error";
                 TempData["alert-msg"] = "Something went wrong, please try again later." + e.ToString();
+                return View();
+            }
+        }
+
+        [Authorize]
+        public ActionResult ShowSummonReports(string status = "unsettled")
+        {
+            try
+            {
+                TempData["title"] = status.ElementAt(0).ToString().ToUpper() + status.Substring(1).ToLower();
+                List<Summon> summons = entities.Summons.Where(m => m.SummonStatu.Name.ToLower() == status.ToLower().Trim()).ToList();
+
+                if (summons.Count() <= 0)
+                {
+                    TempData["title"] = "Unsettled";
+                    summons = entities.Summons.Where(m => m.SummonStatu.Name.ToLower() == "unsettled").ToList();
+                }
+
+                return View(summons);
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
+                return View();
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult DisplayReportDescription(string summonId)
+        {
+            try
+            {
+                Summon summon = entities.Summons.Where(m => m.SummonId == summonId).FirstOrDefault();
+
+                if (summon == null)
+                {
+                    return RedirectToAction("ShowSummonReports");
+                }
+
+                TempData["message"] = summon.ReportDescription.Trim();
+
+                return PartialView("_DisplayReportDescription");
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
                 return View();
             }
         }

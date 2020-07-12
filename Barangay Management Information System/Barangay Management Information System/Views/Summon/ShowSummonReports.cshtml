@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Barangay_Management_Information_System.Models.Entity.Summon>
+
+@{
+    ViewBag.Title = " Summon Reports";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #sidenav #sidelinks #summon-link {
+        background-color: #ececec;
+        color: #434e52;
+        text-decoration: none;
+    }
+</style>
+
+<div class="container">
+
+    <h1 class="page-header-title">@TempData["title"] Summon Reports</h1>
+
+    <div class="card shadow border-0 rounded p-3 mb-5">
+        <div class="card-body">
+
+            <table class="table table-striped w-100 dt-responsive nowrap" id="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Report Description
+                        </th>
+                        <th>
+                            Date of Incident
+                        </th>
+                        <th>
+                            Date Reported
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Associated Residents
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                <button class="btn btn-success btn-sm" onclick="ShowDescription('@item.SummonId')"><span class="far fa-envelope"></span> Description</button>
+                            </td>
+                            <td>
+                                @item.IncidentDate.ToString("MMM dd, yyyy")
+                            </td>
+                            <td>
+                                @item.DateReported.ToString("MMM dd, yyyy")
+                            </td>
+                            <td>
+                                @{ 
+                                    var btnClass = "btn-danger";
+                                    if(item.SummonStatu.Name.ToLower() == "settled")
+                                    {
+                                        btnClass = "btn-success";
+                                    }
+                                }
+                                <span class="btn @btnClass btn-sm font-weight-bold">@item.SummonStatu.Name.ToUpper()</span>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-success btn-sm" onclick="ShowAssociations('@item.SummonId')"><span class="fas fa-users"></span> Description</button>
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.SummonId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.SummonId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.SummonId })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade rounded shadow-lg mt-5" id="modal-for-message" style="min-width:490px;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <!-- Heading -->
+                <h3 class="modal-title p-2">Summon Report Detailed Report</h3>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+
+            <div class="modal-body" id="modal-message-body">
+                <!-- Content Body -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+
+        var ShowDescription = function (summonId) {
+
+            var url = "/Summon/DisplayReportDescription?summonId=" + summonId;
+
+            $("#modal-message-body").load(url, function () {
+                $("#modal-for-message").modal("show");
+
+            })
+
+        }
+
+        $(document).ready(function () {
+            $('#table').DataTable();
+        });
+    </script>
+} 

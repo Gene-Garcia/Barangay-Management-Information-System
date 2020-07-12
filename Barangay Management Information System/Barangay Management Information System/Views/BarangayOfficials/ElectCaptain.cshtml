@@ -45,7 +45,7 @@
                         {
                             foreach (var item in Model)
                             {
-                                <tr>                                    
+                                <tr>
                                     <td style="font-weight:600; font-size:16px">
                                         @Html.DisplayFor(modelItem => item.LastName)
                                     </td>
@@ -69,3 +69,11 @@
     </div>
 
 </div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable();
+        });
+    </script>
+} 
