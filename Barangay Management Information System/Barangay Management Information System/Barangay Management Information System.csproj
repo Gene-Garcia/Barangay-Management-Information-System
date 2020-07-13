@@ -299,6 +299,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\favicon.ico" />
     <Content Include="Content\Images\BMIS Logo.PNG" />
     <Content Include="Content\Images\Sinisian.png" />
     <Content Include="Content\Images\User Profile Photo\user.png" />
