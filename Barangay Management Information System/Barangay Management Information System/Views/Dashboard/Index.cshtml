@@ -144,6 +144,17 @@
                 </div>
             </div>
 
+            <!-- Line Chart, Summon reports per chairman -->
+            <div class="row">
+                <div class="col-lg-12 mb-4 mt-4">
+                    <div class="card border-0 my-chart shadow">
+                        <div class="card-body">
+                            <canvas id="summonRecordChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -469,6 +480,78 @@
                             boxWidth: 1,
                             position: "left"
                         }
+                    }
+                });
+        });
+
+        // Chart 1
+        $.getJSON("/Dashboard/GetSummonReport/", function (data) {
+            labels = []; // captain
+            dataDataset = [];
+            dataDataset2 = [];
+
+            $.each(data, function (i, item) {
+                labels.push(item.ChairmanNames)
+                dataDataset.push(item.SettledReportsCounts)
+                dataDataset2.push(item.UnsettledReportsCounts)
+            });
+
+            var ctx = document.getElementById("summonRecordChart").getContext("2d");
+            var residentRecordedChart = new Chart(ctx,
+                {
+                    type: "line",
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: "Settled",
+                                borderColor: "#bac964",
+                                backgroundColor: "#bac964",
+                                borderWidth: 4,
+
+                                pointBorderWidth: 2,
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: "#e8f9e9",
+
+                                fill: false,
+                                data: dataDataset
+                            },
+                            {
+                                label: "Unsettled",
+                                borderColor: "#5b8c85",
+                                backgroundColor: "#fafafa",
+                                borderWidth: 4,
+
+                                pointBorderWidth: 2,
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: "#edffea",
+
+                                fill: false,
+                                data: dataDataset2
+                            }
+                        ]
+                    },
+
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Report Incidents by Incident Date and Chairman',
+                            fontSize: 17,
+
+                            lineHeight: 2
+                        },
+                        legend: {
+                            boxWidth: 1,
+                            position: "bottom"
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+
                     }
                 });
         });

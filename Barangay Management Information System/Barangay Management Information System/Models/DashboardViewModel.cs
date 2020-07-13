@@ -37,8 +37,12 @@ namespace Barangay_Management_Information_System.Models
         public int DateAccountCreatedCount { get; set; }
 
         // Chart 6, Pie
-        // Chart 5, Line
         public string AccountTypes { get; set; }
         public int AccountTypeUsersCount { get; set; }
+
+        // Chart 7, Line
+        public string ChairmanNames { get; set; }
+        public int SettledReportsCounts { get; set; }
+        public int UnsettledReportsCounts { get; set; }
     }
 }

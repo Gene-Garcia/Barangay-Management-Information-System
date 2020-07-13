@@ -182,5 +182,28 @@ namespace Barangay_Management_Information_System.Controllers
 
             return Content(JsonConvert.SerializeObject(dbvm), "application/json");
         }
+
+        [Authorize]
+        public ContentResult GetSummonReport()
+        {
+            List<DashboardViewModel> dbvm = new List<DashboardViewModel>();
+
+            List<OfficialTerm> terms = entities.OfficialTerms.OrderBy(m => m.StartYear).ToList();
+
+            foreach (var term in terms)
+            {
+                if (term.EndYear == null) { term.EndYear = DateTime.Now.Year; }
+
+                BarangayChairman chairman = entities.BarangayChairmen.Where(m => m.OfficialTermId == term.OfficialTermId).FirstOrDefault();
+
+                dbvm.Add(new DashboardViewModel() {
+                    ChairmanNames = chairman.ResidentsInformation.LastName + ", " + chairman.ResidentsInformation.FirstName + ": " + term.StartYear + " to " + term.EndYear,
+                    SettledReportsCounts = entities.Summons.Where(m => m.IncidentDate.Year >= term.StartYear && m.IncidentDate.Year < term.EndYear && m.SummonStatu.Name.ToLower() == "settled").Count(),
+                    UnsettledReportsCounts = entities.Summons.Where(m => m.IncidentDate.Year >= term.StartYear && m.IncidentDate.Year < term.EndYear && m.SummonStatu.Name.ToLower() == "unsettled").Count()// The end year is not included as a scope for the chairman
+                });
+            }
+
+            return Content(JsonConvert.SerializeObject(dbvm), "application/json");
+        }
     }
 }
