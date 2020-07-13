@@ -406,6 +406,7 @@
     <Content Include="Views\Summon\Search.cshtml" />
     <Content Include="Views\Summon\ShowSummonReports.cshtml" />
     <Content Include="Views\Summon\_DisplayReportDescription.cshtml" />
+    <Content Include="Views\Summon\_ShowAssociations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

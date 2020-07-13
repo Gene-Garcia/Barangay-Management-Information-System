@@ -131,6 +131,8 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
                 TempData["title"] = status.ElementAt(0).ToString().ToUpper() + status.Substring(1).ToLower();
                 List<Summon> summons = entities.Summons.Where(m => m.SummonStatu.Name.ToLower() == status.ToLower().Trim()).ToList();
 
@@ -157,6 +159,8 @@ namespace Barangay_Management_Information_System.Controllers
         {
             try
             {
+                TempData["user-profile-photo"] = UserHelper.GetDisplayPicture(User.Identity.GetUserId(), entities);
+
                 Summon summon = entities.Summons.Where(m => m.SummonId == summonId).FirstOrDefault();
 
                 if (summon == null)
@@ -174,6 +178,52 @@ namespace Barangay_Management_Information_System.Controllers
                 TempData["alert-header"] = "Error";
                 TempData["alert-msg"] = "Something went wrong, please try again later.";
                 return View();
+            }
+        }
+
+        [Authorize]
+        public ActionResult SettleReport(string summonId)
+        {
+            try
+            {
+                Summon summon = entities.Summons.Where(m => m.SummonId == summonId).FirstOrDefault();
+                if (summon != null)
+                {
+                    summon.SummonStatusId = entities.SummonStatus.Where(m => m.Name.ToLower() == "settled").Select(m => m.SummonStatusId).FirstOrDefault();
+
+                    entities.Entry(summon).State = System.Data.Entity.EntityState.Modified;
+                    entities.SaveChanges();
+
+                    TempData["alert-type"] = "alert-success";
+                    TempData["alert-header"] = "Success";
+                    TempData["alert-msg"] = "Summon report with id of " + summonId + " is settled.";
+                }
+
+                return RedirectToAction("ShowSummonReports");
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later." + e.ToString();
+                return RedirectToAction("ShowSummonReports");
+            }
+        }
+
+        [Authorize]
+        public ActionResult ShowAssociations(string summonId)
+        {
+            try
+            {
+                List<SummonInvolvedResident> residents = entities.Summons.Where(m => m.SummonId == summonId).Select(m => m.SummonInvolvedResidents.ToList()).FirstOrDefault();
+                return PartialView("_ShowAssociations", residents);
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later." + e.ToString();
+                return RedirectToAction("ShowSummonReports");
             }
         }
     }

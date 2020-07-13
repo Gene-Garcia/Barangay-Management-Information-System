@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Barangay_Management_Information_System.Models.Entity.SummonInvolvedResident>
+
+@{
+    ViewBag.Title = "_ShowAssociations";
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+}
+
+<div class="pl-3 pr-3 pt-3 pb-3">
+
+    <table class="table">
+        <tr>
+            <th>
+                Last Name
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Middle Name
+            </th>
+            <th>
+                Sex
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Site
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.ResidentsInformation.LastName
+                </td>
+                <td>
+                    @item.ResidentsInformation.FirstName
+                </td>
+                <td>
+                    @item.ResidentsInformation.MiddleName
+                </td>
+                <td>
+                    @item.ResidentsInformation.Sex
+                </td>
+
+                @if (item.ResidentsInformation.ResidentsLocations.FirstOrDefault() != null)
+                {
+                    <td>
+                        @item.ResidentsInformation.ResidentsLocations.FirstOrDefault().HouseHoldAddress.Address
+                    </td>
+                    <td>
+                        @item.ResidentsInformation.ResidentsLocations.FirstOrDefault().HouseHoldAddress.Site.Name
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        No record.
+                    </td>
+                    <td>
+                        No record.
+                    </td>
+                }
+
+            </tr>
+        }
+
+    </table>
+</div>
