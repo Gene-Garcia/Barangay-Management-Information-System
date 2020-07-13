@@ -74,13 +74,19 @@
                                         @Html.DisplayFor(modelItem => item.MiddleName)
                                     </td>
                                     <td class="text-center">
-                                        <button onclick="ViewResident('@item.ResidentId')" class="btn btn-success btn-sm mr-2 ml-2"><span class="fa fa-info-circle mr-2 ml-2" style="font-size:18px"></span></button>
-                                        <button onclick="AddUpdateResident('@item.ResidentId')" class="btn btn-primary btn-sm mr-2 ml-2"><span class="fas fa-user-edit mr-2 ml-2" style="font-size:18px"></span></button>
+                                        <button onclick="ViewResident('@item.ResidentId')" class="btn btn-success btn-sm mr-2 ml-2" data-toggle="tooltip" data-placement="top" title="Show Resident's Information"><span class="fa fa-info-circle mr-2 ml-2" style="font-size:18px"></span></button>
+                                        <button onclick="AddUpdateResident('@item.ResidentId')" class="btn btn-primary btn-sm mr-2 ml-2" data-toggle="tooltip" data-placement="top" title="Edit Resident's Details"><span class="fas fa-user-edit mr-2 ml-2" style="font-size:18px"></span></button>
 
                                         @if (!(TempData["isDeceased"] != null && (bool)TempData["isDeceased"] == true))
                                         {
-                                            <a href="@Url.Action("DeceaseResident", "Residents", new { residentID = item.ResidentId })" class="btn btn-danger btn-sm mr-2 ml-2"><span class="fas fa-skull-crossbones mr-2 ml-2" style="font-size:18px"></span></a>
+                                            <a href="@Url.Action("DeceaseResident", "Residents", new { residentID = item.ResidentId })" class="btn btn-danger btn-sm mr-2 ml-2" data-toggle="tooltip" data-placement="top" title="Set as Deceased Resident"><span class="fas fa-skull-crossbones mr-2 ml-2" style="font-size:18px"></span></a>
                                         }
+
+                                        @if(item.Voters.FirstOrDefault() == null)
+                                        {
+                                            <a href="@Url.Action("RegisterAsVoter", "Residents", new { residentID = item.ResidentId })" class="btn btn-success btn-sm mr-2 ml-2"><span class="fas fa-vote-yea mr-2 ml-2" style="font-size:18px" data-toggle="tooltip" data-placement="top" title="Register as Voter"></span></a>
+                                        }
+
                                     </td>
                                 </tr>
                             }

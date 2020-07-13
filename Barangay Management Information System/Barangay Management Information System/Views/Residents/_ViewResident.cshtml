@@ -69,7 +69,7 @@
 
     </div>
 
-    <div class="form-row mb-5">
+    <div class="form-row mb-4">
 
         @if (Model.ResidentsLocations.FirstOrDefault() != null) {
 
@@ -87,6 +87,33 @@
                 </div>
             </div>
 
+        }
+
+    </div>
+
+    <div class="form-row mb-5">
+
+        @if (Model.Voters.FirstOrDefault() != null)
+        {
+            <div class="col-md-8">
+                <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                    <p>Resident is a registered Voter.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                    <p>Registered on @Model.Voters.FirstOrDefault().DateRegistered.ToString("MMM dd, yyyy")</p>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-12">
+                <div class="form-control-plaintext border rounded pl-2 pr-2" style="font-size: 14px">
+                    <p>Resident is not a registered voter yet.</p>
+                </div>
+            </div>
         }
 
     </div>

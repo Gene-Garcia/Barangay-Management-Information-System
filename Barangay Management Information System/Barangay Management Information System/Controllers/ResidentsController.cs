@@ -329,5 +329,46 @@ namespace Barangay_Management_Information_System.Controllers
                 TempData["alert-msg"] = "Something went wrong, please try again later.";
             }
         }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult RegisterAsVoter(string residentId)
+        {
+            try
+            {
+                ResidentsInformation resident = entities.ResidentsInformations.Where(m => m.ResidentId == residentId).FirstOrDefault();
+
+                if (resident == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                Voter voter = new Voter()
+                {
+                    VotersId = KeyGenerator.GenerateId(resident.FirstName+resident.LastName),
+                    DateRegistered = DateTime.Now.Date,
+                    ResidentId = resident.ResidentId
+                };
+                entities.Voters.Add(voter);
+                entities.SaveChanges();
+
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+                new AuditTrailer().Record(resident.FirstName + " " + resident.LastName + " was registered as voter.", AuditTrailer.RESIDENT_TYPE, userId);
+
+                TempData["alert-type"] = "alert-success";
+                TempData["alert-header"] = "Success";
+                TempData["alert-msg"] = resident.FirstName +" " + resident.LastName + " was successfully registered as voter.";
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["alert-type"] = "alert-danger";
+                TempData["alert-header"] = "Error";
+                TempData["alert-msg"] = "Something went wrong, please try again later.";
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

@@ -227,7 +227,10 @@
                 <a href="/Residents/Index/" class="sublink">Display Residents</a>
                 <a href="/Residents/Index?deceased=deceased" class="sublink">Display Deceased Resident</a>
             </div>
+        }
 
+        @if (User.IsInRole("Admin") || User.IsInRole("CIO"))
+        {
             <a href="" class="hvr-icon-grow-rotate" id="summon-link" data-toggle="collapse" data-target="#summon-collapse" aria-expanded="false" aria-controls="summon-collapse">
                 <span class="fas fa-file-signature hvr-icon mr-3"></span>
                 Summon
@@ -351,6 +354,10 @@
 </div>
 
 <script>
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 
     function toggleNav() {
 
