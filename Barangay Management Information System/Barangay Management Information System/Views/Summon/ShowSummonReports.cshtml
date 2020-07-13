@@ -13,18 +13,23 @@
     }
 </style>
 
+
+
 <div class="container">
 
     <h1 class="page-header-title">@TempData["title"] Summon Reports</h1>
 
     <div class="card shadow border-0 rounded p-3 mb-5">
-        <div class="card-body">
+        <div class="card-body table-responsive">
 
-            <table class="table table-striped w-100 dt-responsive nowrap" id="table">
+            <table class="table table-striped w-100 nowrap" id="table">
                 <thead>
                     <tr>
                         <th>
                             Report Description
+                        </th>
+                        <th>
+                            Reference ID
                         </th>
                         <th>
                             Date of Incident
@@ -50,20 +55,24 @@
                                 <button class="btn btn-success btn-sm" onclick="ShowDescription('@item.SummonId')"><span class="far fa-envelope"></span> Description</button>
                             </td>
                             <td>
+
+                                <span class="btn btn-primary btn-sm" onclick="ShowId(this, '@item.SummonId')"><span class="fa fa-copy"></span> Summon Id</span>
+                            </td>
+                            <td>
                                 @item.IncidentDate.ToString("MMM dd, yyyy")
                             </td>
                             <td>
                                 @item.DateReported.ToString("MMM dd, yyyy")
                             </td>
                             <td>
-                                @{ 
+                                @{
                                     var btnClass = "btn-danger";
-                                    if(item.SummonStatu.Name.ToLower() == "settled")
+                                    if (item.SummonStatu.Name.ToLower() == "settled")
                                     {
                                         btnClass = "btn-success";
                                     }
                                 }
-                                <span class="btn @btnClass btn-sm font-weight-bold">@item.SummonStatu.Name.ToUpper()</span>
+                                <span class="btn @btnClass btn-sm font-weight-bold" style="font-size:10px">@item.SummonStatu.Name.ToUpper()</span>
                             </td>
                             <td class="text-center">
                                 <button class="btn btn-success btn-sm" onclick="ShowAssociations('@item.SummonId')"><span class="fas fa-users"></span> Description</button>
@@ -103,6 +112,22 @@
 
 @section scripts{
     <script>
+
+        var ShowId = function (self, id) {
+            if (self.innerHTML == id) {
+                self.innerHTML = "Summon Id";
+            }
+            else {
+                self.innerHTML = id;
+            }
+
+            var textArea = document.createElement("textarea");
+            textArea.value = id;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("Copy");
+            textArea.remove();    
+        }
 
         var ShowDescription = function (summonId) {
 
