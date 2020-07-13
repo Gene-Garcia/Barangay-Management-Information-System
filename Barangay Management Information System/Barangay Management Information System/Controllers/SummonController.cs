@@ -83,6 +83,10 @@ namespace Barangay_Management_Information_System.Controllers
                 TempData["alert-header"] = "Success";
                 TempData["alert-msg"] = "A Summon report was succesfully created with an ID of " + model.Summon.SummonId + ". Please copy this id as reference.";
 
+                // Audit Trail
+                string userId = User.Identity.GetUserId();
+                new AuditTrailer().Record("Created a summon report with an id "+ model.Summon.SummonId, AuditTrailer.SUMMON_TYPE, userId);
+
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -197,6 +201,10 @@ namespace Barangay_Management_Information_System.Controllers
                     TempData["alert-type"] = "alert-success";
                     TempData["alert-header"] = "Success";
                     TempData["alert-msg"] = "Summon report with id of " + summonId + " is settled.";
+
+                    // Audit Trail
+                    string userId = User.Identity.GetUserId();
+                    new AuditTrailer().Record("Settled a summon report with an id " + summonId, AuditTrailer.SUMMON_TYPE, userId);
                 }
 
                 return RedirectToAction("ShowSummonReports");
