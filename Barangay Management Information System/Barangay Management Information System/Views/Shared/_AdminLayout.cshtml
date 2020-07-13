@@ -183,55 +183,63 @@
 
 
     <div class="mt-5" id="sidelinks">
+
         <a href="/AuditTrail/Index" class="hvr-icon-grow-rotate" id="audit-link"><span class="	fas fa-shoe-prints mr-3 hvr-icon"></span>Audit Trail</a>
 
-        <a href="" class="hvr-icon-grow-rotate" data-toggle="collapse" data-target="#accounts-collapse" aria-expanded="false" aria-controls="accounts-collapse" id="account-link">
-            <span class="fa fa-user hvr-icon mr-3"></span>
-            Account
-            <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 115px;"></span>
-        </a>
-        <div id="accounts-collapse" class="collapse" data-parent="#sidelinks">
-            <a href="/AdminAccount/CreateAccount" class="sublink">Create Account</a>
-            <a href="/AdminAccount/ModifyAccount" class="sublink">Modify Users' Account</a>
-        </div>
+        @if (User.IsInRole("Admin") || User.IsInRole("CIO"))
+        {
+            <a href="" class="hvr-icon-grow-rotate" data-toggle="collapse" data-target="#accounts-collapse" aria-expanded="false" aria-controls="accounts-collapse" id="account-link">
+                <span class="fa fa-user hvr-icon mr-3"></span>
+                Account
+                <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 115px;"></span>
+            </a>
+            <div id="accounts-collapse" class="collapse" data-parent="#sidelinks">
+                <a href="/AdminAccount/CreateAccount" class="sublink">Create Account</a>
+                <a href="/AdminAccount/ModifyAccount" class="sublink">Modify Users' Account</a>
+            </div>
 
-        <a href="/BarangayClearance/Index" class="hvr-icon-grow-rotate" id="barangay-clearance-link"><span class="fas fa-house-user	 hvr-icon mr-3"></span>Barangay Clearance</a>
+            <a href="/BarangayClearance/Index" class="hvr-icon-grow-rotate" id="barangay-clearance-link"><span class="fas fa-house-user	 hvr-icon mr-3"></span>Barangay Clearance</a>
 
-        <a href="" class="hvr-icon-grow-rotate" data-toggle="collapse" data-target="#officials-collapse" aria-expanded="false" aria-controls="officials-collapse" id="barangay-officials-link">
-            <span class="fa fa-sitemap hvr-icon mr-3"></span>
-            Barangay Officials
-            <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 50px;"></span>
-        </a>
-        <div id="officials-collapse" class="collapse" data-parent="#sidelinks">
-            <a href="/BarangayOfficials/ElectSKChairman" class="sublink">Elect</a>
-            <a href="/BarangayOfficials/EditOfficialTerm" class="sublink">Configure Official Term</a>
-            <a href="/BarangayOfficials/OfficialsChart" class="sublink">Officials Chart</a>
-            <a href="/BarangayOfficials/AssignSpecialOfficials" class="sublink">Assign Special Officials</a>
-        </div>
+            <a href="" class="hvr-icon-grow-rotate" data-toggle="collapse" data-target="#officials-collapse" aria-expanded="false" aria-controls="officials-collapse" id="barangay-officials-link">
+                <span class="fa fa-sitemap hvr-icon mr-3"></span>
+                Barangay Officials
+                <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 50px;"></span>
+            </a>
+            <div id="officials-collapse" class="collapse" data-parent="#sidelinks">
+                <a href="/BarangayOfficials/ElectSKChairman" class="sublink">Elect</a>
+                <a href="/BarangayOfficials/EditOfficialTerm" class="sublink">Configure Official Term</a>
+                <a href="/BarangayOfficials/OfficialsChart" class="sublink">Officials Chart</a>
+                <a href="/BarangayOfficials/AssignSpecialOfficials" class="sublink">Assign Special Officials</a>
+            </div>
+        }
+
 
         <a href="/Dashboard/Index" class="hvr-icon-grow-rotate" id="dashboard-link"><span class="far fa-chart-bar	 hvr-icon mr-3"></span>Dashboard</a>
 
-        <a href="" class="hvr-icon-grow-rotate" id="sinisian-residents-link" data-toggle="collapse" data-target="#residents-collapse" aria-expanded="false" aria-controls="residents-collapse">
-            <span class="fa fa-id-card hvr-icon mr-3"></span>
-            Sinisian Residents
-            <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 52px;"></span>
-        </a>
-        <div id="residents-collapse" class="collapse" data-parent="#sidelinks">
-            <a href="/Residents/Index/" class="sublink">Display Residents</a>
-            <a href="/Residents/Index?deceased=deceased" class="sublink">Display Deceased Resident</a>
-        </div>
+        @if (User.IsInRole("Admin") || User.IsInRole("CIO") || User.IsInRole("Assistant Admin"))
+        {
+            <a href="" class="hvr-icon-grow-rotate" id="sinisian-residents-link" data-toggle="collapse" data-target="#residents-collapse" aria-expanded="false" aria-controls="residents-collapse">
+                <span class="fa fa-id-card hvr-icon mr-3"></span>
+                Sinisian Residents
+                <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 52px;"></span>
+            </a>
+            <div id="residents-collapse" class="collapse" data-parent="#sidelinks">
+                <a href="/Residents/Index/" class="sublink">Display Residents</a>
+                <a href="/Residents/Index?deceased=deceased" class="sublink">Display Deceased Resident</a>
+            </div>
 
-        <a href="" class="hvr-icon-grow-rotate" id="summon-link" data-toggle="collapse" data-target="#summon-collapse" aria-expanded="false" aria-controls="summon-collapse">
-            <span class="fas fa-file-signature hvr-icon mr-3"></span>
-            Summon
-            <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 108px;"></span>
-        </a>
-        <div id="summon-collapse" class="collapse" data-parent="#sidelinks">
-            <a href="/Summon/Index" class="sublink">Create Report</a>
-            <a href="/Summon/ShowSummonReports?status=unsettled" class="sublink">Unsettled Summon Reports</a>
-            <a href="/Summon/ShowSummonReports?status=settled" class="sublink">Settled Summon Reports</a>
-            <a href="/Summon/Search" class="sublink">Search Report</a>
-        </div>
+            <a href="" class="hvr-icon-grow-rotate" id="summon-link" data-toggle="collapse" data-target="#summon-collapse" aria-expanded="false" aria-controls="summon-collapse">
+                <span class="fas fa-file-signature hvr-icon mr-3"></span>
+                Summon
+                <span class="fa fa-angle-right" style="font-size: 13px; margin-left: 108px;"></span>
+            </a>
+            <div id="summon-collapse" class="collapse" data-parent="#sidelinks">
+                <a href="/Summon/Index" class="sublink">Create Report</a>
+                <a href="/Summon/ShowSummonReports?status=unsettled" class="sublink">Unsettled Summon Reports</a>
+                <a href="/Summon/ShowSummonReports?status=settled" class="sublink">Settled Summon Reports</a>
+                <a href="/Summon/Search" class="sublink">Search Report</a>
+            </div>
+        }
 
         @*<p class="w-100" style="position:absolute; bottom:0;"><span id="date-container" class="text-center"></span></p>*@
 
